@@ -1,27 +1,64 @@
-# MdbAngularFree
+# 实验室管理系统-前台
 
-This expProject was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.2.
+> （Course scheduling system of Laboratory）
 
-## Development server
+> （基于 springboot2.0 angular8 实现）
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+> 后台项目仓库：[cssl](https://github.com/EslSuwen/cssl)
 
-## Code scaffolding
+为解决高校实验室建设和管理中存在的这些问题，以本校信息学院的信息技术实践中心实验室建设为依托，展开实验室管理系统研究与开发。
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 技术堆栈
 
-## Build
+* Spring Boot 2.2.8.RELEASE
 
-Run `ng build` to build the expProject. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+* Spring Security
 
-## Running unit tests
+* Spring Data
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+* Spring Actuator
 
-## Running end-to-end tests
+* JWT
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+* knife4j
 
-## Further help
+* lombok
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+* mysql
+
+* Angular 8
+
+* NG-ZORRO
+
+*测试工具：* Postman
+*代码质量检查：* Sonar
+*CI：* Jenkins
+*推荐IDE：* IntelliJ IDEA、WebStorm/Visual Studio Code
+
+> Java代码中使用了lombok注解，IDE需安装lombok插件。
+
+*注意:* 本项目基于 JDK1.8
+
+项目开发过程中，加强了技术融入，而且严格按照阿里巴巴Java代码规范标准进行编写的。
+
+## 特点
+
+* 简单易用
+* RESTful API
+* 易于重构和维护
+* 代码规范
+* ...
+
+
+## 使用方法
+
+### 1. Visual Studio Code（或其他工具）
+
+1. 安装 Node.js.
+2. 运行 `npm install -g @angular/cli` 安装 Angular CLI 
+1. 运行 `npm install` 下载依赖。
+2. 运行 `ng serve` 运行项目。
+3. 默认 `localhost:4200` 浏览项目。
+
+------
+
