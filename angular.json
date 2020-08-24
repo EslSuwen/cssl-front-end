@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "cssl-front": {
+    "cssl-front-end": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "../../resources/static",
+            "outputPath": "../cssl/src/main/resources/static",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -80,18 +80,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "cssl-front:build"
+            "browserTarget": "cssl-front-end:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "cssl-front:build:production"
+              "browserTarget": "cssl-front-end:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "cssl-front:build"
+            "browserTarget": "cssl-front-end:build"
           }
         },
         "test": {
@@ -129,16 +129,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "cssl-front:serve"
+            "devServerTarget": "cssl-front-end:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "cssl-front:serve:production"
+              "devServerTarget": "cssl-front-end:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "cssl-front"
+  "defaultProject": "cssl-front-end-end"
 }
