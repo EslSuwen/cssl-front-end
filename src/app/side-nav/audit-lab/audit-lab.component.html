@@ -1,36 +1,36 @@
 <!-- 实验排课时间申请管理 -->
 <div class="row mt-2 animated fadeIn ">
-  <div class="col px-0">
-    <div class="card">
-      <h3 class="card-header text-center font-weight-bold ">待审核实验时间安排</h3>
+    <div class="col px-0">
+        <div class="card">
+            <h3 class="card-header text-center font-weight-bold ">待审核实验时间安排</h3>
 
-      <div class="card-body">
-        <table mdbTable bordered="true" small="true" class="text-center">
-          <thead class="green white-text">
-          <tr>
-            <th>序号</th>
-            <th *ngFor="let head of headElements" scope="col">{{head}} </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let each of arrangeAudit;let no=index">
-            <td>{{no + 1}}</td>
-            <td>{{each.labId}}</td>
-            <td>{{each.labName}}</td>
-            <td>{{each.campus}}</td>
-            <td>{{each.labClass}}</td>
-            <td>{{each.courseName}}</td>
-            <td>{{each.tname}}</td>
-            <td>{{each.expProname}}</td>
-            <td>{{each.period}}</td>
-            <td>周{{each.arrangePeriod.labDay}}，第{{each.arrangePeriod.labSession}}节</td>
-            <td>{{each.labRemark}}</td>
-            <td>
-              <button nz-button nzType="primary" (click)="auditPass(each.aid,'PASS')">同意申请</button>
-            </td>
-          </tbody>
-        </table>
-      </div>
+            <div class="card-body">
+                <table mdbTable bordered="true" small="true" class="text-center">
+                    <thead class="green white-text">
+                    <tr>
+                        <th>序号</th>
+                        <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let each of arrangeAudit;let no=index">
+                        <td>{{no + 1}}</td>
+                        <td>{{each.labId}}</td>
+                        <td>{{each.labName}}</td>
+                        <td>{{each.campus}}</td>
+                        <td>{{each.labClass}}</td>
+                        <td>{{each.courseName}}</td>
+                        <td>{{each.tname}}</td>
+                        <td>{{each.expProname}}</td>
+                        <td>{{each.period}}</td>
+                        <td>周{{each.arrangePeriod.labDay}}，第{{each.arrangePeriod.labSession}}节</td>
+                        <td>{{each.labRemark}}</td>
+                        <td>
+                            <button nz-button nzType="primary" (click)="auditPass(each.aid,'PASS')">同意申请</button>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

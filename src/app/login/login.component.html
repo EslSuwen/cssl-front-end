@@ -1,148 +1,157 @@
 <!--Main Navigation-->
 <header class="intro-header">
-  <!--Intro Section-->
-  <section class="view intro-2">
-    <div class="full-bg-img mask rgba-black-light">
-      <div class="container flex-center">
-        <div class="d-flex align-items-center content-height w-100">
-          <div class="row flex-center  mt-3 w-100">
-            <div class="col-md-6 text-center text-md-left mb-5">
-              <div>
-                <h2 class="h1 h1-responsive font-bold blue-text">欢迎来到信息技术实践中心
-                </h2>
-                <hr class="hr-light">
-                <h6 class="wow fadeInLeft white-text">
-                  本网站适合以教师为主的实验管理模式。本网站集实践中心介绍、
-                  实验时间管理、实验地点管理、实验班级管理、实验课程管理、实验资料上传、
-                  虚拟仿真实验管理、通知管理、学科竞赛管理、学生资源下载、开放性实验室管理等实验室管理功能于一体，并可以输出实验课程课表。
-                </h6>
-                <br>
+    <!--Intro Section-->
+    <section class="view intro-2">
+        <div class="full-bg-img mask rgba-black-light">
+            <div class="container flex-center">
+                <div class="d-flex align-items-center content-height w-100">
+                    <div class="row flex-center  mt-3 w-100">
+                        <div class="col-md-6 text-center text-md-left mb-5">
+                            <div>
+                                <h2 class="h1 h1-responsive font-bold blue-text">欢迎来到信息技术实践中心
+                                </h2>
+                                <hr class="hr-light">
+                                <h6 class="wow fadeInLeft white-text">
+                                    本网站适合以教师为主的实验管理模式。本网站集实践中心介绍、
+                                    实验时间管理、实验地点管理、实验班级管理、实验课程管理、实验资料上传、
+                                    虚拟仿真实验管理、通知管理、学科竞赛管理、学生资源下载、开放性实验室管理等实验室管理功能于一体，并可以输出实验课程课表。
+                                </h6>
+                                <br>
 
-              </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-5 offset-xl-1 animated fadeInRight">
+                            <!--Form-->
+                            <mdb-card>
+                                <mdb-card-body>
+                                    <!--Header-->
+                                    <div class="text-center">
+                                        <h3>
+                                            <mdb-icon fas icon="user" class="mr-2 blue-text"></mdb-icon>
+                                            登录
+                                        </h3>
+                                        <hr class="hr-light">
+                                    </div>
+                                    <!--Body-->
+
+                                    <form [formGroup]="validationForm">
+                                        <div class="md-form">
+                                            <input type="text" id="form5" class="form-control white-text"
+                                                   mdbInput mdbValidate formControlName="userFormEx" minLength="8"
+                                                   maxLength="25"
+                                                   [(ngModel)]="authModel.username">
+                                            <label for="form5">
+                                                <mdb-icon fas icon="user" class="active mr-1"></mdb-icon>
+                                                用户名
+                                            </label>
+                                            <mdb-error
+                                                    *ngIf="userFormEx.invalid && (userFormEx.dirty || userFormEx.touched)">
+                                                请输入正确的用户名
+                                            </mdb-error>
+                                        </div>
+                                        <div class="md-form">
+                                            <input type="password" id="form4" class="form-control text-white"
+                                                   [(ngModel)]="authModel.password"
+                                                   mdbValidate formControlName="passwordFormEx" minLength="10"
+                                                   maxLength="25" mdbInput>
+                                            <label for="form4">
+                                                <mdb-icon fas icon="lock" class="active mr-1"></mdb-icon>
+                                                密码
+                                            </label>
+                                            <mdb-error
+                                                    *ngIf="passwordFormEx.invalid && (passwordFormEx.dirty || passwordFormEx.touched)">
+                                                密码错误
+                                            </mdb-error>
+                                        </div>
+                                        <div class="md-form">
+                                            <input type="text" id="form3" class="form-control text-white authImageCode"
+                                                   [(ngModel)]="authModel.imgCode"
+                                                   mdbValidate formControlName="codeFormEx" minLength="4" maxLength="4"
+                                                   mdbInput>
+                                            <label for="form3">
+                                                <mdb-icon fas icon="code" class="active mr-1"></mdb-icon>
+                                                验证码
+                                            </label>
+                                            <mdb-error
+                                                    *ngIf="codeFormEx.invalid && (codeFormEx.dirty || codeFormEx.touched)">
+                                                验证码错误
+                                            </mdb-error>
+                                        </div>
+                                        <label><a (click)="refresh()"> <img [src]="imgUrl" width="100" height="50"/></a></label>
+                                        <div class="text-center">
+                                            <button mdbBtn type="submit" gradient="blue" mdbWavesEffect
+                                                    class="rounded-pill"
+                                                    (click)="login()">登录
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <div class="text-center">
+
+
+                                        <div class="inline-ul text-center d-flex justify-content-center">
+                                            <a class="p-2 m-2 tw-ic">
+                                                <strong>Org@重庆交通大学信息学院</strong>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </mdb-card-body>
+                            </mdb-card>
+                            <!--/.Form-->
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="col-md-6 col-xl-5 offset-xl-1 animated fadeInRight">
-              <!--Form-->
-              <mdb-card>
-                <mdb-card-body>
-                  <!--Header-->
-                  <div class="text-center">
-                    <h3>
-                      <mdb-icon fas icon="user" class="mr-2 blue-text"></mdb-icon>
-                      登录
-                    </h3>
-                    <hr class="hr-light">
-                  </div>
-                  <!--Body-->
-
-                  <form [formGroup]="validationForm">
-                    <div class="md-form">
-                      <input type="text" id="form5" class="form-control white-text"
-                             mdbInput mdbValidate formControlName="userFormEx" minLength="8" maxLength="25"
-                             [(ngModel)]="authModel.username">
-                      <label for="form5">
-                        <mdb-icon fas icon="user" class="active mr-1"></mdb-icon>
-                        用户名
-                      </label>
-                      <mdb-error *ngIf="userFormEx.invalid && (userFormEx.dirty || userFormEx.touched)">请输入正确的用户名
-                      </mdb-error>
-                    </div>
-                    <div class="md-form">
-                      <input type="password" id="form4" class="form-control text-white" [(ngModel)]="authModel.password"
-                             mdbValidate formControlName="passwordFormEx" minLength="10" maxLength="25" mdbInput>
-                      <label for="form4">
-                        <mdb-icon fas icon="lock" class="active mr-1"></mdb-icon>
-                        密码
-                      </label>
-                      <mdb-error *ngIf="passwordFormEx.invalid && (passwordFormEx.dirty || passwordFormEx.touched)">
-                        密码错误
-                      </mdb-error>
-                    </div>
-                    <div class="md-form">
-                      <input type="text" id="form3" class="form-control text-white authImageCode"
-                             [(ngModel)]="authModel.imgCode"
-                             mdbValidate formControlName="codeFormEx" minLength="4" maxLength="4" mdbInput>
-                      <label for="form3">
-                        <mdb-icon fas icon="code" class="active mr-1"></mdb-icon>
-                        验证码
-                      </label>
-                      <mdb-error *ngIf="codeFormEx.invalid && (codeFormEx.dirty || codeFormEx.touched)">
-                        验证码错误
-                      </mdb-error>
-                    </div>
-                    <label><a (click)="refresh()"> <img [src]="imgUrl" width="100" height="50"/></a></label>
-                    <div class="text-center">
-                      <button mdbBtn type="submit" gradient="blue" mdbWavesEffect
-                              class="rounded-pill"
-                              (click)="login()">登录
-                      </button>
-                    </div>
-                  </form>
-                  <div class="text-center">
-
-
-                    <div class="inline-ul text-center d-flex justify-content-center">
-                      <a class="p-2 m-2 tw-ic">
-                        <strong>Org@重庆交通大学信息学院</strong>
-                      </a>
-                    </div>
-                  </div>
-                </mdb-card-body>
-              </mdb-card>
-              <!--/.Form-->
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 </header>
 <!--Main Navigation-->
 <div mdbModal #demoBasic="mdbModal" class="modal fade" id="frameModalTop" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel"
      aria-hidden="true">
-  <div class="modal-dialog modal-notify modal-danger" role="document">
-    <!--Content-->
-    <div class="modal-content text-center">
-      <!--Header-->
-      <div class="modal-header d-flex justify-content-center">
-        <p class="heading">账号或密码错误，请重新输入</p>
-      </div>
-      <!--Footer-->
-      <div class="modal-footer justify-content-center">
-        <a type="button" mdbBtn color="danger" outline="true" class="waves-light" mdbWavesEffect data-dismiss="modal"
-           (click)="demoBasic.hide()">确定</a>
-      </div>
-      <strong>若一直登录不进去请刷新页面或者联系管理员</strong>
+    <div class="modal-dialog modal-notify modal-danger" role="document">
+        <!--Content-->
+        <div class="modal-content text-center">
+            <!--Header-->
+            <div class="modal-header d-flex justify-content-center">
+                <p class="heading">账号或密码错误，请重新输入</p>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+                <a type="button" mdbBtn color="danger" outline="true" class="waves-light" mdbWavesEffect
+                   data-dismiss="modal"
+                   (click)="demoBasic.hide()">确定</a>
+            </div>
+            <strong>若一直登录不进去请刷新页面或者联系管理员</strong>
+        </div>
+        <!--/.Content-->
     </div>
-    <!--/.Content-->
-  </div>
 </div>
 <div mdbModal #demoBasi1="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
-    <!--Content-->
-    <div class="modal-content">
+    <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+        <!--Content-->
+        <div class="modal-content">
 
-      <!--Header-->
-      <div class="modal-header">
-        <img
-          src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584112127594&di=d8c4933ae83b708b11f2dd4707925115&imgtype=0&src=http%3A%2F%2Fimg.mp.itc.cn%2Fupload%2F20161221%2F417e36c0dec34ed487d89c2fdcfd0132_th.jpeg"
-          alt="avatar" class="rounded-circle img-responsive">
-      </div>
-      <!--Body-->
-      <div class="modal-body mb-1">
-        <h5 class="mt-1 mb-2 text-center">教师账号：{{username}}</h5>
+            <!--Header-->
+            <div class="modal-header">
+                <img
+                        src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584112127594&di=d8c4933ae83b708b11f2dd4707925115&imgtype=0&src=http%3A%2F%2Fimg.mp.itc.cn%2Fupload%2F20161221%2F417e36c0dec34ed487d89c2fdcfd0132_th.jpeg"
+                        alt="avatar" class="rounded-circle img-responsive">
+            </div>
+            <!--Body-->
+            <div class="modal-body mb-1">
+                <h5 class="mt-1 mb-2 text-center">教师账号：{{username}}</h5>
 
-        <div class="text-center mt-4">
-          <button mdbBtn color="cyan" rounded="true" class="mt-1 waves-light" mdbWavesEffect
-                  (click)="demoBasi1.hide();passLogin();">确认进入管理空间
-            <mdb-icon fas icon="sign-in-alt" class="ml-1"></mdb-icon>
-          </button>
+                <div class="text-center mt-4">
+                    <button mdbBtn color="cyan" rounded="true" class="mt-1 waves-light" mdbWavesEffect
+                            (click)="demoBasi1.hide();passLogin();">确认进入管理空间
+                        <mdb-icon fas icon="sign-in-alt" class="ml-1"></mdb-icon>
+                    </button>
+                </div>
+            </div>
+
         </div>
-      </div>
-
+        <!--/.Content-->
     </div>
-    <!--/.Content-->
-  </div>
 </div>

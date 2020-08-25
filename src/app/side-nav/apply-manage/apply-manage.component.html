@@ -1,38 +1,38 @@
 <!-- 实验项目卡片申请管理 -->
 <div class="row mt-2 animated fadeIn ">
-  <div class="col px-0">
-    <div class="card">
-      <h3 class="card-header text-center font-weight-bold ">待审核实验项目卡片</h3>
+    <div class="col px-0">
+        <div class="card">
+            <h3 class="card-header text-center font-weight-bold ">待审核实验项目卡片</h3>
 
-      <div class="card-body">
-        <table mdbTable bordered="true" small="true" class="text-center">
-          <thead class="green white-text">
-          <tr>
-            <th>序号</th>
-            <th *ngFor="let head of headElements" scope="col">{{head}} </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let each of exps;let no=index">
-            <td>{{no + 1}}</td>
-            <td>{{each.labCenName}}</td>
-            <td>{{each.expCname}}</td>
-            <td>{{each.expEqname + each.eqnum}}</td>
-            <td>{{each.conName + each.conNum}}</td>
-            <td>{{each.expMajor}}</td>
-            <td>{{each.ssort}}</td>
-            <td>{{each.expTime}}</td>
-            <td>{{each.book}}</td>
-            <td>{{each.software}}</td>
-            <td>{{each.expTid}}</td>
-            <td>{{each.cname}}</td>
-            <td>{{each.courseId}}</td>
-            <td>
-              <button nz-button nzType="primary" (click)="auditPass(each.proId,'PASS')">同意申请</button>
-            </td>
-          </tbody>
-        </table>
-      </div>
+            <div class="card-body">
+                <table mdbTable bordered="true" small="true" class="text-center">
+                    <thead class="green white-text">
+                    <tr>
+                        <th>序号</th>
+                        <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let each of exps;let no=index">
+                        <td>{{no + 1}}</td>
+                        <td>{{each.labCenName}}</td>
+                        <td>{{each.expCname}}</td>
+                        <td>{{each.expEqname + each.eqnum}}</td>
+                        <td>{{each.conName + each.conNum}}</td>
+                        <td>{{each.expMajor}}</td>
+                        <td>{{each.ssort}}</td>
+                        <td>{{each.expTime}}</td>
+                        <td>{{each.book}}</td>
+                        <td>{{each.software}}</td>
+                        <td>{{each.expTid}}</td>
+                        <td>{{each.cname}}</td>
+                        <td>{{each.courseId}}</td>
+                        <td>
+                            <button nz-button nzType="primary" (click)="auditPass(each.proId,'PASS')">同意申请</button>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

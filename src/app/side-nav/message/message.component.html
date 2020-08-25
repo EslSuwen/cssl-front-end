@@ -17,9 +17,11 @@
             </mdb-card-body>
             <mdb-card-footer class="bg-transparent border-success">
                 <button mdbBtn type="button" gradient="peach" rounded="true" mdbWavesEffect
-                    *ngIf="!each.mstatus" (click)="isRead(id)">标记已读</button>
+                        *ngIf="!each.mstatus" (click)="isRead(id)">标记已读
+                </button>
                 <button mdbBtn type="button" gradient="purple" rounded="true" mdbWavesEffect
-                    *ngIf="each.mstatus" disabled>已读</button>
+                        *ngIf="each.mstatus" disabled>已读
+                </button>
             </mdb-card-footer>
         </mdb-card>
     </div>

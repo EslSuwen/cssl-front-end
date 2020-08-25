@@ -1,375 +1,389 @@
 <div class="row">
-  <div class="col-1 mt-2">
-    <input type="checkbox" [(ngModel)]="switch2" id="flag1">
-    <label class="slider-v3 blue lighten-4" for="flag1"></label>
-  </div>
-  <label class="disabled font-weight-bold" *ngIf="switch2">请在下面添加实验课程：
-    <nz-tag>点击预览管理你的实验项目</nz-tag>
-  </label>
-  <label class="disabled font-weight-bold" *ngIf="!switch2"> 您的实验课程如下：
-    <nz-tag>点击左边开关切换到填写实验卡片</nz-tag>
-  </label>
+    <div class="col-1 mt-2">
+        <input type="checkbox" [(ngModel)]="switch2" id="flag1">
+        <label class="slider-v3 blue lighten-4" for="flag1"></label>
+    </div>
+    <label class="disabled font-weight-bold" *ngIf="switch2">请在下面添加实验课程：
+        <nz-tag>点击预览管理你的实验项目</nz-tag>
+    </label>
+    <label class="disabled font-weight-bold" *ngIf="!switch2"> 您的实验课程如下：
+        <nz-tag>点击左边开关切换到填写实验卡片</nz-tag>
+    </label>
 </div>
 <div class="row mt-2 animated fadeIn" *ngIf="switch2">
-  <div class="col px-0">
-    <div class="card">
-      <h3 class="card-header text-center font-weight-bold">{{nowTerm}} 实验项目卡片
-      </h3>
-      <div class="card-body">
-        <table mdbTable bordered="true" small="true" class="text-center">
-          <thead class="black white-text">
-          <tr>
-            <th *ngFor="let head of headElements" scope="col">{{head}}</th>
-          </tr>
-          </thead>
-          <tbody *ngIf="switch2">
-          <tr mdbTableCol [formGroup]="expCardFG">
-            <td style="width: 200px;">
-              <angular2-multiselect [data]="courseList" formControlName="courseSelected"
-                                    [settings]="courseSelectSettings"
-                                    (onSelect)="courseSelect($event)">
-              </angular2-multiselect>
-            </td>
-            <td>
-              <div class="md-form my-0">
-                <input mdbInput type="text" class="form-control" formControlName="expCname">
-                <mdb-error *ngIf="expCardFG.get('expCname').hasError('required')">填写实验课程名!</mdb-error>
-              </div>
-            </td>
-            <td>
-              <div class="row mx-1 my-0">
-                <div class="md-form col p-0 my-0 mr-2">
-                  <input mdbInput type="text" class="form-control" formControlName="expEqname"
-                         placeholder="设备">
-                  <mdb-error *ngIf="expCardFG.get('expEqname').hasError('required')">填写设备名!</mdb-error>
-                </div>
-                <div class="md-form m-0 col p-0">
-                  <input mdbInput type="number" class="form-control" formControlName="eqnum" min=0 max=100
-                         placeholder="数量">
-                  <mdb-error *ngIf="expCardFG.get('eqnum').invalid">填写合法的数量!</mdb-error>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="row mx-1 my-0">
-                <div class="md-form col p-0 my-0 mr-2">
-                  <input mdbInput type="text" class="form-control" formControlName="conName"
-                         placeholder="材料">
-                  <mdb-error *ngIf="expCardFG.get('conName').invalid">填写材料名称!</mdb-error>
-                </div>
-                <div class="md-form m-0 col p-0">
-                  <input mdbInput type="number" class="form-control" formControlName="conNum" min=0 max=100
-                         placeholder="数量">
-                  <mdb-error *ngIf="expCardFG.get('conNum').invalid">填写合法的数量!</mdb-error>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="md-form m-0 col p-0">
-                <input mdbInput type="number" class="form-control" formControlName="expTime" min=0
-                       max=100>
-                <mdb-error *ngIf="expCardFG.get('expTime').invalid">填写合法的学时!</mdb-error>
-              </div>
-            </td>
-            <td>
-              <div class="md-form my-0">
-                <input mdbInput type="text" class="form-control" formControlName="book">
-                <mdb-error *ngIf="expCardFG.get('book').invalid">填写教材名!</mdb-error>
-              </div>
-            </td>
-            <td>
-              <div class="md-form my-0">
-                <input mdbInput type="text" class="form-control" formControlName="software">
-                <mdb-error *ngIf="expCardFG.get('software').invalid">填写软件名!</mdb-error>
-              </div>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="card">
-      <h3 class="card-header text-center font-weight-bold">实验项目细则
-        <span class="table-add float-right mb-3 mr-2" *ngIf="switch2">
+    <div class="col px-0">
+        <div class="card">
+            <h3 class="card-header text-center font-weight-bold">{{nowTerm}} 实验项目卡片
+            </h3>
+            <div class="card-body">
+                <table mdbTable bordered="true" small="true" class="text-center">
+                    <thead class="black white-text">
+                    <tr>
+                        <th *ngFor="let head of headElements" scope="col">{{head}}</th>
+                    </tr>
+                    </thead>
+                    <tbody *ngIf="switch2">
+                    <tr mdbTableCol [formGroup]="expCardFG">
+                        <td style="width: 200px;">
+                            <angular2-multiselect [data]="courseList" formControlName="courseSelected"
+                                                  [settings]="courseSelectSettings"
+                                                  (onSelect)="courseSelect($event)">
+                            </angular2-multiselect>
+                        </td>
+                        <td>
+                            <div class="md-form my-0">
+                                <input mdbInput type="text" class="form-control" formControlName="expCname">
+                                <mdb-error *ngIf="expCardFG.get('expCname').hasError('required')">填写实验课程名!</mdb-error>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row mx-1 my-0">
+                                <div class="md-form col p-0 my-0 mr-2">
+                                    <input mdbInput type="text" class="form-control" formControlName="expEqname"
+                                           placeholder="设备">
+                                    <mdb-error *ngIf="expCardFG.get('expEqname').hasError('required')">填写设备名!
+                                    </mdb-error>
+                                </div>
+                                <div class="md-form m-0 col p-0">
+                                    <input mdbInput type="number" class="form-control" formControlName="eqnum" min=0
+                                           max=100
+                                           placeholder="数量">
+                                    <mdb-error *ngIf="expCardFG.get('eqnum').invalid">填写合法的数量!</mdb-error>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row mx-1 my-0">
+                                <div class="md-form col p-0 my-0 mr-2">
+                                    <input mdbInput type="text" class="form-control" formControlName="conName"
+                                           placeholder="材料">
+                                    <mdb-error *ngIf="expCardFG.get('conName').invalid">填写材料名称!</mdb-error>
+                                </div>
+                                <div class="md-form m-0 col p-0">
+                                    <input mdbInput type="number" class="form-control" formControlName="conNum" min=0
+                                           max=100
+                                           placeholder="数量">
+                                    <mdb-error *ngIf="expCardFG.get('conNum').invalid">填写合法的数量!</mdb-error>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="md-form m-0 col p-0">
+                                <input mdbInput type="number" class="form-control" formControlName="expTime" min=0
+                                       max=100>
+                                <mdb-error *ngIf="expCardFG.get('expTime').invalid">填写合法的学时!</mdb-error>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="md-form my-0">
+                                <input mdbInput type="text" class="form-control" formControlName="book">
+                                <mdb-error *ngIf="expCardFG.get('book').invalid">填写教材名!</mdb-error>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="md-form my-0">
+                                <input mdbInput type="text" class="form-control" formControlName="software">
+                                <mdb-error *ngIf="expCardFG.get('software').invalid">填写软件名!</mdb-error>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <h3 class="card-header text-center font-weight-bold">实验项目细则
+                <span class="table-add float-right mb-3 mr-2" *ngIf="switch2">
           <a class="text-success" (click)="this.addItemVisible = true;">
             <mdb-icon fas icon="plus" size="lg"></mdb-icon>
           </a>
         </span>
-      </h3>
-      <div class="card-body">
-        <div id="table" class="table-editable">
-          <table mdbTable class="table table-bordered table-responsive-md table-striped text-center " small="true"
-                 bordered="true">
-            <thead>
-            <tr class="black white-text">
-              <th class="text-center">序号</th>
-              <th class="text-center">实验项目编号</th>
-              <th class="text-center">实验项目名称</th>
-              <th class="text-center">实验类别</th>
-              <th class="text-center">实验学时</th>
-              <th class="text-center">分组人数</th>
-              <th class="text-center">实验目的</th>
-              <th class="text-center">可执行操作</th>
-            </tr>
-            </thead>
-            <tbody *ngIf="switch2">
-            <tr *ngFor="let control of ProjectItemArray;let i = index">
-              <td>
-                <span>{{i + 1}}</span>
-              </td>
-              <td>
-                <div class="md-form my-0 py-0">
-                  <input mdbInput mdbValidate type="text" class="form-control" name="iid{{control.iid}}"
-                         [(ngModel)]="control.iid" required #iid="ngModel">
-                  <mdb-error *ngIf="iid.invalid && (iid.dirty || iid.touched)">请填写内容</mdb-error>
-                </div>
-              </td>
-              <td>
-                <div class="md-form my-0 py-0">
-                  <input mdbInput mdbValidate type="text" class="form-control" name="iName{{id}}"
-                         [(ngModel)]="control.iname" required #iName="ngModel">
-                  <mdb-error *ngIf="iName.invalid && (iName.dirty || iName.touched)">请填写内容</mdb-error>
-                </div>
-              </td>
-              <td>
-                <div class="md-form my-0 py-0">
-                  <select class="browser-default custom-select" name="iType{{id}}" [(ngModel)]="control.itype"
-                          required #iType="ngModel">
-                    <option value="验证">验证</option>
-                    <option value="综合">综合</option>
-                  </select>
-                </div>
-              </td>
-              <td>
-                <div class="md-form my-0 py-0">
-                  <input mdbInput mdbValidate type="number" class="form-control" name="iTime{{id}}"
-                         [(ngModel)]="control.itime" required min=0 max=100 #iTime="ngModel">
-                  <mdb-error *ngIf="iTime.invalid && (iTime.dirty || iTime.touched)">不能为空,且于0到100</mdb-error>
-                </div>
-              </td>
-              <td>
-                <div class="md-form my-0 py-0">
-                  <input mdbInput mdbValidate type="number" class="form-control" name="Num{{id}}"
-                         [(ngModel)]="control.num" required min=1 max=100 #Num="ngModel">
-                  <mdb-error *ngIf="Num.invalid && (Num.dirty || Num.touched)">不能为空,且于1到100</mdb-error>
-                </div>
-              </td>
-              <td>
-                <div class="md-form px-3  my-0 py-0">
+            </h3>
+            <div class="card-body">
+                <div id="table" class="table-editable">
+                    <table mdbTable class="table table-bordered table-responsive-md table-striped text-center "
+                           small="true"
+                           bordered="true">
+                        <thead>
+                        <tr class="black white-text">
+                            <th class="text-center">序号</th>
+                            <th class="text-center">实验项目编号</th>
+                            <th class="text-center">实验项目名称</th>
+                            <th class="text-center">实验类别</th>
+                            <th class="text-center">实验学时</th>
+                            <th class="text-center">分组人数</th>
+                            <th class="text-center">实验目的</th>
+                            <th class="text-center">可执行操作</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngIf="switch2">
+                        <tr *ngFor="let control of ProjectItemArray;let i = index">
+                            <td>
+                                <span>{{i + 1}}</span>
+                            </td>
+                            <td>
+                                <div class="md-form my-0 py-0">
+                                    <input mdbInput mdbValidate type="text" class="form-control"
+                                           name="iid{{control.iid}}"
+                                           [(ngModel)]="control.iid" required #iid="ngModel">
+                                    <mdb-error *ngIf="iid.invalid && (iid.dirty || iid.touched)">请填写内容</mdb-error>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="md-form my-0 py-0">
+                                    <input mdbInput mdbValidate type="text" class="form-control" name="iName{{id}}"
+                                           [(ngModel)]="control.iname" required #iName="ngModel">
+                                    <mdb-error *ngIf="iName.invalid && (iName.dirty || iName.touched)">请填写内容</mdb-error>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="md-form my-0 py-0">
+                                    <select class="browser-default custom-select" name="iType{{id}}"
+                                            [(ngModel)]="control.itype"
+                                            required #iType="ngModel">
+                                        <option value="验证">验证</option>
+                                        <option value="综合">综合</option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="md-form my-0 py-0">
+                                    <input mdbInput mdbValidate type="number" class="form-control" name="iTime{{id}}"
+                                           [(ngModel)]="control.itime" required min=0 max=100 #iTime="ngModel">
+                                    <mdb-error *ngIf="iTime.invalid && (iTime.dirty || iTime.touched)">不能为空,且于0到100
+                                    </mdb-error>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="md-form my-0 py-0">
+                                    <input mdbInput mdbValidate type="number" class="form-control" name="Num{{id}}"
+                                           [(ngModel)]="control.num" required min=1 max=100 #Num="ngModel">
+                                    <mdb-error *ngIf="Num.invalid && (Num.dirty || Num.touched)">不能为空,且于1到100
+                                    </mdb-error>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="md-form px-3  my-0 py-0">
                     <textarea type="text" class="md-textarea form-control p-2" mdbInput rows="1" cols="10"
                               name="iTime{{control.iid}}" [(ngModel)]="control.intend"></textarea>
-                </div>
-              </td>
-              <td>
+                                </div>
+                            </td>
+                            <td>
                   <span class="table-remove">
                     <button type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0"
                             data-toggle="modal" data-target="#basicExample" nz-popconfirm
                             nzPopconfirmTitle="Are you sure delete this task?" nzPopconfirmPlacement="topRight"
                             (nzOnConfirm)="this.ProjectItemArray.splice(id, 1);">移除</button>
                   </span>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 <div class="row mt-2 " *ngIf="!switch2">
-  <div class="col px-0">
-    <div class="card">
-      <h3 class="card-header text-center font-weight-bold">实验项目卡片
-      </h3>
-      <div class="ml-5 mt-3" style="width: 200px">
-        <select class="browser-default custom-select" [(ngModel)]="termSelected" (ngModelChange)="onTermSelected()">
-          <option *ngFor="let each of termList">{{each}}</option>
-        </select>
-      </div>
-      <div class="card-body">
-        <table mdbTable bordered="true" small="true" class="text-center">
-          <thead class="black white-text">
-          <tr>
-            <th *ngFor="let head of headElements" scope="col">{{head}} </th>
-          </tr>
-          </thead>
-          <tbody *ngIf="!switch2">
-          <tr mdbTableCol *ngFor="let each of exps" (click)="loadProjectItems(each.proId);this.itemTitle=each.cname;">
-            <td>
-              <ng-container *ngIf="!editExpCache[each.proId].edit">{{each.cname}}</ng-container>
-              <ng-container *ngIf="editExpCache[each.proId].edit">
-                <input type="text" nz-input [(ngModel)]="editExpCache[each.proId].data.cname">
-              </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="!editExpCache[each.proId].edit">{{each.expCname}}</ng-container>
-              <ng-container *ngIf="editExpCache[each.proId].edit">
-                <input type="text" nz-input [(ngModel)]="editExpCache[each.proId].data.expCname">
-              </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="!editExpCache[each.proId].edit">{{each.eqnum}}</ng-container>
-              <ng-container *ngIf="editExpCache[each.proId].edit">
-                <input type="text" nz-input [(ngModel)]="editExpCache[each.proId].data.eqnum">
-              </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="!editExpCache[each.proId].edit">{{each.conNum}}</ng-container>
-              <ng-container *ngIf="editExpCache[each.proId].edit">
-                <input type="text" nz-input [(ngModel)]="editExpCache[each.proId].data.conNum">
-              </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="!editExpCache[each.proId].edit">{{each.expTime}}</ng-container>
-              <ng-container *ngIf="editExpCache[each.proId].edit">
-                <input type="text" nz-input [(ngModel)]="editExpCache[each.proId].data.expTime">
-              </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="!editExpCache[each.proId].edit">{{each.book}}</ng-container>
-              <ng-container *ngIf="editExpCache[each.proId].edit">
-                <input type="text" nz-input [(ngModel)]="editExpCache[each.proId].data.book">
-              </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="!editExpCache[each.proId].edit">{{each.software}}</ng-container>
-              <ng-container *ngIf="editExpCache[each.proId].edit">
-                <input type="text" nz-input [(ngModel)]="editExpCache[each.proId].data.software">
-              </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="!editExpCache[each.proId].edit">
-                <button nz-button [nzType]="'primary'" (click)="this.editExpCache[each.proId].edit = true">更改</button>
-              </ng-container>
-              <ng-container *ngIf="editExpCache[each.proId].edit">
-                <button nz-button [nzType]="'primary'"
-                        nz-popconfirm
-                        nzPopconfirmTitle="确定保存更改?"
-                        nzPopconfirmPlacement="bottom"
-                        (nzOnConfirm)="saveExpEdit(each.proId)"
-                        (nzOnCancel)="this.editExpCache[each.proId].edit = false">保存
-                </button>
-              </ng-container>
-              <ng-container style="color: #D9D9D9">
-                <button nz-button [nzType]="'primary'" nz-popconfirm nzPopconfirmTitle="确定删除?"
-                        (nzOnConfirm)="deleteExp(each.proId)">删除
-                </button>
-              </ng-container>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <h3 class="card-header text-center font-weight-bold">{{itemTitle}}实验项目细则
-    </h3>
-    <div class="card-body">
-      <div class="table-editable">
-        <table mdbTable class="table table-bordered table-responsive-md table-striped text-center " small="true"
-               bordered="true">
-          <thead>
-          <tr class="black white-text">
-            <th class="text-center">序号</th>
-            <th class="text-center">实验项目编号</th>
-            <th class="text-center">实验项目名称</th>
-            <th class="text-center">实验类别</th>
-            <th class="text-center">实验学时</th>
-            <th class="text-center">分组人数</th>
-            <th class="text-center">实验目的</th>
-            <th class="text-center">可执行操作</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let each of projectItems; let id = index">
-            <td>{{id + 1}}</td>
-            <td>
-              <ng-container *ngIf="!editItemCache[each.ino].edit">{{each.iid}}</ng-container>
-              <ng-container *ngIf="editItemCache[each.ino].edit">
-                <input type="text" nz-input [(ngModel)]="editItemCache[each.ino].data.iid">
-              </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="!editItemCache[each.ino].edit">{{each.iname}}</ng-container>
-              <ng-container *ngIf="editItemCache[each.ino].edit">
-                <input type="text" nz-input [(ngModel)]="editItemCache[each.ino].data.iname">
-              </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="!editItemCache[each.ino].edit">{{each.itype}}</ng-container>
-              <ng-container *ngIf="editItemCache[each.ino].edit">
-                <select class="browser-default custom-select" [(ngModel)]="editItemCache[each.ino].data.itype">
-                  <option value="验证">验证</option>
-                  <option value="综合">综合</option>
+    <div class="col px-0">
+        <div class="card">
+            <h3 class="card-header text-center font-weight-bold">实验项目卡片
+            </h3>
+            <div class="ml-5 mt-3" style="width: 200px">
+                <select class="browser-default custom-select" [(ngModel)]="termSelected"
+                        (ngModelChange)="onTermSelected()">
+                    <option *ngFor="let each of termList">{{each}}</option>
                 </select>
-              </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="!editItemCache[each.ino].edit">{{each.itime}}</ng-container>
-              <ng-container *ngIf="editItemCache[each.ino].edit">
-                <input type="text" nz-input [(ngModel)]="editItemCache[each.ino].data.itime">
-              </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="!editItemCache[each.ino].edit">{{each.num}}</ng-container>
-              <ng-container *ngIf="editItemCache[each.ino].edit">
-                <input type="text" nz-input [(ngModel)]="editItemCache[each.ino].data.num">
-              </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="!editItemCache[each.ino].edit">{{each.intend}}</ng-container>
-              <ng-container *ngIf="editItemCache[each.ino].edit">
-                <input type="text" nz-input [(ngModel)]="editItemCache[each.ino].data.intend">
-              </ng-container>
-            </td>
-            <td>
-              <div class="editable-row-operations">
-                <ng-container *ngIf="!editItemCache[each.ino].edit">
-                  <a (click)="this.editItemCache[each.ino].edit = true">更改</a>
-                </ng-container>
-                <ng-container *ngIf="editItemCache[each.ino].edit">
-                  <a nz-popconfirm
-                     nzPopconfirmTitle="确定保存更改?"
-                     nzPopconfirmPlacement="bottom"
-                     (nzOnConfirm)="saveItemEdit(each.ino)"
-                     (nzOnCancel)="this.editItemCache[each.ino].edit = false">保存</a>
-                </ng-container>
-                <ng-container style="color: #D9D9D9">
-                  <a nz-popconfirm nzPopconfirmTitle="确定删除?" (nzOnConfirm)="deleteItem(each.ino)">删除</a>
-                </ng-container>
-              </div>
-            </td>
-          </tbody>
-        </table>
-      </div>
+            </div>
+            <div class="card-body">
+                <table mdbTable bordered="true" small="true" class="text-center">
+                    <thead class="black white-text">
+                    <tr>
+                        <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+                    </tr>
+                    </thead>
+                    <tbody *ngIf="!switch2">
+                    <tr mdbTableCol *ngFor="let each of exps"
+                        (click)="loadProjectItems(each.proId);this.itemTitle=each.cname;">
+                        <td>
+                            <ng-container *ngIf="!editExpCache[each.proId].edit">{{each.cname}}</ng-container>
+                            <ng-container *ngIf="editExpCache[each.proId].edit">
+                                <input type="text" nz-input [(ngModel)]="editExpCache[each.proId].data.cname">
+                            </ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="!editExpCache[each.proId].edit">{{each.expCname}}</ng-container>
+                            <ng-container *ngIf="editExpCache[each.proId].edit">
+                                <input type="text" nz-input [(ngModel)]="editExpCache[each.proId].data.expCname">
+                            </ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="!editExpCache[each.proId].edit">{{each.eqnum}}</ng-container>
+                            <ng-container *ngIf="editExpCache[each.proId].edit">
+                                <input type="text" nz-input [(ngModel)]="editExpCache[each.proId].data.eqnum">
+                            </ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="!editExpCache[each.proId].edit">{{each.conNum}}</ng-container>
+                            <ng-container *ngIf="editExpCache[each.proId].edit">
+                                <input type="text" nz-input [(ngModel)]="editExpCache[each.proId].data.conNum">
+                            </ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="!editExpCache[each.proId].edit">{{each.expTime}}</ng-container>
+                            <ng-container *ngIf="editExpCache[each.proId].edit">
+                                <input type="text" nz-input [(ngModel)]="editExpCache[each.proId].data.expTime">
+                            </ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="!editExpCache[each.proId].edit">{{each.book}}</ng-container>
+                            <ng-container *ngIf="editExpCache[each.proId].edit">
+                                <input type="text" nz-input [(ngModel)]="editExpCache[each.proId].data.book">
+                            </ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="!editExpCache[each.proId].edit">{{each.software}}</ng-container>
+                            <ng-container *ngIf="editExpCache[each.proId].edit">
+                                <input type="text" nz-input [(ngModel)]="editExpCache[each.proId].data.software">
+                            </ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="!editExpCache[each.proId].edit">
+                                <button nz-button [nzType]="'primary'"
+                                        (click)="this.editExpCache[each.proId].edit = true">更改
+                                </button>
+                            </ng-container>
+                            <ng-container *ngIf="editExpCache[each.proId].edit">
+                                <button nz-button [nzType]="'primary'"
+                                        nz-popconfirm
+                                        nzPopconfirmTitle="确定保存更改?"
+                                        nzPopconfirmPlacement="bottom"
+                                        (nzOnConfirm)="saveExpEdit(each.proId)"
+                                        (nzOnCancel)="this.editExpCache[each.proId].edit = false">保存
+                                </button>
+                            </ng-container>
+                            <ng-container style="color: #D9D9D9">
+                                <button nz-button [nzType]="'primary'" nz-popconfirm nzPopconfirmTitle="确定删除?"
+                                        (nzOnConfirm)="deleteExp(each.proId)">删除
+                                </button>
+                            </ng-container>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h3 class="card-header text-center font-weight-bold">{{itemTitle}}实验项目细则
+        </h3>
+        <div class="card-body">
+            <div class="table-editable">
+                <table mdbTable class="table table-bordered table-responsive-md table-striped text-center " small="true"
+                       bordered="true">
+                    <thead>
+                    <tr class="black white-text">
+                        <th class="text-center">序号</th>
+                        <th class="text-center">实验项目编号</th>
+                        <th class="text-center">实验项目名称</th>
+                        <th class="text-center">实验类别</th>
+                        <th class="text-center">实验学时</th>
+                        <th class="text-center">分组人数</th>
+                        <th class="text-center">实验目的</th>
+                        <th class="text-center">可执行操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let each of projectItems; let id = index">
+                        <td>{{id + 1}}</td>
+                        <td>
+                            <ng-container *ngIf="!editItemCache[each.ino].edit">{{each.iid}}</ng-container>
+                            <ng-container *ngIf="editItemCache[each.ino].edit">
+                                <input type="text" nz-input [(ngModel)]="editItemCache[each.ino].data.iid">
+                            </ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="!editItemCache[each.ino].edit">{{each.iname}}</ng-container>
+                            <ng-container *ngIf="editItemCache[each.ino].edit">
+                                <input type="text" nz-input [(ngModel)]="editItemCache[each.ino].data.iname">
+                            </ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="!editItemCache[each.ino].edit">{{each.itype}}</ng-container>
+                            <ng-container *ngIf="editItemCache[each.ino].edit">
+                                <select class="browser-default custom-select"
+                                        [(ngModel)]="editItemCache[each.ino].data.itype">
+                                    <option value="验证">验证</option>
+                                    <option value="综合">综合</option>
+                                </select>
+                            </ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="!editItemCache[each.ino].edit">{{each.itime}}</ng-container>
+                            <ng-container *ngIf="editItemCache[each.ino].edit">
+                                <input type="text" nz-input [(ngModel)]="editItemCache[each.ino].data.itime">
+                            </ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="!editItemCache[each.ino].edit">{{each.num}}</ng-container>
+                            <ng-container *ngIf="editItemCache[each.ino].edit">
+                                <input type="text" nz-input [(ngModel)]="editItemCache[each.ino].data.num">
+                            </ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="!editItemCache[each.ino].edit">{{each.intend}}</ng-container>
+                            <ng-container *ngIf="editItemCache[each.ino].edit">
+                                <input type="text" nz-input [(ngModel)]="editItemCache[each.ino].data.intend">
+                            </ng-container>
+                        </td>
+                        <td>
+                            <div class="editable-row-operations">
+                                <ng-container *ngIf="!editItemCache[each.ino].edit">
+                                    <a (click)="this.editItemCache[each.ino].edit = true">更改</a>
+                                </ng-container>
+                                <ng-container *ngIf="editItemCache[each.ino].edit">
+                                    <a nz-popconfirm
+                                       nzPopconfirmTitle="确定保存更改?"
+                                       nzPopconfirmPlacement="bottom"
+                                       (nzOnConfirm)="saveItemEdit(each.ino)"
+                                       (nzOnCancel)="this.editItemCache[each.ino].edit = false">保存</a>
+                                </ng-container>
+                                <ng-container style="color: #D9D9D9">
+                                    <a nz-popconfirm nzPopconfirmTitle="确定删除?"
+                                       (nzOnConfirm)="deleteItem(each.ino)">删除</a>
+                                </ng-container>
+                            </div>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <div class="row" *ngIf="switch2">
-  <div class="col-4 mx-auto mt-4">
-    <button mdbBtn type="button" color="success" block="true" outline="true" (click)="showConfirm()"
-            class="rounded-pill"
-            mdbWavesEffect>提交
-    </button>
+    <div class="col-4 mx-auto mt-4">
+        <button mdbBtn type="button" color="success" block="true" outline="true" (click)="showConfirm()"
+                class="rounded-pill"
+                mdbWavesEffect>提交
+        </button>
 
-  </div>
+    </div>
 </div>
 <nz-modal [(nzVisible)]="addItemVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
           (nzOnCancel)="addItemVisible = false">
-  <ng-template #modalTitle>
-    增加几行？
-  </ng-template>
-  <ng-template #modalContent>
-    <nz-row>
-      <nz-col nzSpan="12">
-        <nz-slider [nzMin]="1" [nzMax]="20" [(ngModel)]="addItemNum"></nz-slider>
-      </nz-col>
-      <div nz-col nzSpan="4">
-        <nz-input-number [nzMin]="1" [nzMax]="20" [ngStyle]="{ marginLeft: '16px' }" [(ngModel)]="addItemNum">
-        </nz-input-number>
-      </div>
-    </nz-row>
-  </ng-template>
-  <ng-template #modalFooter>
-    <button nz-button nzType="primary" (click)="confirmAddItem();addItemVisible = false">确认</button>
-  </ng-template>
+    <ng-template #modalTitle>
+        增加几行？
+    </ng-template>
+    <ng-template #modalContent>
+        <nz-row>
+            <nz-col nzSpan="12">
+                <nz-slider [nzMin]="1" [nzMax]="20" [(ngModel)]="addItemNum"></nz-slider>
+            </nz-col>
+            <div nz-col nzSpan="4">
+                <nz-input-number [nzMin]="1" [nzMax]="20" [ngStyle]="{ marginLeft: '16px' }" [(ngModel)]="addItemNum">
+                </nz-input-number>
+            </div>
+        </nz-row>
+    </ng-template>
+    <ng-template #modalFooter>
+        <button nz-button nzType="primary" (click)="confirmAddItem();addItemVisible = false">确认</button>
+    </ng-template>
 </nz-modal>

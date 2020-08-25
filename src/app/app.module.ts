@@ -37,100 +37,101 @@ import zh from '@angular/common/locales/zh';
 import {ApplyManageComponent} from './side-nav/apply-manage/apply-manage.component';
 import {Code404Component} from './code404/code404.component';
 import {AuditLabComponent} from './side-nav/audit-lab/audit-lab.component';
-import { ShowNoticeComponent } from './side-nav/show-notice/show-notice.component';
-import { CardInfoComponent } from './side-nav/card-info/card-info.component';
-import { FutextComponent } from './side-nav/futext/futext.component';
+import {ShowNoticeComponent} from './side-nav/show-notice/show-notice.component';
+import {CardInfoComponent} from './side-nav/card-info/card-info.component';
+import {FutextComponent} from './side-nav/futext/futext.component';
+
 registerLocaleData(zh);
 
 
 const appRoutes: Routes = [
-  {
-    path: '', // 默认路由
-    redirectTo: '/login',
-    pathMatch: 'full'
-  },
-  {path: 'login', component: LoginComponent},
-  {
-    path: 'sidenav', component: SideNavComponent,
-    canActivate: [CanActivateAuthGuard],
-    children: [
-      {path: 'personalinfo', component: PersonalInfoComponent,},
-      {path: 'notify', component: NotifyComponent,},
-      {path: 'upload', component: UploadComponent,},
-      {path: 'card', component: CardComponent,},
-      {path: 'cardInfo',component: CardInfoComponent},
-      {path: 'teachtable', component: TeachTableComponent,},
-      {path: 'apply', component: ApplyComponent,},
-      {path: 'applyexproom', component: ApplyExpRoomComponent,},
-      {path: 'updatepassword', component: UpdatePasswordComponent,},
-      {path: 'message', component: MessageComponent,},
-      {path: "show-notice", component: ShowNoticeComponent},
-      {path: "futext", component: FutextComponent},
-      {path: '**', component: Code404Component},
-      {path: 'audit-lab', component: AuditLabComponent},
-    ],
-  },
-  {path: '**', component: Code404Component},];
+    {
+        path: '', // 默认路由
+        redirectTo: '/login',
+        pathMatch: 'full'
+    },
+    {path: 'login', component: LoginComponent},
+    {
+        path: 'sidenav', component: SideNavComponent,
+        canActivate: [CanActivateAuthGuard],
+        children: [
+            {path: 'personalinfo', component: PersonalInfoComponent,},
+            {path: 'notify', component: NotifyComponent,},
+            {path: 'upload', component: UploadComponent,},
+            {path: 'card', component: CardComponent,},
+            {path: 'cardInfo', component: CardInfoComponent},
+            {path: 'teachtable', component: TeachTableComponent,},
+            {path: 'apply', component: ApplyComponent,},
+            {path: 'applyexproom', component: ApplyExpRoomComponent,},
+            {path: 'updatepassword', component: UpdatePasswordComponent,},
+            {path: 'message', component: MessageComponent,},
+            {path: "show-notice", component: ShowNoticeComponent},
+            {path: "futext", component: FutextComponent},
+            {path: '**', component: Code404Component},
+            {path: 'audit-lab', component: AuditLabComponent},
+        ],
+    },
+    {path: '**', component: Code404Component},];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    SideNavComponent,
-    PersonalInfoComponent,
-    NotifyComponent,
-    UploadComponent,
-    CardComponent,
-    TeachTableComponent,
-    ApplyComponent,
-    FooterComponent,
-    SideCardComponent,
-    ApplyExpRoomComponent,
-    UpdatePasswordComponent,
-    ModalComponent,
-    HasRoleDirective,
-    MessageComponent,
-    ApplyManageComponent,
-    Code404Component,
-    AuditLabComponent,
-    FutextComponent,
-    ShowNoticeComponent,
-    CardInfoComponent,
-  ],
-  imports: [
-    BrowserModule,
-    // NoopAnimationsModule,
-    BrowserAnimationsModule,
-    MDBBootstrapModule.forRoot(),
-    FormsModule,
-    ReactiveFormsModule,
-    FormsModule,
-    QuillModule.forRoot(),  //新版的要这么引入
-    RouterModule.forRoot(
-      appRoutes,
-    ),
-    AngularMultiSelectModule,
-    OwlDateTimeModule,
-    OwlNativeDateTimeModule,
-    Ng2FileInputModule.forRoot({
-      // dropText: 'Drop file here',
-      browseText: '选择',
-      removeText: '删除',
-      invalidFileText: '你上传了其他类型的文件',
-      invalidFileTimeout: 8000,
-      removable: true,
-      multiple: false,
-      showPreviews: true
-    }),
-    HttpClientModule,
-    NgZorroAntdModule,
-  ],
-  entryComponents: [ModalComponent],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true}, {
-    provide: NZ_I18N,
-    useValue: zh_CN
-  }],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        SideNavComponent,
+        PersonalInfoComponent,
+        NotifyComponent,
+        UploadComponent,
+        CardComponent,
+        TeachTableComponent,
+        ApplyComponent,
+        FooterComponent,
+        SideCardComponent,
+        ApplyExpRoomComponent,
+        UpdatePasswordComponent,
+        ModalComponent,
+        HasRoleDirective,
+        MessageComponent,
+        ApplyManageComponent,
+        Code404Component,
+        AuditLabComponent,
+        FutextComponent,
+        ShowNoticeComponent,
+        CardInfoComponent,
+    ],
+    imports: [
+        BrowserModule,
+        // NoopAnimationsModule,
+        BrowserAnimationsModule,
+        MDBBootstrapModule.forRoot(),
+        FormsModule,
+        ReactiveFormsModule,
+        FormsModule,
+        QuillModule.forRoot(),  //新版的要这么引入
+        RouterModule.forRoot(
+            appRoutes,
+        ),
+        AngularMultiSelectModule,
+        OwlDateTimeModule,
+        OwlNativeDateTimeModule,
+        Ng2FileInputModule.forRoot({
+            // dropText: 'Drop file here',
+            browseText: '选择',
+            removeText: '删除',
+            invalidFileText: '你上传了其他类型的文件',
+            invalidFileTimeout: 8000,
+            removable: true,
+            multiple: false,
+            showPreviews: true
+        }),
+        HttpClientModule,
+        NgZorroAntdModule,
+    ],
+    entryComponents: [ModalComponent],
+    providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true}, {
+        provide: NZ_I18N,
+        useValue: zh_CN
+    }],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

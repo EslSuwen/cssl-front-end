@@ -1,80 +1,87 @@
 <div class="row mt-5">
-  <div class="col-5 my-auto animated fadeIn">
-    <div class="row m-3 ">
-      <div class="col-8 px-0 mb-3 mx-auto">
-        <select class="browser-default custom-select" [(ngModel)]="termSelected" (ngModelChange)="onTermSelected()">
-          <option *ngFor="let each of termList">{{each}}</option>
-        </select>
-      </div>
-    </div>
-    <div class="row m-3">
-      <div class="col-8 px-0 mx-auto mb-3">
-        <angular2-multiselect [data]="courseList" [settings]="courseSelectSettings" [(ngModel)]="courseSelected"
-                              (onSelect)="courseSelect($event)">
-        </angular2-multiselect>
-      </div>
-    </div>
-    <div class="row m-3">
-      <div class="card-body col-8 px-0 mx-auto mb-3">
-        <table mdbTable bordered="true" small="true" class="text-center">
-          <thead class="green white-text">
-          <tr>
-            <th>文件类型</th>
-            <th>状态</th>
-            <th>文件</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let each of fileStatusArray;let no=index">
-            <td>{{each?.typeName}}</td>
-            <td>
-              <button type="button" *ngIf="each?.status" class="btn btn-outline-success disabled btn-sm">已上传</button>
-              <button type="button" *ngIf="!each?.status" class="btn btn-outline-danger disabled btn-sm">未上传</button>
-            </td>
-            <td>
-              <button nz-button [nzType]="'primary'" *ngIf="each?.status" (click)="onCheckFile(each?.status)">
-                {{each?.fileName}}</button>
-            </td>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  <div class="col-7 animated fadeIn">
-    <div class="row">
-      <div class="col-11 mx-auto mt-4 animated fadeInRight">
-        <mdb-card cascade="true" narrower="true" class="z-depth-2">
-          <!--Card image-->
-          <div
-            class="view view-cascade gradient-card-header blue-gradient narrower z-depth-2 rounded-lg  py-2 m-3 mt-n3 text-center">
-            <div class="m-3">
-              <h4 class="white-text">请在下面上传您的文件！</h4>
-
+    <div class="col-5 my-auto animated fadeIn">
+        <div class="row m-3 ">
+            <div class="col-8 px-0 mb-3 mx-auto">
+                <select class="browser-default custom-select" [(ngModel)]="termSelected"
+                        (ngModelChange)="onTermSelected()">
+                    <option *ngFor="let each of termList">{{each}}</option>
+                </select>
             </div>
-          </div>
-          <!--/Card image-->
-          <!-- 这里放上传文件表单 -->
-          <div class="row m-3 ">
-            <div class="col-5 m-3" *ngFor="let fi of fileInputName">
-              <ng2-file-input [drop-text]="fi?.typeName" (onAdded)="fileChange(fi?.typeName,$event)"></ng2-file-input>
+        </div>
+        <div class="row m-3">
+            <div class="col-8 px-0 mx-auto mb-3">
+                <angular2-multiselect [data]="courseList" [settings]="courseSelectSettings" [(ngModel)]="courseSelected"
+                                      (onSelect)="courseSelect($event)">
+                </angular2-multiselect>
             </div>
-          </div>
-        </mdb-card>
-      </div>
+        </div>
+        <div class="row m-3">
+            <div class="card-body col-8 px-0 mx-auto mb-3">
+                <table mdbTable bordered="true" small="true" class="text-center">
+                    <thead class="green white-text">
+                    <tr>
+                        <th>文件类型</th>
+                        <th>状态</th>
+                        <th>文件</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let each of fileStatusArray;let no=index">
+                        <td>{{each?.typeName}}</td>
+                        <td>
+                            <button type="button" *ngIf="each?.status" class="btn btn-outline-success disabled btn-sm">
+                                已上传
+                            </button>
+                            <button type="button" *ngIf="!each?.status" class="btn btn-outline-danger disabled btn-sm">
+                                未上传
+                            </button>
+                        </td>
+                        <td>
+                            <button nz-button [nzType]="'primary'" *ngIf="each?.status"
+                                    (click)="onCheckFile(each?.status)">
+                                {{each?.fileName}}</button>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <div class="row">
+    <div class="col-7 animated fadeIn">
+        <div class="row">
+            <div class="col-11 mx-auto mt-4 animated fadeInRight">
+                <mdb-card cascade="true" narrower="true" class="z-depth-2">
+                    <!--Card image-->
+                    <div
+                            class="view view-cascade gradient-card-header blue-gradient narrower z-depth-2 rounded-lg  py-2 m-3 mt-n3 text-center">
+                        <div class="m-3">
+                            <h4 class="white-text">请在下面上传您的文件！</h4>
 
+                        </div>
+                    </div>
+                    <!--/Card image-->
+                    <!-- 这里放上传文件表单 -->
+                    <div class="row m-3 ">
+                        <div class="col-5 m-3" *ngFor="let fi of fileInputName">
+                            <ng2-file-input [drop-text]="fi?.typeName"
+                                            (onAdded)="fileChange(fi?.typeName,$event)"></ng2-file-input>
+                        </div>
+                    </div>
+                </mdb-card>
+            </div>
+        </div>
+        <div class="row">
+
+        </div>
     </div>
-  </div>
 </div>
 <div class="row">
-  <div class="col-4 mx-auto mt-4">
-    <div *ngIf="nzProgressVisible">
-      <nz-progress [nzPercent]="nzProgress" nzStatus="active"></nz-progress>
-    </div>
-    <button mdbBtn type="button" color="success" block="true" outline="true" (click)="showConfirm()"
-            class="rounded-pill" mdbWavesEffect>提交
-    </button>
+    <div class="col-4 mx-auto mt-4">
+        <div *ngIf="nzProgressVisible">
+            <nz-progress [nzPercent]="nzProgress" nzStatus="active"></nz-progress>
+        </div>
+        <button mdbBtn type="button" color="success" block="true" outline="true" (click)="showConfirm()"
+                class="rounded-pill" mdbWavesEffect>提交
+        </button>
 
-  </div>
+    </div>
 </div>

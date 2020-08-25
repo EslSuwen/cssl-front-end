@@ -1,213 +1,223 @@
 <div class="row mt-2">
-  <div class="col px-0 mt-4">
-    <mdb-card cascade="true" narrower="true">
-      <!--Card image-->
-      <div
-        class="view view-cascade gradient-card-header blue-gradient narrower z-depth-2 rounded-lg  py-2 m-3 mt-n3 d-flex justify-content-between align-items-center">
+    <div class="col px-0 mt-4">
+        <mdb-card cascade="true" narrower="true">
+            <!--Card image-->
+            <div
+                    class="view view-cascade gradient-card-header blue-gradient narrower z-depth-2 rounded-lg  py-2 m-3 mt-n3 d-flex justify-content-between align-items-center">
 
-        <div>
-          <button mdbBtn color="white" outline="true" rounded="true" size="sm" type="button" class="px-2"
-                  mdbWavesEffect>
-            <i class="far fa-grin-hearts fa-2x "></i>
-          </button>
-          <button mdbBtn color="white" outline="true" rounded="true" size="sm" type="button" class="px-2"
-                  mdbWavesEffect>
-            <i class="far fa-grin-beam fa-2x"></i>
-            <!-- <i class="fab fa-angellist"></i> -->
-          </button>
-        </div>
-
-        <a class="white-text mx-3">申请情况一览</a>
-
-        <div>
-          <button type="button" mdbBtn color="white" outline="true" rounded="true" size="sm" class="px-2"
-                  mdbWavesEffect>
-            <i class="far fa-grin-tongue-wink fa-2x"></i>
-          </button>
-          <button type="button" mdbBtn color="white" outline="true" rounded="true" size="sm" class="px-2"
-                  mdbWavesEffect>
-            <i class="far fa-kiss-wink-heart fa-2x"></i>
-          </button>
-
-        </div>
-
-      </div>
-      <!--/Card image-->
-      <table class="table table-striped table-responsive-md btn-table">
-        <thead>
-        <tr>
-          <th>项目编号</th>
-          <th>实验课程名称</th>
-          <th>实验室申请状态</th>
-          <th>可执行操作</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let each of exps;let i = index">
-          <div mdbModal [config]="{ignoreBackdropClick: true}" #frame="mdbModal" class="modal fade right"
-               id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-notify modal-info" role="document">
-              <!--Content-->
-              <div class="modal-content ">
-                <!--Header-->
-                <div class="modal-header d-flex justify-content-center text-center">
-                  <mdb-icon fas icon="bell" size="2x" class="animated rotateIn mr-1 deep-purple-text"></mdb-icon>
-                  <p class="heading">请填写申请信息！</p>
+                <div>
+                    <button mdbBtn color="white" outline="true" rounded="true" size="sm" type="button" class="px-2"
+                            mdbWavesEffect>
+                        <i class="far fa-grin-hearts fa-2x "></i>
+                    </button>
+                    <button mdbBtn color="white" outline="true" rounded="true" size="sm" type="button" class="px-2"
+                            mdbWavesEffect>
+                        <i class="far fa-grin-beam fa-2x"></i>
+                        <!-- <i class="fab fa-angellist"></i> -->
+                    </button>
                 </div>
 
-                <!--Body-->
-                <div class="modal-body">
-                  <div class="row">
-                    <!-- 校区 -->
-                    <div class="col px-0 mr-3">
-                      <angular2-multiselect [data]="regionList" [(ngModel)]="regionSelectedItems"
-                                            [settings]="regionSettings">
-                        <c-item>
-                          <ng-template let-item="item">
-                            <label style="min-width: 60%;">{{item.itemName}}</label>
-                          </ng-template>
-                        </c-item>
-                      </angular2-multiselect>
-                    </div>
+                <a class="white-text mx-3">申请情况一览</a>
 
-                    <!-- 实验室类型 -->
-                    <div class="col  px-0">
-                      <angular2-multiselect [data]="labTypeList" [(ngModel)]="labTypeSelectedItems"
-                                            [settings]="labTypeSettings">
-                        <c-item>
-                          <ng-template let-item="item">
-                            <label style="min-width: 60%;">{{item.itemName}}</label>
-                          </ng-template>
-                        </c-item>
-                      </angular2-multiselect>
-                    </div>
-                  </div>
+                <div>
+                    <button type="button" mdbBtn color="white" outline="true" rounded="true" size="sm" class="px-2"
+                            mdbWavesEffect>
+                        <i class="far fa-grin-tongue-wink fa-2x"></i>
+                    </button>
+                    <button type="button" mdbBtn color="white" outline="true" rounded="true" size="sm" class="px-2"
+                            mdbWavesEffect>
+                        <i class="far fa-kiss-wink-heart fa-2x"></i>
+                    </button>
 
-                  <div class="row">
-                    <!-- 实验室名 -->
-                    <div class="col px-0 mr-3 mt-3">
-                      <angular2-multiselect [data]=" labNameList" [(ngModel)]="labNameSelectedItems"
-                                            [settings]="labNameSettings">
-                        <c-item>
-                          <ng-template let-item="item">
-                            <label style="min-width: 60%;">{{item.itemName}}</label>
-                          </ng-template>
-                        </c-item>
-                      </angular2-multiselect>
-                    </div>
-
-                    <!-- 星期 -->
-                    <div class="col px-0 mt-3">
-                      <angular2-multiselect [data]="dayList" [(ngModel)]="daySelectedItems" [settings]="daySettings">
-                        <c-item>
-                          <ng-template let-item="item">
-                            <label style="min-width: 60%;">{{item.itemName}}</label>
-                          </ng-template>
-                        </c-item>
-                      </angular2-multiselect>
-                    </div>
-                  </div>
-
-                  <div class="row my-4">
-                    <!-- 节次 -->
-                    <div class="col px-0 mr-3">
-                      <angular2-multiselect [data]="timeList" [(ngModel)]="timeSelectedItems"
-                                            [settings]="timeSettings">
-                        <c-item>
-                          <ng-template let-item="item">
-                            <label style="min-width: 60%;">{{item.itemName}}</label>
-                          </ng-template>
-                        </c-item>
-                      </angular2-multiselect>
-                    </div>
-                    <!-- 星期 -->
-                    <div class="col px-0">
-                      <angular2-multiselect [data]="weekList" [(ngModel)]="weekSelectedItems"
-                                            [settings]="weekSettings">
-                        <c-item>
-                          <ng-template let-item="item">
-                            <label style="min-width: 60%;">{{item.itemName}}</label>
-                          </ng-template>
-                        </c-item>
-                      </angular2-multiselect>
-
-                    </div>
-
-
-                  </div>
-
-                  <div class="row">
-                    <!-- 年级 -->
-                    <div class="col px-0 mr-3">
-                      <angular2-multiselect [data]="gradeList" [(ngModel)]="gradeSelectedItems"
-                                            [settings]="gradeSettings">
-                        <c-item class="red">
-                          <ng-template let-item="item">
-                            <label style="min-width: 60%;">{{item.itemName}}</label>
-                          </ng-template>
-                        </c-item>
-                      </angular2-multiselect>
-                    </div>
-                    <!-- 班级 -->
-                    <div class="col px-0 ">
-                      <angular2-multiselect [data]="classList" [(ngModel)]="classSelectedItems"
-                                            [settings]="classSettings">
-
-                      </angular2-multiselect>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col z-depth-1 my-4">
-                      <div class="md-form">
-                        <mdb-icon fas icon="pencil-alt" class="prefix "></mdb-icon>
-                        <textarea type="text" id="form8" class="md-textarea form-control hight1" mdbInput
-                                  [formControl]="beizhu"></textarea>
-                        <label for="form8">备注.....</label>
-                      </div>
-                    </div>
-                  </div>
                 </div>
 
-                <!--Footer-->
-                <div class="modal-footer justify-content-center">
-                  <a type="button" mdbBtn color="primary" class="waves-light" (click)="submit(i)">提交</a>
-                  <a type="button" mdbBtn color="primary" outline="true" class="waves-light" data-dismiss="modal"
-                     (click)="frame.hide()">返回</a>
-                </div>
-              </div>
-              <!--/.Content-->
             </div>
-          </div>
-          <td>{{each.proId}}</td>
-          <td>{{each.expCname}}</td>
-          <!-- <td>
-            <button type="button" class="btn btn-outline-success disabled btn-sm m-0 waves-effect"></button> //这个样式后面要用
-          </td> -->
-          <td [ngSwitch]="each.labStatus">
-            <button type="button" class="btn btn-outline-success disabled btn-sm m-0 waves-effect"
-                    *ngSwitchCase="'PASS'">已通过
-            </button>
-            <button type="button" class="btn btn-outline-warning disabled btn-sm m-0 waves-effect"
-                    *ngSwitchCase="'AUDITING'">审核中
-            </button>
-            <button type="button" class="btn btn-outline-dark disabled btn-sm m-0 waves-effect"
-                    *ngSwitchCase="'UNCHECK'">未申请
-            </button>
-            <button type="button" class="btn btn-outline-dark disabled btn-sm m-0 waves-effect" *ngSwitchDefault>已拒绝
-            </button>
-          </td>
-          <td>
-            <button type="button" class="btn btn-indigo btn-sm m-0 " data-toggle="modal" data-target="#basicExample"
-                    (click)="frame.show()" [disabled]="each.labStatus=='UNCHECK'">
-              申请实验室
-              <i class="fas fa-arrow-right ml-2"></i>
-            </button>
-          </td>
-          <!--/.Content-->
-        </tr>
-        </tbody>
-      </table>
-    </mdb-card>
-  </div>
+            <!--/Card image-->
+            <table class="table table-striped table-responsive-md btn-table">
+                <thead>
+                <tr>
+                    <th>项目编号</th>
+                    <th>实验课程名称</th>
+                    <th>实验室申请状态</th>
+                    <th>可执行操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let each of exps;let i = index">
+                    <div mdbModal [config]="{ignoreBackdropClick: true}" #frame="mdbModal" class="modal fade right"
+                         id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-notify modal-info" role="document">
+                            <!--Content-->
+                            <div class="modal-content ">
+                                <!--Header-->
+                                <div class="modal-header d-flex justify-content-center text-center">
+                                    <mdb-icon fas icon="bell" size="2x"
+                                              class="animated rotateIn mr-1 deep-purple-text"></mdb-icon>
+                                    <p class="heading">请填写申请信息！</p>
+                                </div>
+
+                                <!--Body-->
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <!-- 校区 -->
+                                        <div class="col px-0 mr-3">
+                                            <angular2-multiselect [data]="regionList" [(ngModel)]="regionSelectedItems"
+                                                                  [settings]="regionSettings">
+                                                <c-item>
+                                                    <ng-template let-item="item">
+                                                        <label style="min-width: 60%;">{{item.itemName}}</label>
+                                                    </ng-template>
+                                                </c-item>
+                                            </angular2-multiselect>
+                                        </div>
+
+                                        <!-- 实验室类型 -->
+                                        <div class="col  px-0">
+                                            <angular2-multiselect [data]="labTypeList"
+                                                                  [(ngModel)]="labTypeSelectedItems"
+                                                                  [settings]="labTypeSettings">
+                                                <c-item>
+                                                    <ng-template let-item="item">
+                                                        <label style="min-width: 60%;">{{item.itemName}}</label>
+                                                    </ng-template>
+                                                </c-item>
+                                            </angular2-multiselect>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <!-- 实验室名 -->
+                                        <div class="col px-0 mr-3 mt-3">
+                                            <angular2-multiselect [data]=" labNameList"
+                                                                  [(ngModel)]="labNameSelectedItems"
+                                                                  [settings]="labNameSettings">
+                                                <c-item>
+                                                    <ng-template let-item="item">
+                                                        <label style="min-width: 60%;">{{item.itemName}}</label>
+                                                    </ng-template>
+                                                </c-item>
+                                            </angular2-multiselect>
+                                        </div>
+
+                                        <!-- 星期 -->
+                                        <div class="col px-0 mt-3">
+                                            <angular2-multiselect [data]="dayList" [(ngModel)]="daySelectedItems"
+                                                                  [settings]="daySettings">
+                                                <c-item>
+                                                    <ng-template let-item="item">
+                                                        <label style="min-width: 60%;">{{item.itemName}}</label>
+                                                    </ng-template>
+                                                </c-item>
+                                            </angular2-multiselect>
+                                        </div>
+                                    </div>
+
+                                    <div class="row my-4">
+                                        <!-- 节次 -->
+                                        <div class="col px-0 mr-3">
+                                            <angular2-multiselect [data]="timeList" [(ngModel)]="timeSelectedItems"
+                                                                  [settings]="timeSettings">
+                                                <c-item>
+                                                    <ng-template let-item="item">
+                                                        <label style="min-width: 60%;">{{item.itemName}}</label>
+                                                    </ng-template>
+                                                </c-item>
+                                            </angular2-multiselect>
+                                        </div>
+                                        <!-- 星期 -->
+                                        <div class="col px-0">
+                                            <angular2-multiselect [data]="weekList" [(ngModel)]="weekSelectedItems"
+                                                                  [settings]="weekSettings">
+                                                <c-item>
+                                                    <ng-template let-item="item">
+                                                        <label style="min-width: 60%;">{{item.itemName}}</label>
+                                                    </ng-template>
+                                                </c-item>
+                                            </angular2-multiselect>
+
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="row">
+                                        <!-- 年级 -->
+                                        <div class="col px-0 mr-3">
+                                            <angular2-multiselect [data]="gradeList" [(ngModel)]="gradeSelectedItems"
+                                                                  [settings]="gradeSettings">
+                                                <c-item class="red">
+                                                    <ng-template let-item="item">
+                                                        <label style="min-width: 60%;">{{item.itemName}}</label>
+                                                    </ng-template>
+                                                </c-item>
+                                            </angular2-multiselect>
+                                        </div>
+                                        <!-- 班级 -->
+                                        <div class="col px-0 ">
+                                            <angular2-multiselect [data]="classList" [(ngModel)]="classSelectedItems"
+                                                                  [settings]="classSettings">
+
+                                            </angular2-multiselect>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col z-depth-1 my-4">
+                                            <div class="md-form">
+                                                <mdb-icon fas icon="pencil-alt" class="prefix "></mdb-icon>
+                                                <textarea type="text" id="form8" class="md-textarea form-control hight1"
+                                                          mdbInput
+                                                          [formControl]="beizhu"></textarea>
+                                                <label for="form8">备注.....</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--Footer-->
+                                <div class="modal-footer justify-content-center">
+                                    <a type="button" mdbBtn color="primary" class="waves-light"
+                                       (click)="submit(i)">提交</a>
+                                    <a type="button" mdbBtn color="primary" outline="true" class="waves-light"
+                                       data-dismiss="modal"
+                                       (click)="frame.hide()">返回</a>
+                                </div>
+                            </div>
+                            <!--/.Content-->
+                        </div>
+                    </div>
+                    <td>{{each.proId}}</td>
+                    <td>{{each.expCname}}</td>
+                    <!-- <td>
+                      <button type="button" class="btn btn-outline-success disabled btn-sm m-0 waves-effect"></button> //这个样式后面要用
+                    </td> -->
+                    <td [ngSwitch]="each.labStatus">
+                        <button type="button" class="btn btn-outline-success disabled btn-sm m-0 waves-effect"
+                                *ngSwitchCase="'PASS'">已通过
+                        </button>
+                        <button type="button" class="btn btn-outline-warning disabled btn-sm m-0 waves-effect"
+                                *ngSwitchCase="'AUDITING'">审核中
+                        </button>
+                        <button type="button" class="btn btn-outline-dark disabled btn-sm m-0 waves-effect"
+                                *ngSwitchCase="'UNCHECK'">未申请
+                        </button>
+                        <button type="button" class="btn btn-outline-dark disabled btn-sm m-0 waves-effect"
+                                *ngSwitchDefault>已拒绝
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-indigo btn-sm m-0 " data-toggle="modal"
+                                data-target="#basicExample"
+                                (click)="frame.show()" [disabled]="each.labStatus=='UNCHECK'">
+                            申请实验室
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </td>
+                    <!--/.Content-->
+                </tr>
+                </tbody>
+            </table>
+        </mdb-card>
+    </div>
 </div>
 
