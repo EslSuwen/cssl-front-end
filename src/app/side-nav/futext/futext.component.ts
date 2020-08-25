@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {NoticeService} from "../../service/notice.service";
+import {Notice} from "../../enity/notice";
+import {AuthenticationService} from "../../service/authentication.service";
 
 @Component({
     selector: 'app-futext',
@@ -7,17 +10,19 @@ import {Component, OnInit} from '@angular/core';
 })
 export class FutextComponent implements OnInit {
     public editor;
-    public editorContent = ``;
+    public editorContent = '';
     public placeholder = '这里进行编辑';
+    noticeHead: string;
 
-    constructor() {
+    constructor(private noticeService: NoticeService, private authService: AuthenticationService) {
     }
 
     ngOnInit() {
     }
 
-    // 这里是提交数据
-    onsubmit() {
-        console.log(this.editorContent);
+    // 提交数据
+    onSubmit() {
+        console.log(new Notice(this.authService.getUserNo(), this.noticeHead, this.editorContent));
+        this.noticeService.addNotice(new Notice(this.authService.getUserNo(), this.noticeHead, this.editorContent)).subscribe();
     }
 }

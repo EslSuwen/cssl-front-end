@@ -1,8 +1,56 @@
-<div class="row">
-    <div class="col-6">
-        <div [innerHTML]='content'></div>
+<div *ngIf="noticeInfoVisible" class="fadeInUp fadeOutDown mt-5" style="z-index:9999;position: fixed;">
+    <nz-card style="width:1200px;height: 800px" nzTitle="{{noticeInfo?.noticeHead}}" [nzExtra]="extraTemplate">
+        <p>{{noticeInfo?.noticeHead}}</p>
+        <nz-divider nzText="正文"></nz-divider>
+        <div [innerHTML]='noticeInfo?.noticeContent'></div>
+    </nz-card>
+    <ng-template #extraTemplate>
+        <a (click)="noticeInfoVisible=false">关闭</a>
+    </ng-template>
+</div>
+<div class="row mt-5 mb-5">
+    <div class="col-5 mr-3">
+        <div class="row">
+            <div class="col px-0">
+                <div class="card">
+                    <div class="card-body">
+                        <nz-table
+                            #TeachTable
+                            nzShowSizeChanger
+                            [nzFrontPagination]="false"
+                            [nzData]="dataSet"
+                            [nzLoading]="loading"
+                            [nzTotal]="total"
+                            [(nzPageIndex)]="pageIndex"
+                            [(nzPageSize)]="pageSize"
+                            (nzPageIndexChange)="updateData()"
+                            (nzPageSizeChange)="updateData(true)">
+                            <thead (nzSortChange)="sort($event)" nzSingleSort>
+                            <tr>
+                                <th>序号</th>
+                                <th>标题</th>
+                                <th nzShowFilter [nzFilters]="filterTname"
+                                    (nzFilterChange)="updateTnameFilter($event)">
+                                    发布人
+                                </th>
+                                <th nzShowSort nzSortKey="type">时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let each of TeachTable.data;let no=index" (click)="showNoticeInfo(each.nid)">
+                                <th scope="row">{{no + 1}}</th>
+                                <td>{{each.noticeHead}}</td>
+                                <td>{{each.tname}}</td>
+                                <td>{{each.noticeDate}}</td>
+                            </tr>
+                            </tbody>
+                        </nz-table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-6">
+    <div class="col-5">
         上传文件测试
     </div>
 </div>

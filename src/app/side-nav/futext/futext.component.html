@@ -1,3 +1,8 @@
+<div class="row mt-5">
+    <label>
+        <input nz-input placeholder="Basic usage" [(ngModel)]="noticeHead"/>
+    </label>
+</div>
 <div class="row ">
     <div class="col mt-5">
         <quill-editor [(ngModel)]="editorContent" [placeholder]="placeholder" class="myh">
@@ -6,7 +11,7 @@
 </div>
 <div class="row">
     <div class="col-2 mx-auto mt-4">
-        <button mdbBtn type="button" color="success" block="true" outline="true" (click)="onsubmit()"
+        <button mdbBtn type="button" color="success" block="true" outline="true" (click)="onSubmit()"
                 class="rounded-pill " size="sm" mdbWavesEffect>提交
         </button>
 

@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-1 mt-2">
+    <div class="col-1 mt-5">
         <input type="checkbox" [(ngModel)]="switch2" id="flag1">
         <label class="slider-v3 blue lighten-4" for="flag1"></label>
     </div>
@@ -10,7 +10,7 @@
         <nz-tag>点击左边开关切换到填写实验卡片</nz-tag>
     </label>
 </div>
-<div class="row mt-2 animated fadeIn" *ngIf="switch2">
+<div class="row mt-5 animated fadeIn" *ngIf="switch2">
     <div class="col px-0">
         <div class="card">
             <h3 class="card-header text-center font-weight-bold">{{nowTerm}} 实验项目卡片
@@ -184,7 +184,7 @@
         </div>
     </div>
 </div>
-<div class="row mt-2 " *ngIf="!switch2">
+<div class="row mt-5 " *ngIf="!switch2">
     <div class="col px-0">
         <div class="card">
             <h3 class="card-header text-center font-weight-bold">实验项目卡片

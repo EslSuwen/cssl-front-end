@@ -17,8 +17,6 @@ export class TeachTableComponent implements OnInit {
     loading = true;
     sortValue = null;
     sortKey = null;
-    rooms = [];
-    unused = 2;
 
     searchList = '';
     filterMajor = [
@@ -51,7 +49,7 @@ export class TeachTableComponent implements OnInit {
 
     teachPlans: TeachPlan[];
 
-    constructor(private teachPlanService: TeachPlanService, private router: Router) {
+    constructor(private teachPlanService: TeachPlanService) {
     }
 
     ngOnInit() {

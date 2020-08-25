@@ -17,7 +17,7 @@ import {TeacherMsg} from "../../enity/teacher";
 })
 export class CardInfoComponent implements OnInit {
     pageIndex = 1;
-    pageSize = 5;
+    pageSize = 10;
     total = 1;
     dataSet = [];
     loading = true;
