@@ -17,4 +17,30 @@
 
     </div>
 </div>
+<div class="row">
+    <div class="col-7 animated fadeIn">
+        <div class="row">
+            <div class="col-11 mx-auto mt-4 animated fadeInRight">
+                <mdb-card cascade="true" narrower="true" class="z-depth-2">
+                    <!--Card image-->
+                    <div
+                            class="view view-cascade gradient-card-header blue-gradient narrower z-depth-2 rounded-lg  py-2 m-3 mt-n3 text-center">
+                        <div class="m-3">
+                            <h4 class="white-text">请在下面上传您的文件！</h4>
 
+                        </div>
+                    </div>
+                    <!--/Card image-->
+                    <!-- 这里放上传文件表单 -->
+                    <div class="row m-3 ">
+                            <ng2-file-input [drop-text]="'请选择文件：'"
+                                            (onAdded)="fileChange($event)"></ng2-file-input>
+                    </div>
+                </mdb-card>
+            </div>
+        </div>
+        <div class="row">
+
+        </div>
+    </div>
+</div>

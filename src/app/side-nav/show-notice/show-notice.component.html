@@ -50,7 +50,45 @@
             </div>
         </div>
     </div>
-    <div class="col-5">
-        上传文件测试
+    <div class="col-5 mr-3">
+        <div class="row">
+            <div class="col px-0">
+                <div class="card">
+                    <div class="card-body">
+                        <nz-table
+                            #TeachTable
+                            nzShowSizeChanger
+                            [nzFrontPagination]="false"
+                            [nzData]="dataSet"
+                            [nzLoading]="loading"
+                            [nzTotal]="total"
+                            [(nzPageIndex)]="pageIndex"
+                            [(nzPageSize)]="pageSize"
+                            (nzPageIndexChange)="updateData()"
+                            (nzPageSizeChange)="updateData(true)">
+                            <thead (nzSortChange)="sort($event)" nzSingleSort>
+                            <tr>
+                                <th>序号</th>
+                                <th>标题</th>
+                                <th nzShowFilter [nzFilters]="filterTname"
+                                    (nzFilterChange)="updateTnameFilter($event)">
+                                    发布人
+                                </th>
+                                <th nzShowSort nzSortKey="type">时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let each of TeachTable.data;let no=index" (click)="showNoticeInfo(each.nid)">
+                                <th scope="row">{{no + 1}}</th>
+                                <td>{{each.noticeHead}}</td>
+                                <td>{{each.tname}}</td>
+                                <td>{{each.noticeDate}}</td>
+                            </tr>
+                            </tbody>
+                        </nz-table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
