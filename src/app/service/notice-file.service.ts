@@ -6,7 +6,6 @@ import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {result} from "../enity/result";
 import {catchError, tap} from "rxjs/operators";
-import {Notice} from "../enity/notice";
 
 @Injectable({
     providedIn: 'root'
@@ -17,6 +16,10 @@ export class NoticeFileService extends HandleError {
 
     constructor(private http: HttpClient, message: NzMessageService) {
         super(message);
+    }
+
+    getFileUri(fileId: string): string {
+        return `${this.NOTICE_API}/getFile/${fileId}`;
     }
 
     /**

@@ -21,7 +21,10 @@ export class NoticeFile {
     fileDate: string;
 
     /** 通知文件 */
-    file: any;
+    filePath: any;
+
+    /** 文件发布人名 */
+    tname: string;
 
     constructor(fileName?: string, tid?: string, fileDate?: string) {
         this.fileName = fileName ? fileName : '';
