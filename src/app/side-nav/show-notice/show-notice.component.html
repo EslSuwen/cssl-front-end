@@ -39,7 +39,8 @@
                             <tbody>
                             <tr *ngFor="let each of NoticeTable.data;let no=index" (click)="showNoticeInfo(each.nid)">
                                 <th scope="row">{{no + 1}}</th>
-                                <td>{{each.noticeHead}}</td>
+                                <td><span nz-tooltip
+                                          nzTooltipTitle="查看">{{each.noticeHead}}</span></td>
                                 <td>{{each.tname}}</td>
                                 <td>{{each.noticeDate}}</td>
                             </tr>
@@ -75,17 +76,19 @@
                                     发布人
                                 </th>
                                 <th nzShowSort nzSortKey="fileDate">时间</th>
-                                <th>操作</th>
+                                <th>下载</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr *ngFor="let each of NoticeFileTable.data;let no=index">
                                 <th scope="row">{{no + 1}}</th>
-                                <td>{{each.fileName}}</td>
+                                <td (click)="filePreview(each.fileId,each.fileName)">
+                                    <span nz-tooltip
+                                          nzTooltipTitle="预览">{{each.fileName}}</span>
+                                </td>
                                 <td>{{each.tname}}</td>
                                 <td>{{each.fileDate}}</td>
                                 <td>
-                                    <button nz-button nzType="primary" (click)="fileDownLoad(each.fileId)">预览</button>
                                     <button nz-button nzType="primary" (click)="fileDownLoad(each.fileId)">下载</button>
                                 </td>
                             </tr>

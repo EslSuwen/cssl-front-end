@@ -3,6 +3,7 @@ import {Notice} from "../../enity/notice";
 import {NoticeService} from "../../service/notice.service";
 import {NoticeFileService} from "../../service/notice-file.service";
 import {NoticeFile} from "../../enity/notice-file";
+import {environment} from "../../../environments/environment";
 
 @Component({
     selector: "app-show-notice",
@@ -128,7 +129,13 @@ export class ShowNoticeComponent implements OnInit {
         });
     }
 
-    fileDownLoad(fileId: string) {
+    filePreview(fileId: number, fileName: string) {
+        let fileUrl = this.noticeFileService.getFileUri(fileId);
+        let previewUrl = `${fileUrl}?fullfilename=${fileName}`
+        window.open(`${environment.filePreviewUrl}/onlinePreview?url=` + encodeURIComponent(previewUrl));
+    }
+
+    fileDownLoad(fileId: number) {
         window.location.href = this.noticeFileService.getFileUri(fileId);
     }
 }

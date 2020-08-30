@@ -18,7 +18,7 @@ export class NoticeFileService extends HandleError {
         super(message);
     }
 
-    getFileUri(fileId: string): string {
+    getFileUri(fileId: number): string {
         return `${this.NOTICE_API}/getFile/${fileId}`;
     }
 
