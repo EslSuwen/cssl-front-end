@@ -18,6 +18,11 @@ export class ExpFileService extends HandleError {
 
     private FILE_API = `${environment.apiUrl}/expFile`;
 
+
+    getFileUri(fileNo: number, term: string): string {
+        return `${this.FILE_API}/getFile?fileNo=${fileNo}&term=${term}`;
+    }
+
     /**
      * 增加项目实验文件
      *
@@ -42,11 +47,8 @@ export class ExpFileService extends HandleError {
      * @date 2020/7/8 上午10:12
      */
     getFileStatus(proId: string | number): Observable<result> {
-        if (typeof proId == "number") {
-            proId = proId.toString();
-        }
-        const url = `${this.FILE_API}/getFileStatus`;
-        return this.http.get<result>(url, {params: {proId}}).pipe(
+        const url = `${this.FILE_API}/getFileStatus/${proId}`;
+        return this.http.get<result>(url).pipe(
             catchError(this.handleError<result>(`获得文件状态信息失败， proId：${proId}`))
         );
     }

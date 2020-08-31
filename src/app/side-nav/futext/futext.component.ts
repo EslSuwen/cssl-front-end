@@ -18,6 +18,7 @@ export class FutextComponent implements OnInit {
     public placeholder = '这里进行编辑';
     noticeHead = '';
     fileForm = new FormData();
+    uploadLoading = false;
 
     constructor(private noticeService: NoticeService,
                 private noticeFileService: NoticeFileService,
@@ -52,6 +53,7 @@ export class FutextComponent implements OnInit {
     }
 
     fileUpload() {
-        this.noticeFileService.add(this.fileForm).subscribe();
+        this.uploadLoading = true;
+        this.noticeFileService.add(this.fileForm).subscribe(() => this.uploadLoading = false);
     }
 }

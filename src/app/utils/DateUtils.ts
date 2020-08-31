@@ -14,11 +14,11 @@ export class DateUtils {
         if (Dates.getMonth() > 9) {
             year2 = year1 + 1;
             term = 1;
-            return year2 + '/' + year1 + '(' + term + ')';
+            return year2 + '-' + year1 + '(' + term + ')';
         } else {
             year2 = year1 - 1;
             term = 2;
-            return year2 + '/' + year1 + '(' + term + ')';
+            return year2 + '-' + year1 + '(' + term + ')';
         }
     };
 

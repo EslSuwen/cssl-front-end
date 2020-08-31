@@ -2,7 +2,6 @@ import {TeachPlanService} from "../../service/teach-plan.service";
 import {TeachPlan} from "../../enity/teachPlan";
 import {environment} from "../../../environments/environment";
 import {Component, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-teach-table',
@@ -30,10 +29,10 @@ export class TeachTableComponent implements OnInit {
         {text: '计算机三班', value: '2'},
     ];
     filterTerm = [
-        {text: '2019/2020(2)', value: '2019/2020(2)'},
-        {text: '2019/2020(1)', value: '2019/2020(1)'},
-        {text: '2018/2019(2)', value: '2018/2019(2)'},
-        {text: '2018/2019(1)', value: '2018/2019(1)'},
+        {text: '2019-2020(2)', value: '2019-2020(2)'},
+        {text: '2019-2020(1)', value: '2019-2020(1)'},
+        {text: '2018-2019(2)', value: '2018-2019(2)'},
+        {text: '2018-2019(1)', value: '2018-2019(1)'},
     ];
     filterTermSelected = [];
     filterCourseType = [

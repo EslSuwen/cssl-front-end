@@ -38,7 +38,7 @@ export class CardComponent implements OnInit {
     editExpCache = {};
 
     // 学期列表
-    termList = ['请选择学期', '2019/2020(2)', '2019/2020(1)', '2018/2019(2)', '2018/2019(1)']
+    termList = ['请选择学期', '2019-2020(2)', '2019-2020(1)', '2018-2019(2)', '2018-2019(1)']
     termSelected = '请选择学期';
 
     constructor(private fb: FormBuilder,

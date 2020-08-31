@@ -23,7 +23,7 @@ export class UploadComponent implements OnInit {
     nzProgress: number = 0;
 
     // 学期列表
-    termList = ['请选择学期', '2019/2020(2)', '2019/2020(1)', '2018/2019(2)', '2018/2019(1)']
+    termList = ['请选择学期', '2019-2020(2)', '2019-2020(1)', '2018-2019(2)', '2018-2019(1)']
     termSelected = DateUtils.nowTerm();
 
     courseList = [];
@@ -77,24 +77,10 @@ export class UploadComponent implements OnInit {
             return this.nzMessage.error('请先选择文件！');
 
         this.nzProgressVisible = true;
-        this.formData.forEach(each => this.expFileService.addExpFile(each).subscribe(result => {
-            if (result.success) {
-                this.nzProgress += 20;
-            } else {
-                this.nzMessage.error('上传文件错误！');
-                return;
-            }
-        }));
-        this.delay(5000).then(r => this.nzProgress = 100);
-        this.delay(6000).then(r => {
-            this.courseSelect({id: this.courseProId});
-            this.nzProgressVisible = false;
-            this.nzProgress = 0;
-            this.nzMessage.success("上传文件成功");
-            this.formData = new Array<FormData>();
-        });
-
+        // TODO 异步变同步解决互斥
+        this.fileUpload();
     }
+
 
     showConfirm(): void {
         this.nzModal.confirm({
@@ -145,9 +131,10 @@ export class UploadComponent implements OnInit {
         })
     }
 
-    onCheckFile(fileNo: number) {
-        window.location.href = `${environment.apiUrl}/expFile/getFile?no=${fileNo}`;
-        this.nzMessage.info(`file download ${fileNo}`);
+    filePreview(fileId: number, fileName: string) {
+        let fileUrl = this.expFileService.getFileUri(fileId, this.termSelected);
+        let previewUrl = `${fileUrl}&fullfilename=${fileName}`
+        window.open(`${environment.filePreviewUrl}/onlinePreview?url=` + encodeURIComponent(previewUrl));
     }
 
     fileChange(typeName: string, e: any) {
@@ -170,8 +157,26 @@ export class UploadComponent implements OnInit {
         console.log(this.formData.length);
     }
 
-    delay(ms: number) {
-        return new Promise(resolve => setTimeout(resolve, ms));
+    fileUpload() {
+        let tempData = this.formData.pop();
+        if (tempData != undefined) {
+            this.expFileService.addExpFile(tempData).subscribe(result => {
+                if (result.success) {
+                    this.nzProgress += 20;
+                    this.fileUpload();
+                } else {
+                    this.nzMessage.error('上传文件错误！');
+                    return;
+                }
+            })
+        } else {
+            this.courseSelect({id: this.courseProId});
+            this.nzProgress = 100;
+            this.nzProgressVisible = false;
+            this.nzProgress = 0;
+            this.nzMessage.success("上传文件成功");
+            this.formData = new Array<FormData>();
+        }
     }
 }
 

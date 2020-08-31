@@ -115,7 +115,7 @@
                         </td>
                         <td>
                             <button nz-button [nzType]="'primary'" *ngIf="each?.status"
-                                    (click)="onCheckFile(each?.status)">
+                                    (click)="filePreview(each?.status,each?.fileName)">
                                 {{each?.fileName}}</button>
                         </td>
                     </tbody>

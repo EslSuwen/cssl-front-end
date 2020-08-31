@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {environment} from "../../../environments/environment";
 import {TeachPlan} from "../../enity/teachPlan";
 import {TeachPlanService} from "../../service/teach-plan.service";
 import {Router} from "@angular/router";
@@ -9,6 +8,7 @@ import {LabService} from "../../service/lab.service";
 import {LabInfo} from "../../enity/labInfo";
 import {TeacherService} from "../../service/teacher.service";
 import {TeacherMsg} from "../../enity/teacher";
+import {environment} from "../../../environments/environment";
 
 @Component({
     selector: 'app-card-info',
@@ -23,8 +23,6 @@ export class CardInfoComponent implements OnInit {
     loading = true;
     sortValue = null;
     sortKey = null;
-    rooms = [];
-    unused = 2;
 
     //nz modal
     isNzModalVisible = false;
@@ -57,10 +55,10 @@ export class CardInfoComponent implements OnInit {
         {text: '计算机三班', value: '2'},
     ];
     filterTerm = [
-        {text: '2019/2020(2)', value: '2019/2020(2)'},
-        {text: '2019/2020(1)', value: '2019/2020(1)'},
-        {text: '2018/2019(2)', value: '2018/2019(2)'},
-        {text: '2018/2019(1)', value: '2018/2019(1)'},
+        {text: '2019-2020(2)', value: '2019-2020(2)'},
+        {text: '2019-2020(1)', value: '2019-2020(1)'},
+        {text: '2018-2019(2)', value: '2018-2019(2)'},
+        {text: '2018-2019(1)', value: '2018-2019(1)'},
     ];
     filterTermSelected = [];
     filterCourseType = [
@@ -71,8 +69,6 @@ export class CardInfoComponent implements OnInit {
     public planPeriod: any = {
         year: '2019-2020(1)',
     };
-
-    TEACH_PLAN_DOWNLOAD_URL = `${environment.apiUrl}/arrange/getTeachingPlanExcel`;
 
     teachPlans: TeachPlan[];
 
@@ -104,8 +100,15 @@ export class CardInfoComponent implements OnInit {
         this.fileInputName.forEach(each => this.fileStatusArray.push(new fileStatus(each.typeName)));
     }
 
-    onCheckFile(fileNo: number) {
-        window.location.href = `${environment.apiUrl}/expFile/getFile?no=${fileNo}`;
+    fileDownload(fileNo: number) {
+        window.location.href = this.expFileService.getFileUri(fileNo, this.tabInfo.term);
+    }
+
+    filePreview(fileId: number, fileName: string) {
+        let fileUrl = this.expFileService.getFileUri(fileId, this.tabInfo.term);
+        // let previewUrl = `${fileUrl}&fullfilename=${fileName}`
+        let previewUrl = `http://localhost:8090/cssl/expFile/getFile?fileId=52&term=2019-2020(2)&fullfilename=${fileName}`
+        window.open(`${environment.filePreviewUrl}/onlinePreview?url=` + encodeURIComponent(previewUrl));
     }
 
     expSelect(proId: number) {
@@ -130,10 +133,6 @@ export class CardInfoComponent implements OnInit {
                 this.labInfo = result.data;
             }
         })
-    }
-
-    download() {
-        window.location.href = this.TEACH_PLAN_DOWNLOAD_URL;
     }
 
     updateData(reset: boolean = false): void {

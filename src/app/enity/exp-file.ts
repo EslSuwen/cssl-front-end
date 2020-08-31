@@ -58,6 +58,6 @@ export class ExpFileStore {
     name: string;
 
     /** 文件 */
-    file: any;
+    filePath: string;
 
 }

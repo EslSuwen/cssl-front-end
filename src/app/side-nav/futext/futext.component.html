@@ -41,16 +41,18 @@
                             <h4 class="white-text">通知文件上传</h4>
                         </div>
                     </div>
-                    <div class="row m-3 ">
-                        <div class="col-3">
-                            <ng2-file-input [drop-text]="'请选择文件：'"
-                                            (onAdded)="fileChange($event)"></ng2-file-input>
+                    <nz-spin [nzSpinning]="uploadLoading">
+                        <div class="row m-3 ">
+                            <div class="col-3">
+                                <ng2-file-input [drop-text]="'请选择文件：'"
+                                                (onAdded)="fileChange($event)"></ng2-file-input>
+                            </div>
+                            <div style="margin: auto;">
+                                <button mdbBtn type="submit" gradient="blue" mdbWavesEffect (click)="fileUpload()">上传
+                                </button>
+                            </div>
                         </div>
-                        <div style="margin: auto;">
-                            <button mdbBtn type="submit" gradient="blue" mdbWavesEffect (click)="fileUpload()">上传
-                            </button>
-                        </div>
-                    </div>
+                    </nz-spin>
                 </mdb-card>
             </div>
         </div>
