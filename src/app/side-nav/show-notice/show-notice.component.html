@@ -1,8 +1,102 @@
-<div class="row">
-  <div class="col-6">
-    <div [innerHTML]='content'></div>
-  </div>
-  <div class="col-6">
-    上传文件测试
-  </div>
+<div *ngIf="noticeInfoVisible" class="fadeInUp fadeOutDown mt-5" style="z-index:9999;position: fixed;">
+    <nz-card style="width:1200px;height: 800px" nzTitle="{{noticeInfo?.noticeHead}}" [nzExtra]="extraTemplate">
+        <p>{{noticeInfo?.noticeHead}}</p>
+        <nz-divider nzText="正文"></nz-divider>
+        <div [innerHTML]='noticeInfo?.noticeContent'></div>
+    </nz-card>
+    <ng-template #extraTemplate>
+        <a (click)="noticeInfoVisible=false">关闭</a>
+    </ng-template>
+</div>
+<div class="row mt-5 mb-5">
+    <div class="col-5 mr-3">
+        <div class="row">
+            <div class="col px-0">
+                <div class="card">
+                    <div class="card-body">
+                        <nz-table
+                            #NoticeTable
+                            nzShowSizeChanger
+                            [nzFrontPagination]="false"
+                            [nzData]="noticeDataSet"
+                            [nzLoading]="noticeLoading"
+                            [nzTotal]="noticeTotal"
+                            [(nzPageIndex)]="noticePageIndex"
+                            [(nzPageSize)]="noticePageSize"
+                            (nzPageIndexChange)="updateNoticeData()"
+                            (nzPageSizeChange)="updateNoticeData(true)">
+                            <thead (nzSortChange)="noticeSort($event)" nzSingleSort>
+                            <tr>
+                                <th>序号</th>
+                                <th>标题</th>
+                                <th nzShowFilter [nzFilters]="filterTname"
+                                    (nzFilterChange)="updateNoticeFilter($event)">
+                                    发布人
+                                </th>
+                                <th nzShowSort nzSortKey="noticeDate">时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let each of NoticeTable.data;let no=index" (click)="showNoticeInfo(each.nid)">
+                                <th scope="row">{{no + 1}}</th>
+                                <td><span nz-tooltip
+                                          nzTooltipTitle="查看">{{each.noticeHead}}</span></td>
+                                <td>{{each.tname}}</td>
+                                <td>{{each.noticeDate}}</td>
+                            </tr>
+                            </tbody>
+                        </nz-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-5 mr-3">
+        <div class="row">
+            <div class="col px-0">
+                <div class="card">
+                    <div class="card-body">
+                        <nz-table
+                            #NoticeFileTable
+                            nzShowSizeChanger
+                            [nzFrontPagination]="false"
+                            [nzData]="fileDataSet"
+                            [nzLoading]="fileLoading"
+                            [nzTotal]="fileTotal"
+                            [(nzPageIndex)]="filePageIndex"
+                            [(nzPageSize)]="filePageSize"
+                            (nzPageIndexChange)="updateFileData()"
+                            (nzPageSizeChange)="updateFileData(true)">
+                            <thead (nzSortChange)="fileSort($event)" nzSingleSort>
+                            <tr>
+                                <th>序号</th>
+                                <th>文件名</th>
+                                <th nzShowFilter [nzFilters]="filterTname"
+                                    (nzFilterChange)="updateFileFilter($event)">
+                                    发布人
+                                </th>
+                                <th nzShowSort nzSortKey="fileDate">时间</th>
+                                <th>下载</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let each of NoticeFileTable.data;let no=index">
+                                <th scope="row">{{no + 1}}</th>
+                                <td (click)="filePreview(each.fileId,each.fileName)">
+                                    <span nz-tooltip
+                                          nzTooltipTitle="预览">{{each.fileName}}</span>
+                                </td>
+                                <td>{{each.tname}}</td>
+                                <td>{{each.fileDate}}</td>
+                                <td>
+                                    <button nz-button nzType="primary" (click)="fileDownLoad(each.fileId)">下载</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </nz-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

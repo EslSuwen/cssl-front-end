@@ -1,106 +1,106 @@
 <h3>教师实验课表</h3>
 <div class="selected">
-  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="周次" [(ngModel)]="selectedWeek">
-    <nz-option nzLabel="第一周" nzValue="1"></nz-option>
-    <nz-option nzLabel="第二周" nzValue="2"></nz-option>
-    <nz-option nzLabel="第三周" nzValue="3"></nz-option>
-    <nz-option nzLabel="第四周" nzValue="4"></nz-option>
-    <nz-option nzLabel="第五周" nzValue="5"></nz-option>
-    <nz-option nzLabel="第六周" nzValue="6"></nz-option>
-    <nz-option nzLabel="第七周" nzValue="7"></nz-option>
-    <nz-option nzLabel="第八周" nzValue="8"></nz-option>
-    <nz-option nzLabel="第九周" nzValue="9"></nz-option>
-    <nz-option nzLabel="第十周" nzValue="10"></nz-option>
-    <nz-option nzLabel="第十一周" nzValue="11"></nz-option>
-    <nz-option nzLabel="第十二周" nzValue="12"></nz-option>
-    <nz-option nzLabel="第十三周" nzValue="13"></nz-option>
-    <nz-option nzLabel="第十四周" nzValue="14"></nz-option>
-    <nz-option nzLabel="第十五周" nzValue="15"></nz-option>
-    <nz-option nzLabel="第十六周" nzValue="16"></nz-option>
-    <nz-option nzLabel="第十七周" nzValue="17"></nz-option>
-    <nz-option nzLabel="第十八周" nzValue="18"></nz-option>
-    <nz-option nzLabel="第十九周" nzValue="19"></nz-option>
-    <nz-option nzLabel="第二十周" nzValue="20"></nz-option>
-  </nz-select>
-  <button nz-button nzType="primary" (click)=" searchWeek(selectedWeek)">查询</button>
+    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="周次" [(ngModel)]="selectedWeek">
+        <nz-option nzLabel="第一周" nzValue="1"></nz-option>
+        <nz-option nzLabel="第二周" nzValue="2"></nz-option>
+        <nz-option nzLabel="第三周" nzValue="3"></nz-option>
+        <nz-option nzLabel="第四周" nzValue="4"></nz-option>
+        <nz-option nzLabel="第五周" nzValue="5"></nz-option>
+        <nz-option nzLabel="第六周" nzValue="6"></nz-option>
+        <nz-option nzLabel="第七周" nzValue="7"></nz-option>
+        <nz-option nzLabel="第八周" nzValue="8"></nz-option>
+        <nz-option nzLabel="第九周" nzValue="9"></nz-option>
+        <nz-option nzLabel="第十周" nzValue="10"></nz-option>
+        <nz-option nzLabel="第十一周" nzValue="11"></nz-option>
+        <nz-option nzLabel="第十二周" nzValue="12"></nz-option>
+        <nz-option nzLabel="第十三周" nzValue="13"></nz-option>
+        <nz-option nzLabel="第十四周" nzValue="14"></nz-option>
+        <nz-option nzLabel="第十五周" nzValue="15"></nz-option>
+        <nz-option nzLabel="第十六周" nzValue="16"></nz-option>
+        <nz-option nzLabel="第十七周" nzValue="17"></nz-option>
+        <nz-option nzLabel="第十八周" nzValue="18"></nz-option>
+        <nz-option nzLabel="第十九周" nzValue="19"></nz-option>
+        <nz-option nzLabel="第二十周" nzValue="20"></nz-option>
+    </nz-select>
+    <button nz-button nzType="primary" (click)=" searchWeek(selectedWeek)">查询</button>
 </div>
 
 <div class="row mt-2">
-  <table mdbTable class="col-7 mt-3" bordered="true">
-    <thead>
-    <tr>
-      <th scope="col"></th>
-      <th scope="col">星期一</th>
-      <th scope="col">星期二</th>
-      <th scope="col">星期三</th>
-      <th scope="col">星期四</th>
-      <th scope="col">星期五</th>
-    </tr>
-    </thead>
-    <tbody style="text-align: center;">
-    <tr style="height: 80px">
-      <th scope="row">1-2节
-      </th>
-      <td id="table_1_1"></td>
-      <td id="table_2_1"></td>
-      <td id="table_3_1"></td>
-      <td id="table_4_1"></td>
-      <td id="table_5_1"></td>
+    <table mdbTable class="col-7 mt-3" bordered="true">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">星期一</th>
+            <th scope="col">星期二</th>
+            <th scope="col">星期三</th>
+            <th scope="col">星期四</th>
+            <th scope="col">星期五</th>
+        </tr>
+        </thead>
+        <tbody style="text-align: center;">
+        <tr style="height: 80px">
+            <th scope="row">1-2节
+            </th>
+            <td id="table_1_1"></td>
+            <td id="table_2_1"></td>
+            <td id="table_3_1"></td>
+            <td id="table_4_1"></td>
+            <td id="table_5_1"></td>
 
-    </tr>
-    <tr style="height: 80px">
-      <th scope="row">3-4节
-      </th>
-      <td id="table_1_2"></td>
-      <td id="table_2_2"></td>
-      <td id="table_3_2"></td>
-      <td id="table_4_2"></td>
-      <td id="table_5_2"></td>
-    </tr>
-    <tr style="height: 80px">
-      <th scope="row">5-6节
-      </th>
-      <td id="table_1_3"></td>
-      <td id="table_2_3"></td>
-      <td id="table_3_3"></td>
-      <td id="table_4_3"></td>
-      <td id="table_5_3"></td>
-    </tr>
-    <tr style="height: 80px">
-      <th scope="row">7-8节
-      </th>
-      <td id="table_1_4"></td>
-      <td id="table_2_4"></td>
-      <td id="table_3_4"></td>
-      <td id="table_4_4"></td>
-      <td id="table_5_4">
-      </td>
-    </tr>
-    <tr style="height: 80px">
-      <th scope="row">9-10节
-      </th>
-      <td id="table_1_5"></td>
-      <td id="table_2_5"></td>
-      <td id="table_3_5"></td>
-      <td id="table_4_5"></td>
-      <td id="table_5_5">
-      </td>
-    </tr>
-    </tbody>
-  </table>
+        </tr>
+        <tr style="height: 80px">
+            <th scope="row">3-4节
+            </th>
+            <td id="table_1_2"></td>
+            <td id="table_2_2"></td>
+            <td id="table_3_2"></td>
+            <td id="table_4_2"></td>
+            <td id="table_5_2"></td>
+        </tr>
+        <tr style="height: 80px">
+            <th scope="row">5-6节
+            </th>
+            <td id="table_1_3"></td>
+            <td id="table_2_3"></td>
+            <td id="table_3_3"></td>
+            <td id="table_4_3"></td>
+            <td id="table_5_3"></td>
+        </tr>
+        <tr style="height: 80px">
+            <th scope="row">7-8节
+            </th>
+            <td id="table_1_4"></td>
+            <td id="table_2_4"></td>
+            <td id="table_3_4"></td>
+            <td id="table_4_4"></td>
+            <td id="table_5_4">
+            </td>
+        </tr>
+        <tr style="height: 80px">
+            <th scope="row">9-10节
+            </th>
+            <td id="table_1_5"></td>
+            <td id="table_2_5"></td>
+            <td id="table_3_5"></td>
+            <td id="table_4_5"></td>
+            <td id="table_5_5">
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
 
-  <div class="col-4 mx-auto mt-3 animated fadeInRight z-depth-2">
-    <ul class="list-group mt-5">
-      <li class="list-group-item text-center font-weight-bold ">个人信息</li>
-      <li class="list-group-item">姓名:{{teacher.tname}}</li>
-      <li class="list-group-item">工号:{{teacher.tid}}</li>
-      <li class="list-group-item">邮箱:{{teacher.temail}}</li>
-      <li class="list-group-item">QQ:{{teacher.tqq}}</li>
-      <li class="list-group-item">电话:{{teacher.tphone}}</li>
-      <li class="list-group-item" *appHasRole="'ADMIN'">管理员用户</li>
-      <li class="list-group-item">......</li>
-    </ul>
-  </div>
+    <div class="col-4 mx-auto mt-3 animated fadeInRight z-depth-2">
+        <ul class="list-group mt-5">
+            <li class="list-group-item text-center font-weight-bold ">个人信息</li>
+            <li class="list-group-item">姓名:{{teacher.tname}}</li>
+            <li class="list-group-item">工号:{{teacher.tid}}</li>
+            <li class="list-group-item">邮箱:{{teacher.temail}}</li>
+            <li class="list-group-item">QQ:{{teacher.tqq}}</li>
+            <li class="list-group-item">电话:{{teacher.tphone}}</li>
+            <li class="list-group-item" *appHasRole="'ADMIN'">管理员用户</li>
+            <li class="list-group-item">......</li>
+        </ul>
+    </div>
 
 </div>

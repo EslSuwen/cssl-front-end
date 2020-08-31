@@ -8,34 +8,34 @@ import {catchError, tap} from 'rxjs/operators';
 import {result} from "../enity/result";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class TeachPlanService extends HandleError {
 
-  constructor(private http: HttpClient, message: NzMessageService) {
-    super(message);
-  }
+    constructor(private http: HttpClient, message: NzMessageService) {
+        super(message);
+    }
 
-  private ARRANGE_API = `${environment.apiUrl}/arrange`;
+    private ARRANGE_API = `${environment.apiUrl}/arrange`;
 
-  /**
-   * @description 获取教学计划表
-   *
-   * @return 教学计划表
-   * @author suwen
-   * @date 2020/5/27 上午11:01
-   */
-  getTeachingPlan(): Observable<result> {
-    const url = `${this.ARRANGE_API}/getTeachingPlan`;
-    return this.http.get<result>(url).pipe(
-      tap(response => {
-        if (response.success) {
-          this.success(response.message);
-        } else {
-          this.error('获取教学计划表失败');
-        }
-      }),
-      catchError(this.handleError<result>('获取教学计划表失败'))
-    );
-  }
+    /**
+     * @description 获取教学计划表
+     *
+     * @return 教学计划表
+     * @author suwen
+     * @date 2020/5/27 上午11:01
+     */
+    getTeachingPlan(): Observable<result> {
+        const url = `${this.ARRANGE_API}/getTeachingPlan`;
+        return this.http.get<result>(url).pipe(
+            tap(response => {
+                if (response.success) {
+                    this.success(response.message);
+                } else {
+                    this.error('获取教学计划表失败');
+                }
+            }),
+            catchError(this.handleError<result>('获取教学计划表失败'))
+        );
+    }
 }

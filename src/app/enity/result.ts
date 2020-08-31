@@ -3,5 +3,4 @@ export class result {
     message: string;
     success: boolean;
     data: any;
-  }
-  
+}
