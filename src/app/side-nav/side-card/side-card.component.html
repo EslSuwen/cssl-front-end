@@ -1,69 +1,69 @@
 <!-- Card -->
 <mdb-card class="mt-3 z-depth-4">
-  <div class="view rgba-black-strong waves-light " mdbWavesEffect>
-    <div class="row">
-      <!-- Card img -->
-      <mdb-carousel class="carousel slide carousel-fade" [isControls]="false" [animation]="'fade'">
-        <mdb-carousel-item>
-          <div class="view w-100">
-            <img class="d-block w-100" src="assets/img/_DSC0093.jpg"
-                 alt="First slide">
-            <div class="waves-light" mdbWavesEffect></div>
-          </div>
-          <div class="carousel-caption">
-            <p>大数据与人工智能</p>
-          </div>
-        </mdb-carousel-item>
-        <mdb-carousel-item>
-          <div class="view w-100">
-            <img class="d-block w-100" src="assets/img/222.jpg"
-                 alt="Second slide">
-            <div class=" waves-light" mdbWavesEffect></div>
-          </div>
-          <div class="carousel-caption">
-            <p>轨道交通运管与信控</p>
-          </div>
-        </mdb-carousel-item>
-        <mdb-carousel-item>
-          <div class="view w-100">
-            <img class="d-block w-100" src="assets/img/_DSC0057.jpg"
-                 alt="Third slide">
-            <div class=" waves-light" mdbWavesEffect></div>
-          </div>
-          <div class="carousel-caption">
-            <p>物联网工程</p>
-          </div>
-        </mdb-carousel-item>
-      </mdb-carousel>
-    </div>
+    <div class="view rgba-black-strong waves-light " mdbWavesEffect>
+        <div class="row">
+            <!-- Card img -->
+            <mdb-carousel class="carousel slide carousel-fade" [isControls]="false" [animation]="'fade'">
+                <mdb-carousel-item>
+                    <div class="view w-100">
+                        <img class="d-block w-100" src="assets/img/_DSC0093.jpg"
+                             alt="First slide">
+                        <div class="waves-light" mdbWavesEffect></div>
+                    </div>
+                    <div class="carousel-caption">
+                        <p>大数据与人工智能</p>
+                    </div>
+                </mdb-carousel-item>
+                <mdb-carousel-item>
+                    <div class="view w-100">
+                        <img class="d-block w-100" src="assets/img/222.jpg"
+                             alt="Second slide">
+                        <div class=" waves-light" mdbWavesEffect></div>
+                    </div>
+                    <div class="carousel-caption">
+                        <p>轨道交通运管与信控</p>
+                    </div>
+                </mdb-carousel-item>
+                <mdb-carousel-item>
+                    <div class="view w-100">
+                        <img class="d-block w-100" src="assets/img/_DSC0057.jpg"
+                             alt="Third slide">
+                        <div class=" waves-light" mdbWavesEffect></div>
+                    </div>
+                    <div class="carousel-caption">
+                        <p>物联网工程</p>
+                    </div>
+                </mdb-carousel-item>
+            </mdb-carousel>
+        </div>
 
-    <a>
-      <div class="mask"></div>
-    </a>
-  </div>
-  <!--Card content-->
-  <mdb-card-body>
-    <!--Title-->
-    <mdb-card-title class="text-center">
-      <p>
-        信息科学与工程学院
-      </p>
-    </mdb-card-title>
-    <!--Text-->
-    <div mdbCollapse #test="bs-collapse">
-      <mdb-card-text>
-        “e动交通，信达天下”。学院成立22年以来，取得了长足的发展。已形成“1个计算机科学与技术一级学科硕士点+计算机和电信2个大类+计算机科学与技术、物联网工程、电子信息工程和通信工程4个本科专业”特色鲜明的办学格局。同时，学院的计算机科学与技术一级学科是重庆市的重点学科，计算机科学与技术专业成为以交通大数据处理与分析为特色的重庆市特色专业，通信工程专业成为以高铁、城市轻轨等轨道交通通信与信号控制为特色的重庆市特色专业，学院的4个本科专业共同成为了重庆市的信息技术特色学科专业群。
-      </mdb-card-text>
+        <a>
+            <div class="mask"></div>
+        </a>
     </div>
-    <div class="row">
-      <button mdbBtn color="primary" class="waves-light mx-auto" type="button" (click)="test.toggle();is_click()"
-              size="sm"
-              mdbWavesEffect>
-        <div *ngIf="isClick==true">关闭</div>
-        <div *ngIf="isClick==false">展开</div>
-      </button>
-    </div>
+    <!--Card content-->
+    <mdb-card-body>
+        <!--Title-->
+        <mdb-card-title class="text-center">
+            <p>
+                信息科学与工程学院
+            </p>
+        </mdb-card-title>
+        <!--Text-->
+        <div mdbCollapse #test="bs-collapse">
+            <mdb-card-text>
+                “e动交通，信达天下”。学院成立22年以来，取得了长足的发展。已形成“1个计算机科学与技术一级学科硕士点+计算机和电信2个大类+计算机科学与技术、物联网工程、电子信息工程和通信工程4个本科专业”特色鲜明的办学格局。同时，学院的计算机科学与技术一级学科是重庆市的重点学科，计算机科学与技术专业成为以交通大数据处理与分析为特色的重庆市特色专业，通信工程专业成为以高铁、城市轻轨等轨道交通通信与信号控制为特色的重庆市特色专业，学院的4个本科专业共同成为了重庆市的信息技术特色学科专业群。
+            </mdb-card-text>
+        </div>
+        <div class="row">
+            <button mdbBtn color="primary" class="waves-light mx-auto" type="button" (click)="test.toggle();is_click()"
+                    size="sm"
+                    mdbWavesEffect>
+                <div *ngIf="isClick==true">关闭</div>
+                <div *ngIf="isClick==false">展开</div>
+            </button>
+        </div>
 
-  </mdb-card-body>
+    </mdb-card-body>
 </mdb-card>
 <!-- Card -->

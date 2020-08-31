@@ -21,8 +21,8 @@
         <div class="row m-3">
             <div class="col  px-0">
                 <angular2-multiselect [data]="majorList" (onSelect)="onItemSelect($event)"
-                    (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"
-                    [(ngModel)]="majorselectedItems" [settings]="majorSettings">
+                                      (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"
+                                      [(ngModel)]="majorselectedItems" [settings]="majorSettings">
                     <c-item>
                         <ng-template let-item="item">
                             <label style="min-width: 60%;">{{item.itemName}}</label>
@@ -34,8 +34,8 @@
         <div class="row m-3">
             <div class="col  px-0 my-3">
                 <angular2-multiselect [data]="gradeList" (onSelect)="onItemSelect($event)"
-                    (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"
-                    [(ngModel)]="gradeselectedItems" [settings]="gradeSettings">
+                                      (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"
+                                      [(ngModel)]="gradeselectedItems" [settings]="gradeSettings">
                     <c-item>
                         <ng-template let-item="item">
                             <label style="min-width: 60%;min-height: 100%;">{{item.itemName}}</label>
@@ -47,8 +47,8 @@
         <div class="row m-3">
             <div class="col  px-0 ">
                 <angular2-multiselect [data]="classList" (onSelect)="onItemSelect($event)"
-                    (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"
-                    [(ngModel)]="classselectedItems" [settings]="classSettings">
+                                      (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"
+                                      [(ngModel)]="classselectedItems" [settings]="classSettings">
                     <c-item>
                         <ng-template let-item="item">
                             <label style="min-width: 60%;">{{item.itemName}}</label>
@@ -64,9 +64,9 @@
         <div class="row m-5">
             <div class="col  px-0">
                 <angular2-multiselect [data]="majorList" (onSelect)="onItemSelect($event)"
-                    (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"
-                    [(ngModel)]="majorselectedItems1" [settings]="majorSettings">
-                    
+                                      (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"
+                                      [(ngModel)]="majorselectedItems1" [settings]="majorSettings">
+
                 </angular2-multiselect>
             </div>
         </div>
@@ -76,7 +76,7 @@
                 <div class="md-form font-weight-bold">
                     <mdb-icon far icon="calendar-alt" class="prefix text-black"></mdb-icon>
                     <input mdbInput type="text" id="form2" class="form-control" placeholder="年/月/日"
-                        [owlDateTimeTrigger]="dt10" [owlDateTime]="dt10" [selectMode]="'range'">
+                           [owlDateTimeTrigger]="dt10" [owlDateTime]="dt10" [selectMode]="'range'">
                     <owl-date-time #dt10 [pickerType]="'calendar'" class="red"></owl-date-time>
                     <label for="form2">选择日期范围:(0点开始，0点结束)</label>
                 </div>
@@ -106,7 +106,9 @@
 </div>
 <div class="row">
     <div class="col-4 mx-auto">
-        <button mdbBtn type="button" color="success" block="true" (click)="onsubmit()" outline="true" class="rounded-pill" mdbWavesEffect>提交</button>
-            
+        <button mdbBtn type="button" color="success" block="true" (click)="onsubmit()" outline="true"
+                class="rounded-pill" mdbWavesEffect>提交
+        </button>
+
     </div>
 </div>

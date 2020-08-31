@@ -1,123 +1,130 @@
 <div class="row mt-2">
-  <div class="col px-0">
-    <div class="card">
-      <h3 class="card-header text-center font-weight-bold text-uppercase pt-3">学期实验课信息总览</h3>
-      <div class="card-body">
-        <nz-table
-          #TeachTable
-          nzShowSizeChanger
-          [nzFrontPagination]="false"
-          [nzData]="dataSet"
-          [nzLoading]="loading"
-          [nzTotal]="total"
-          [(nzPageIndex)]="pageIndex"
-          [(nzPageSize)]="pageSize"
-          (nzPageIndexChange)="updateData()"
-          (nzPageSizeChange)="updateData(true)">
-          <thead (nzSortChange)="sort($event)" nzSingleSort>
-          <tr>
-            <th>序号
-            </th>
-            <th>实验室名称</th>
-            <th nzShowFilter [nzFilters]="filterTerm" (nzFilterChange)="updateTermFilter($event)">学期</th>
-            <th nzShowFilter [nzFilters]="filterMajor" (nzFilterChange)="updateTermFilter($event)">专业</th>
-            <th nzShowFilter [nzFilters]="filterClass" (nzFilterChange)="updateTermFilter($event)">班级</th>
-            <th nzShowSort nzSortKey="type"><span>实验课程名称</span></th>
-            <th nzShowSort nzSortKey="courseId"><span>课程代码</span></th>
-            <th nzShowSort nzSortKey="expTime"><span>学时</span></th>
-            <th nzShowSort nzSortKey="coursePeriod"><span>起止周</span></th>
-            <th><span>开课学院</span></th>
-            <th><span>校区</span></th>
-            <th nzShowSort nzSortKey="tname"><span>实验课任课老师</span></th>
-            <th nzShowFilter [nzFilters]="filterCourseType" (nzFilterChange)="updateCourseTypeFilter($event)">课程类别</th>
-            <th>备注</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let each of TeachTable.data;let no=index" (click)="showInfoModal(no)">
-            <th scope="row">{{no + 1}}</th>
-            <td>{{each.labName}}</td>
-            <td>{{each.term}}</td>
-            <td>{{each.expMajor}}</td>
-            <td>{{each.labClass}}</td>
-            <td>{{each.expCname}}</td>
-            <td>{{each.courseId}}</td>
-            <td>{{each.expTime}}</td>
-            <td>{{each.coursePeriod}}</td>
-            <td>{{each.courseCollege}}</td>
-            <td>{{each.campus}}</td>
-            <td>{{each.tname}}</td>
-            <td>{{each.courseType}}</td>
-            <td>{{each.labRemark}}</td>
-          </tr>
-          </tbody>
-        </nz-table>
-      </div>
+    <div class="col px-0">
+        <div class="card">
+            <h3 class="card-header text-center font-weight-bold text-uppercase pt-3">学期实验课信息总览</h3>
+            <div class="card-body">
+                <nz-table
+                    #TeachTable
+                    nzShowSizeChanger
+                    [nzFrontPagination]="false"
+                    [nzData]="dataSet"
+                    [nzLoading]="loading"
+                    [nzTotal]="total"
+                    [(nzPageIndex)]="pageIndex"
+                    [(nzPageSize)]="pageSize"
+                    (nzPageIndexChange)="updateData()"
+                    (nzPageSizeChange)="updateData(true)">
+                    <thead (nzSortChange)="sort($event)" nzSingleSort>
+                    <tr>
+                        <th>序号
+                        </th>
+                        <th>实验室名称</th>
+                        <th nzShowFilter [nzFilters]="filterTerm" (nzFilterChange)="updateTermFilter($event)">学期</th>
+                        <th nzShowFilter [nzFilters]="filterMajor" (nzFilterChange)="updateTermFilter($event)">专业</th>
+                        <th nzShowFilter [nzFilters]="filterClass" (nzFilterChange)="updateTermFilter($event)">班级</th>
+                        <th nzShowSort nzSortKey="type"><span>实验课程名称</span></th>
+                        <th nzShowSort nzSortKey="courseId"><span>课程代码</span></th>
+                        <th nzShowSort nzSortKey="expTime"><span>学时</span></th>
+                        <th nzShowSort nzSortKey="coursePeriod"><span>起止周</span></th>
+                        <th><span>开课学院</span></th>
+                        <th><span>校区</span></th>
+                        <th nzShowSort nzSortKey="tname"><span>实验课任课老师</span></th>
+                        <th nzShowFilter [nzFilters]="filterCourseType"
+                            (nzFilterChange)="updateCourseTypeFilter($event)">课程类别
+                        </th>
+                        <th>备注</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let each of TeachTable.data;let no=index" (click)="showInfoModal(no)">
+                        <th scope="row">{{no + 1}}</th>
+                        <td>{{each.labName}}</td>
+                        <td>{{each.term}}</td>
+                        <td>{{each.expMajor}}</td>
+                        <td>{{each.labClass}}</td>
+                        <td>{{each.expCname}}</td>
+                        <td>{{each.courseId}}</td>
+                        <td>{{each.expTime}}</td>
+                        <td>{{each.coursePeriod}}</td>
+                        <td>{{each.courseCollege}}</td>
+                        <td>{{each.campus}}</td>
+                        <td>{{each.tname}}</td>
+                        <td>{{each.courseType}}</td>
+                        <td>{{each.labRemark}}</td>
+                    </tr>
+                    </tbody>
+                </nz-table>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <nz-modal [(nzVisible)]="isNzModalVisible" (nzOnCancel)="isNzModalVisible=false">
-  <nz-card style="width: 100%;" nzTitle="详细信息" nzBordered="false">
-    <nz-card-tab>
-      <nz-tabset nzSize="large" [(nzSelectedIndex)]="tabIndex">
-        <nz-tab nzTitle="实验室信息"></nz-tab>
-        <nz-tab nzTitle="文件信息"></nz-tab>
-      </nz-tabset>
-    </nz-card-tab>
-    <div *ngIf="tabIndex==0">
-      <div class="card-body col-12 px-0 mx-auto mb-6">
-        <table mdbTable bordered="true" class="text-center">
-          <thead class="green white-text">
-          <tr>
-            <th>实验室编号</th>
-            <th>实验室负责人</th>
-            <th>实验室名称</th>
-            <th>实验室类型</th>
-            <th>校区</th>
-            <th>人数容量</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>{{labInfo?.labId}}</td>
-            <td>{{labInfo?.tname}}</td>
-            <td>{{labInfo?.labName}}</td>
-            <td>{{labInfo?.typeName}}</td>
-            <td>{{labInfo?.labCampus}}</td>
-            <td>{{labInfo?.labCap}}</td>
-          </tbody>
-        </table>
-      </div>
+    <nz-card style="width: 100%;" nzTitle="详细信息" nzBordered="false">
+        <nz-card-tab>
+            <nz-tabset nzSize="large" [(nzSelectedIndex)]="tabIndex">
+                <nz-tab nzTitle="实验室信息"></nz-tab>
+                <nz-tab nzTitle="文件信息"></nz-tab>
+            </nz-tabset>
+        </nz-card-tab>
+        <div *ngIf="tabIndex==0">
+            <div class="card-body col-12 px-0 mx-auto mb-6">
+                <table mdbTable bordered="true" class="text-center">
+                    <thead class="green white-text">
+                    <tr>
+                        <th>实验室编号</th>
+                        <th>实验室负责人</th>
+                        <th>实验室名称</th>
+                        <th>实验室类型</th>
+                        <th>校区</th>
+                        <th>人数容量</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{labInfo?.labId}}</td>
+                        <td>{{labInfo?.tname}}</td>
+                        <td>{{labInfo?.labName}}</td>
+                        <td>{{labInfo?.typeName}}</td>
+                        <td>{{labInfo?.labCampus}}</td>
+                        <td>{{labInfo?.labCap}}</td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div *ngIf="tabIndex==1">
+            <div class="card-body col-12 px-0 mx-auto mb-6">
+                <table mdbTable bordered="true" class="text-center">
+                    <thead class="green white-text">
+                    <tr>
+                        <th>文件类型</th>
+                        <th>状态</th>
+                        <th>文件</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let each of fileStatusArray;let no=index">
+                        <td>{{each?.typeName}}</td>
+                        <td>
+                            <button type="button" *ngIf="each?.status" class="btn btn-outline-success disabled btn-sm">
+                                已上传
+                            </button>
+                            <button type="button" *ngIf="!each?.status" class="btn btn-outline-danger disabled btn-sm">
+                                未上传
+                            </button>
+                        </td>
+                        <td>
+                            <button nz-button [nzType]="'primary'" *ngIf="each?.status"
+                                    (click)="filePreview(each?.status,each?.fileName)">
+                                {{each?.fileName}}</button>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </nz-card>
+    <div *nzModalFooter>
+        <span>提醒教师完善信息：</span>
+        <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="isMsgConfirmLoading">发送</button>
     </div>
-    <div *ngIf="tabIndex==1">
-      <div class="card-body col-12 px-0 mx-auto mb-6">
-        <table mdbTable bordered="true" class="text-center">
-          <thead class="green white-text">
-          <tr>
-            <th>文件类型</th>
-            <th>状态</th>
-            <th>文件</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let each of fileStatusArray;let no=index">
-            <td>{{each?.typeName}}</td>
-            <td>
-              <button type="button" *ngIf="each?.status" class="btn btn-outline-success disabled btn-sm">已上传</button>
-              <button type="button" *ngIf="!each?.status" class="btn btn-outline-danger disabled btn-sm">未上传</button>
-            </td>
-            <td>
-              <button nz-button [nzType]="'primary'" *ngIf="each?.status" (click)="onCheckFile(each?.status)">
-                {{each?.fileName}}</button>
-            </td>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </nz-card>
-  <div *nzModalFooter>
-    <span>提醒教师完善信息：</span>
-    <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="isMsgConfirmLoading">发送</button>
-  </div>
 </nz-modal>

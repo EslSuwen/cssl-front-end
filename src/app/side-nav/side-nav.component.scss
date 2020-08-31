@@ -1,85 +1,91 @@
 img {
   width: 20%;
 }
+
 .a1 {
-    height: 1px;
+  height: 1px;
 }
+
 .ribbon {
-  display:inline-block;
+  display: inline-block;
 }
 
 .ribbon:after, .ribbon:before {
-  margin-top:0.5em;
+  margin-top: 0.5em;
   content: "";
-  float:left;
-  border:1.5em solid #fff;
+  float: left;
+  border: 1.5em solid #fff;
 }
 
 .ribbon:after {
-  border-right-color:transparent;
+  border-right-color: transparent;
 }
 
 .ribbon:before {
-  border-left-color:transparent;
+  border-left-color: transparent;
 }
 
-.ribbon a:link, .ribbon a:visited { 
-  color:#000;
-  text-decoration:none;
-    float:left;
-    height:3.5em;
-  overflow:hidden;
+.ribbon a:link, .ribbon a:visited {
+  color: #000;
+  text-decoration: none;
+  float: left;
+  height: 3.5em;
+  overflow: hidden;
 }
 
 .ribbon span {
-  background:#fff;
-  display:inline-block;
-  line-height:3em;
-  padding:0 1em;
-  margin-top:0.5em;
-  position:relative;
+  background: #fff;
+  display: inline-block;
+  line-height: 3em;
+  padding: 0 1em;
+  margin-top: 0.5em;
+  position: relative;
 
-  -webkit-transition: background-color 0.2s, margin-top 0.2s;  /* Saf3.2+, Chrome */
-  -moz-transition: background-color 0.2s, margin-top 0.2s;  /* FF4+ */
-  -ms-transition: background-color 0.2s, margin-top 0.2s;  /* IE10 */
-  -o-transition: background-color 0.2s, margin-top 0.2s;  /* Opera 10.5+ */
+  -webkit-transition: background-color 0.2s, margin-top 0.2s; /* Saf3.2+, Chrome */
+  -moz-transition: background-color 0.2s, margin-top 0.2s; /* FF4+ */
+  -ms-transition: background-color 0.2s, margin-top 0.2s; /* IE10 */
+  -o-transition: background-color 0.2s, margin-top 0.2s; /* Opera 10.5+ */
   transition: background-color 0.2s, margin-top 0.2s;
 }
 
 .ribbon a:hover span {
-  background:#FFD204;
-  margin-top:0;
+  background: #FFD204;
+  margin-top: 0;
 }
 
 .ribbon span:before {
   content: "";
-  position:absolute;
-  top:3em;
-  left:0;
-  border-right:0.5em solid #9B8651;
-  border-bottom:0.5em solid #fff;
+  position: absolute;
+  top: 3em;
+  left: 0;
+  border-right: 0.5em solid #9B8651;
+  border-bottom: 0.5em solid #fff;
 }
 
 .ribbon span:after {
   content: "";
-  position:absolute;
-  top:3em;
-  right:0;
-  border-left:0.5em solid #9B8651;
-  border-bottom:0.5em solid #fff;
+  position: absolute;
+  top: 3em;
+  right: 0;
+  border-left: 0.5em solid #9B8651;
+  border-bottom: 0.5em solid #fff;
 }
-.my-auto{
+
+.my-auto {
   margin-top: auto !important;
   margin-bottom: auto !important;
   margin-right: 80px;
-  
+
 }
+
 .my-auto .btn-group mx-4.waves-effect:hover .dropdown-menu {
   display: block;
 }
-.show>:hover.dropdown-menu {
-    display: block;
+
+.show > :hover.dropdown-menu {
+  display: block;
 }
+
 .badge {
   font-size: 15px;
 }
