@@ -1,5 +1,5 @@
 <div *ngIf="noticeInfoVisible">
-    <nz-card style="width:1200px;height: 800px" nzTitle="{{noticeInfo?.noticeHead}}" [nzExtra]="extraTemplate">
+    <nz-card  nzTitle="{{noticeInfo?.noticeHead}}" [nzExtra]="extraTemplate">
         <p>{{noticeInfo?.noticeHead}}</p>
         <nz-divider nzText="正文"></nz-divider>
         <div [innerHTML]='noticeInfo?.noticeContent'></div>
