@@ -5,6 +5,9 @@ import {AuthenticationService} from "../../service/authentication.service";
 import {DateUtils} from "../../utils/DateUtils";
 import {NoticeFileService} from "../../service/notice-file.service";
 import {NzMessageService} from "ng-zorro-antd";
+import {filter, map} from "rxjs/operators";
+import {HttpClient, HttpEventType, HttpResponse} from "@angular/common/http";
+import {environment} from "../../../environments/environment";
 
 @Component({
     selector: 'app-futext',
@@ -19,11 +22,14 @@ export class FutextComponent implements OnInit {
     noticeHead = '';
     fileForm = new FormData();
     uploadLoading = false;
+    nzProgressVisible = false;
+    nzProgress: number;
 
     constructor(private noticeService: NoticeService,
                 private noticeFileService: NoticeFileService,
                 private authService: AuthenticationService,
-                private messageService: NzMessageService) {
+                private messageService: NzMessageService,
+                private http: HttpClient) {
     }
 
     ngOnInit() {
@@ -52,8 +58,33 @@ export class FutextComponent implements OnInit {
 
     }
 
+    // 含进度回显文件上传
     fileUpload() {
         this.uploadLoading = true;
-        this.noticeFileService.add(this.fileForm).subscribe(() => this.uploadLoading = false);
+        this.nzProgressVisible = true;
+        this.http.post(`${environment.apiUrl}/noticeFile/add`, this.fileForm, {reportProgress: true, observe: 'events'})
+            .pipe(
+                filter((event => {
+                    switch (event.type) {
+                        case HttpEventType.UploadProgress: {
+                            this.nzProgress = Number(((event.loaded / event.total) * 100).toFixed(2));
+                            break;
+                        }
+                        case HttpEventType.Response: {
+                            return true;
+                        }
+                    }
+                    return false;
+                })),
+                map((res: HttpResponse<any>) => res.body)
+            ).subscribe(result => {
+            if (result.success) {
+                this.messageService.success("通知文件上传成功");
+            } else {
+                this.messageService.error("通知文件上传失败");
+            }
+            this.uploadLoading = false;
+            this.nzProgressVisible = false;
+        });
     }
 }

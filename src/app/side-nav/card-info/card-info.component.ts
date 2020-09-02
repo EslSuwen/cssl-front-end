@@ -106,8 +106,7 @@ export class CardInfoComponent implements OnInit {
 
     filePreview(fileId: number, fileName: string) {
         let fileUrl = this.expFileService.getFileUri(fileId, this.tabInfo.term);
-        // let previewUrl = `${fileUrl}&fullfilename=${fileName}`
-        let previewUrl = `http://localhost:8090/cssl/expFile/getFile?fileId=52&term=2019-2020(2)&fullfilename=${fileName}`
+        let previewUrl = `${fileUrl}&fullfilename=${fileName}`
         window.open(`${environment.filePreviewUrl}/onlinePreview?url=` + encodeURIComponent(previewUrl));
     }
 
