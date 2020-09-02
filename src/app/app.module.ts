@@ -40,6 +40,7 @@ import {AuditLabComponent} from './side-nav/audit-lab/audit-lab.component';
 import {ShowNoticeComponent} from './side-nav/show-notice/show-notice.component';
 import {CardInfoComponent} from './side-nav/card-info/card-info.component';
 import {FutextComponent} from './side-nav/futext/futext.component';
+import { DetailsNoticComponent } from './side-nav/details-notic/details-notic.component';
 registerLocaleData(zh);
 const appRoutes: Routes = [
     {
@@ -95,6 +96,7 @@ const appRoutes: Routes = [
         FutextComponent,
         ShowNoticeComponent,
         CardInfoComponent,
+        DetailsNoticComponent,
     ],
     imports: [
         BrowserModule,

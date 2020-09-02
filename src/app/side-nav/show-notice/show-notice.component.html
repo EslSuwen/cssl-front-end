@@ -1,4 +1,4 @@
-<div *ngIf="noticeInfoVisible" class="fadeInUp fadeOutDown mt-5" style="z-index:9999;position: fixed;">
+<div *ngIf="noticeInfoVisible">
     <nz-card style="width:1200px;height: 800px" nzTitle="{{noticeInfo?.noticeHead}}" [nzExtra]="extraTemplate">
         <p>{{noticeInfo?.noticeHead}}</p>
         <nz-divider nzText="正文"></nz-divider>
@@ -8,7 +8,7 @@
         <a (click)="noticeInfoVisible=false">关闭</a>
     </ng-template>
 </div>
-<div class="row mt-5 mb-5">
+<div class="row mt-5 mb-5" *ngIf="!noticeInfoVisible">
     <div class="col-5 mr-3">
         <div class="row">
             <div class="col px-0">

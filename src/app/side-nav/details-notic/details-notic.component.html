@@ -1,0 +1,8 @@
+<nz-card style="width:1200px;height: 800px" nzTitle="{{noticeInfo?.noticeHead}}22222222222" [nzExtra]="extraTemplate">
+    <p>{{noticeInfo?.noticeHead}}2222222</p>
+    <nz-divider nzText="正文"></nz-divider>
+    <div [innerHTML]='noticeInfo?.noticeContent'></div>
+</nz-card>
+<ng-template #extraTemplate>
+    <a (click)="noticeInfoVisible=false">关闭</a>
+</ng-template>
