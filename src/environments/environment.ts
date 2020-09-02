@@ -4,11 +4,10 @@
 
 export const environment = {
     production: false,
-    // apiUrl: 'http://localhost:8090/cssl',
-    //apiUrl: 'https://suwen.live/cssl',
-    // filePreviewUrl: 'http://localhost:8012',
-    apiUrl: 'https://suwen.live/cssl', 
-    filePreviewUrl: 'http://47.107.239.108:8012'
+    apiUrl: 'http://localhost:8090/cssl',
+    filePreviewUrl: 'http://localhost:8012',
+    // apiUrl: 'https://suwen.live/cssl', 
+    // filePreviewUrl: 'http://47.107.239.108:8012'
     
 };
 
