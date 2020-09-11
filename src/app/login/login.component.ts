@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
     @ViewChild('demoBasi1', {static: true}) success: ModalComponent;
     validationForm: FormGroup;
     authModel: any = {};
-    imgUrl = `${environment.apiUrl}/api/createImageCode`;
+    imgUrl = `${environment.apiUrl}/auth/createImageCode`;
     username: string;
 
     constructor(
@@ -51,18 +51,10 @@ export class LoginComponent implements OnInit {
     login() {
         this.authenticationService.login(this.authModel.username, this.authModel.password, this.authModel.imgCode)
             .subscribe(result => {
-                this.username = this.authenticationService.getUserName(); // 判断验证码是否输入正确
-                const judge = this.authenticationService.isLoggedIn();
                 if (result) {
-                    // login successful
-                    // this.router.navigate(['sidenav/personalinfo']);
-                    if (judge) {
-                        this.showAndHideModal1();
-                    } else {
-                        alert('验证码错误'); // 验证码输入错误
-                    }
+                    this.username = this.authenticationService.getUserName();
+                    this.showAndHideModal1();
                 } else {
-                    // login failed
                     this.showAndHideModal();
                 }
             });

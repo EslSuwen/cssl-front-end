@@ -20,7 +20,7 @@ export class AuthenticationService {
     }
 
     login(no: string, pass: string, img: string): Observable<boolean> {
-        return this.http.post<any>(`${environment.apiUrl}/api/auth`, JSON.stringify({
+        return this.http.post<any>(`${environment.apiUrl}/auth/login`, JSON.stringify({
             userNo: no,
             password: pass,
             imgCode: img
@@ -28,17 +28,15 @@ export class AuthenticationService {
             tap(response => {
                 if (response.success) {
                     // login successful, store username and jwt token in local storage to keep user logged in between page refreshes
-                    const tokenParsed = this.decodeToken(response.data.token);
                     const teacher: Teacher = response.data.teacher;
-                    console.log(teacher);
+                    console.log(response);
                     localStorage.setItem('currentUserInfo', JSON.stringify(teacher));
                     localStorage.setItem('currentUser', JSON.stringify({
                         userNo: no,
                         token: response.data.token,
-                        expire: JSON.parse(tokenParsed).exp,
-                        // tslint:disable-next-line: object-literal-shorthand
-                        tokenParsed: tokenParsed
                     }));
+                    console.log(localStorage.getItem('currentUserInfo'));
+                    console.log(localStorage.getItem('currentUser'));
                     return of(true);
                 } else {
                     return of(false);
@@ -53,9 +51,10 @@ export class AuthenticationService {
 
     getCurrentUser(): any {
         const userStr = localStorage.getItem('currentUser');
-        const nowTime = new Date().getTime().toString().substr(0, 10);
-        const user = JSON.parse(userStr);
-        return userStr && user.expire > nowTime ? user : this.logout();
+        // const nowTime = new Date().getTime().toString().substr(0, 10);
+        // const user = JSON.parse(userStr);
+        // return userStr && user.expire > nowTime ? user : this.logout();
+        return JSON.parse(userStr);
     }
 
     getCurrentUserInfo(): any {
@@ -75,6 +74,8 @@ export class AuthenticationService {
 
     getUserName(): string {
         const currentUser = this.getCurrentUserInfo();
+        console.log(currentUser);
+        console.log(currentUser.tname);
         return currentUser ? currentUser.tname : '';
     }
 
@@ -89,12 +90,13 @@ export class AuthenticationService {
     }
 
     hasRole(role: string): boolean {
-        const currentUser = this.getCurrentUser();
+        return true;
+        const currentUser = this.getCurrentUserInfo();
         if (!currentUser) {
             return false;
         }
-        const authorities: string[] = this.getAuthorities(currentUser.tokenParsed);
-        return authorities.indexOf('ROLE_' + role) !== -1;
+        const authority: string = currentUser.authority;
+        return authority === 'ROLE_' + role;
     }
 
     decodeToken(token: string): string {

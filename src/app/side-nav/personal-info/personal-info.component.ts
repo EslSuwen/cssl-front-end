@@ -4,7 +4,6 @@ import {Teacher} from '../../enity/teacher';
 import {TeacherService} from '../../service/teacher.service';
 import {ArrangePeriod, Curriculum} from '../../enity/arrange';
 import * as $ from 'jquery';
-import {DateUtils} from '../../utils/DateUtils';
 
 
 @Component({
@@ -26,17 +25,17 @@ export class PersonalInfoComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(DateUtils.nowTerm())
         this.initCurriculum();
         this.teacher = this.authenticationService.getCurrentUserInfo();
         this.userName = this.teacher.tname;
         this.getCurriculum(this.authenticationService.getUserNo(), '2');
-        console.log(this.authenticationService.getAuthorities(this.authenticationService.getCurrentUser().tokenParsed));
-        console.log('isAdmin:' + this.authenticationService.hasRole('ADMIN'));
     }
 
     getCurriculum(tid: string, week: string) {
         this.teacherService.getCurriculum(tid, week).subscribe(result => {
+            if (!result) {
+                return;
+            }
             console.log(result);
             this.curriculumList = result.data;
             for (const key of Object.keys(this.curriculumList)) {
