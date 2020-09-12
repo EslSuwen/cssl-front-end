@@ -5,6 +5,7 @@ import {catchError, tap} from 'rxjs/operators';
 import {throwError} from 'rxjs/internal/observable/throwError';
 import {environment} from '../../environments/environment';
 import {Teacher} from '../enity/teacher';
+import {CookieService} from 'ngx-cookie-service';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'}),
@@ -16,7 +17,7 @@ export class AuthenticationService {
     private tokenParsed: any;
     private teacher: Teacher;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private cookieService: CookieService) {
     }
 
     login(no: string, pass: string, img: string): Observable<boolean> {
@@ -30,13 +31,13 @@ export class AuthenticationService {
                     // login successful, store username and jwt token in local storage to keep user logged in between page refreshes
                     const teacher: Teacher = response.data.teacher;
                     console.log(response);
-                    localStorage.setItem('currentUserInfo', JSON.stringify(teacher));
-                    localStorage.setItem('currentUser', JSON.stringify({
-                        userNo: no,
-                        token: response.data.token,
-                    }));
+                    console.log(teacher);
+                    const cookie = this.cookieService.get('satoken');
+                    localStorage.setItem('satoken', cookie);
+                    localStorage.setItem('currentUser', JSON.stringify(teacher));
                     console.log(localStorage.getItem('currentUserInfo'));
                     console.log(localStorage.getItem('currentUser'));
+                    console.log(localStorage.getItem('satoken'));
                     return of(true);
                 } else {
                     return of(false);
@@ -50,38 +51,25 @@ export class AuthenticationService {
     }
 
     getCurrentUser(): any {
-        const userStr = localStorage.getItem('currentUser');
-        // const nowTime = new Date().getTime().toString().substr(0, 10);
-        // const user = JSON.parse(userStr);
-        // return userStr && user.expire > nowTime ? user : this.logout();
-        return JSON.parse(userStr);
-    }
-
-    getCurrentUserInfo(): any {
-        const userInfoStr = localStorage.getItem('currentUserInfo');
-        return this.isLoggedIn() ? JSON.parse(userInfoStr) : '';
+        return this.isLoggedIn() ? JSON.parse(localStorage.getItem('currentUser')) : '';
     }
 
     getToken(): string {
-        const currentUser = this.getCurrentUser();
-        return currentUser ? currentUser.token : '';
+        return this.cookieService.check('satoken') ? this.cookieService.get('satoken') : '';
     }
 
     getUserNo(): string {
         const currentUser = this.getCurrentUser();
-        return currentUser ? currentUser.userNo : '';
+        return currentUser ? currentUser.tid : '';
     }
 
     getUserName(): string {
-        const currentUser = this.getCurrentUserInfo();
-        console.log(currentUser);
-        console.log(currentUser.tname);
+        const currentUser = this.getCurrentUser();
         return currentUser ? currentUser.tname : '';
     }
 
     logout(): void {
         localStorage.removeItem('currentUser');
-        localStorage.removeItem('currentUserInfo');
     }
 
     isLoggedIn(): boolean {
@@ -91,34 +79,12 @@ export class AuthenticationService {
 
     hasRole(role: string): boolean {
         return true;
-        const currentUser = this.getCurrentUserInfo();
+        const currentUser = this.getCurrentUser();
         if (!currentUser) {
             return false;
         }
         const authority: string = currentUser.authority;
         return authority === 'ROLE_' + role;
-    }
-
-    decodeToken(token: string): string {
-        let payload: string = token.split('.')[1];
-
-        payload = payload.replace('/-/g', '+').replace('/_/g', '/');
-        switch (payload.length % 4) {
-            case 0:
-                break;
-            case 2:
-                payload += '==';
-                break;
-            case 3:
-                payload += '=';
-                break;
-            default:
-                throwError('Invalid token');
-        }
-
-        payload = (payload + '===').slice(0, payload.length + (payload.length % 4));
-
-        return decodeURIComponent(escape(atob(payload)));
     }
 
     getAuthorities(tokenParsed: string): string[] {

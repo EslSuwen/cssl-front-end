@@ -26,7 +26,7 @@ export class PersonalInfoComponent implements OnInit {
 
     ngOnInit() {
         this.initCurriculum();
-        this.teacher = this.authenticationService.getCurrentUserInfo();
+        this.teacher = this.authenticationService.getCurrentUser();
         this.userName = this.teacher.tname;
         this.getCurriculum(this.authenticationService.getUserNo(), '2');
     }

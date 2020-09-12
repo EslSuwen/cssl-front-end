@@ -40,7 +40,9 @@ import {AuditLabComponent} from './side-nav/audit-lab/audit-lab.component';
 import {ShowNoticeComponent} from './side-nav/show-notice/show-notice.component';
 import {CardInfoComponent} from './side-nav/card-info/card-info.component';
 import {FutextComponent} from './side-nav/futext/futext.component';
-import { DetailsNoticComponent } from './side-nav/details-notic/details-notic.component';
+import {DetailsNoticComponent} from './side-nav/details-notic/details-notic.component';
+import {CookieService} from "ngx-cookie-service";
+
 registerLocaleData(zh);
 const appRoutes: Routes = [
     {
@@ -130,7 +132,8 @@ const appRoutes: Routes = [
     providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true}, {
         provide: NZ_I18N,
         useValue: zh_CN
-    }],
+    }, CookieService  //注入服务
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
