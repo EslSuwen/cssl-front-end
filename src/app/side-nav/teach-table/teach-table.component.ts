@@ -1,7 +1,7 @@
-import {TeachPlanService} from "../../service/teach-plan.service";
-import {TeachPlan} from "../../enity/teachPlan";
-import {environment} from "../../../environments/environment";
-import {Component, OnInit} from "@angular/core";
+import {TeachPlanService} from '../../service/teach-plan.service';
+import {TeachPlan} from '../../enity/teachPlan';
+import {Component, OnInit} from '@angular/core';
+import {DateUtils} from '../../utils/DateUtils';
 
 @Component({
     selector: 'app-teach-table',
@@ -16,6 +16,8 @@ export class TeachTableComponent implements OnInit {
     loading = true;
     sortValue = null;
     sortKey = null;
+    selectTerm = DateUtils.nowTerm();
+
 
     searchList = '';
     filterMajor = [
@@ -40,11 +42,6 @@ export class TeachTableComponent implements OnInit {
         {text: '选修', value: '选修'},
     ];
     filterCourseTypeSelected = [];
-    public planPeriod: any = {
-        year: '2019-2020(1)',
-    };
-
-    TEACH_PLAN_DOWNLOAD_URL = `${environment.apiUrl}/arrange/getTeachingPlanExcel`;
 
     teachPlans: TeachPlan[];
 
@@ -52,7 +49,7 @@ export class TeachTableComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.teachPlanService.getTeachingPlan().subscribe(
+        this.teachPlanService.getTeachingPlan(DateUtils.nowTerm()).subscribe(
             result => {
                 if (result.success) {
                     this.teachPlans = result.data;
@@ -64,7 +61,7 @@ export class TeachTableComponent implements OnInit {
     }
 
     download() {
-        window.location.href = this.TEACH_PLAN_DOWNLOAD_URL;
+        this.teachPlanService.getTeachingPlanExcel(this.selectTerm);
     }
 
     updateData(reset: boolean = false): void {

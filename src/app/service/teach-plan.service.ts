@@ -5,7 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {HandleError} from './handle-error';
 import {NzMessageService} from 'ng-zorro-antd';
 import {catchError, tap} from 'rxjs/operators';
-import {result} from "../enity/result";
+import {result} from '../enity/result';
 
 @Injectable({
     providedIn: 'root'
@@ -25,8 +25,8 @@ export class TeachPlanService extends HandleError {
      * @author suwen
      * @date 2020/5/27 上午11:01
      */
-    getTeachingPlan(): Observable<result> {
-        const url = `${this.ARRANGE_API}/getTeachingPlan`;
+    getTeachingPlan(term: string): Observable<result> {
+        const url = `${this.ARRANGE_API}/getTeachingPlan/${term}`;
         return this.http.get<result>(url).pipe(
             tap(response => {
                 if (response.success) {
@@ -37,5 +37,15 @@ export class TeachPlanService extends HandleError {
             }),
             catchError(this.handleError<result>('获取教学计划表失败'))
         );
+    }
+
+    /**
+     * 获取教学计划表 xlsx 文件下载
+     *
+     * @author suwen
+     * @param term 学期
+     */
+    getTeachingPlanExcel(term: string): void {
+        window.location.href = `${this.ARRANGE_API}/getTeachingPlanExcel/${term}`;
     }
 }

@@ -4,10 +4,10 @@ import {Exp} from '../../enity/project';
 import {ProjectService} from 'src/app/service/project.service';
 import {Arrange, ArrangePeriod} from '../../enity/arrange';
 import {FormControl} from '@angular/forms';
-import {AuthenticationService} from "../../service/authentication.service";
+import {AuthenticationService} from '../../service/authentication.service';
 import {AuditService} from 'src/app/service/audit.service';
-import {LabService} from "../../service/lab.service";
-import {DateUtils} from "../../utils/DateUtils";
+import {LabService} from '../../service/lab.service';
+import {DateUtils} from '../../utils/DateUtils';
 
 @Component({
     selector: 'app-apply',
@@ -75,21 +75,21 @@ export class ApplyComponent implements OnInit {
                 }
             });
 
-        this.labService.getLab("60102").subscribe(
+        this.labService.getLab('60102').subscribe(
             result => {
                 if (result.success) {
                     console.log(result.data);
                 }
             });
 
-        this.labService.getLabByType("123").subscribe(
+        this.labService.getLabByType('123').subscribe(
             result => {
                 if (result.success) {
                     console.log(result.data);
                 }
             });
 
-        this.labService.getLabByTypeCampus("123", "南岸").subscribe(
+        this.labService.getLabByTypeCampus('123', '南岸').subscribe(
             result => {
                 if (result.success) {
                     console.log(result.data);
@@ -117,6 +117,8 @@ export class ApplyComponent implements OnInit {
             {id: 18, itemName: '十八周'},
             {id: 19, itemName: '十九周'},
             {id: 20, itemName: '二十周'},
+            {id: 21, itemName: '二十一周'},
+            {id: 22, itemName: '二十二周'},
         ];
         this.weekSettings = {
             badgeShowLimit: 2,
@@ -247,7 +249,7 @@ export class ApplyComponent implements OnInit {
             singleSelection: true, // 是否单选
             text: '选择实验室类型',
             enableSearchFilter: true, // 查找过滤器
-        }
+        };
 
         this.labNameList = [
             {id: '60101', itemName: '软件开放实验室'},
@@ -262,7 +264,7 @@ export class ApplyComponent implements OnInit {
             singleSelection: true, // 是否单选
             text: '选择实验室',
             enableSearchFilter: true, // 查找过滤器
-        }
+        };
     }
 
     onCampusSelected() {
