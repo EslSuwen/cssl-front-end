@@ -6,7 +6,7 @@ import {environment} from '../../environments/environment';
 import {NzMessageService} from 'ng-zorro-antd';
 import {HandleError} from './handle-error';
 import {catchError, tap} from 'rxjs/operators';
-import {result} from "../enity/result";
+import {result} from '../enity/result';
 
 @Injectable({
     providedIn: 'root'
@@ -138,7 +138,7 @@ export class ProjectService extends HandleError {
         const url = `${this.PROJECT_API}/updateExp`;
         return this.http.put<result>(url, exp).pipe(
             catchError(this.handleError<result>('更新卡片信息'))
-        )
+        );
     }
 
     /**
@@ -153,7 +153,7 @@ export class ProjectService extends HandleError {
         const url = `${this.ITEM_API}/updateItem`;
         return this.http.put<result>(url, item).pipe(
             catchError(this.handleError<result>('更新实验项目信息'))
-        )
+        );
     }
 
     /**
@@ -168,7 +168,7 @@ export class ProjectService extends HandleError {
         const url = `${this.PROJECT_API}/deleteExp`;
         return this.http.delete<result>(url, {params: {proId}}).pipe(
             catchError(this.handleError<result>('删除卡片信息'))
-        )
+        );
     }
 
     /**
@@ -183,6 +183,12 @@ export class ProjectService extends HandleError {
         const url = `${this.ITEM_API}/deleteItem`;
         return this.http.delete<result>(url, {params: {ino}}).pipe(
             catchError(this.handleError<result>('删除实验项目信息'))
-        )
+        );
+    }
+
+    getTermList(): Observable<result> {
+        const url = `${this.PROJECT_API}/getTermList`;
+        return this.http.get<result>(url).pipe(
+            catchError(this.handleError<result>('删除实验项目信息')));
     }
 }

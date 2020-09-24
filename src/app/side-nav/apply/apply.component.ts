@@ -18,6 +18,7 @@ export class ApplyComponent implements OnInit {
     exps: Exp[]; // 实验卡片
     applySubmit = new Arrange();
     arrangePeriod = new Array<ArrangePeriod>();
+    applyProId: number;
     // status: number;
     status = 0;
     // 周次

@@ -2,6 +2,7 @@ import {TeachPlanService} from '../../service/teach-plan.service';
 import {TeachPlan} from '../../enity/teachPlan';
 import {Component, OnInit} from '@angular/core';
 import {DateUtils} from '../../utils/DateUtils';
+import {ProjectService} from '../../service/project.service';
 
 @Component({
     selector: 'app-teach-table',
@@ -30,12 +31,7 @@ export class TeachTableComponent implements OnInit {
         {text: '计算机二班', value: '1'},
         {text: '计算机三班', value: '2'},
     ];
-    filterTerm = [
-        {text: '2019-2020(2)', value: '2019-2020(2)'},
-        {text: '2019-2020(1)', value: '2019-2020(1)'},
-        {text: '2018-2019(2)', value: '2018-2019(2)'},
-        {text: '2018-2019(1)', value: '2018-2019(1)'},
-    ];
+    filterTerm = [];
     filterTermSelected = [];
     filterCourseType = [
         {text: '必修', value: '必修'},
@@ -45,10 +41,20 @@ export class TeachTableComponent implements OnInit {
 
     teachPlans: TeachPlan[];
 
-    constructor(private teachPlanService: TeachPlanService) {
+    constructor(private teachPlanService: TeachPlanService, private projectService: ProjectService) {
     }
 
     ngOnInit() {
+
+        this.projectService.getTermList().subscribe(result => {
+            if (result.success && result.data.length > 0) {
+                console.log(result);
+                console.log(result.data);
+                result.data.forEach(each => this.filterTerm.push({text: each, value: each}));
+            } else {
+                this.filterTerm.push({text: DateUtils.nowTerm(), value: DateUtils.nowTerm()});
+            }
+        });
         this.teachPlanService.getTeachingPlan(DateUtils.nowTerm()).subscribe(
             result => {
                 if (result.success) {

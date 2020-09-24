@@ -38,7 +38,7 @@ export class CardComponent implements OnInit {
     editExpCache = {};
 
     // 学期列表
-    termList = ['请选择学期', '2019-2020(2)', '2019-2020(1)', '2018-2019(2)', '2018-2019(1)'];
+    termList = ['请选择学期'];
     termSelected = '请选择学期';
 
     constructor(private fb: FormBuilder,
@@ -53,6 +53,15 @@ export class CardComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.projectService.getTermList().subscribe(result => {
+            if (result.success && result.data.length > 0) {
+                console.log(result);
+                console.log(result.data);
+                result.data.forEach(each => this.termList.push(each));
+            } else {
+                this.termList.push(DateUtils.nowTerm());
+            }
+        });
         this.courseSelectSettings = {
             singleSelection: true, // 是否单选
             text: '选择课程',
