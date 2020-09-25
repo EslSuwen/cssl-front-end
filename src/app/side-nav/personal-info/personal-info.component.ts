@@ -26,13 +26,10 @@ export class PersonalInfoComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(DateUtils.nowTerm())
         this.initCurriculum();
         this.teacher = this.authenticationService.getCurrentUserInfo();
         this.userName = this.teacher.tname;
         this.getCurriculum(this.authenticationService.getUserNo(), '2');
-        console.log(this.authenticationService.getAuthorities(this.authenticationService.getCurrentUser().tokenParsed));
-        console.log('isAdmin:' + this.authenticationService.hasRole('ADMIN'));
     }
 
     getCurriculum(tid: string, week: string) {

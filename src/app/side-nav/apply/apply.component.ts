@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ApplyService} from '../../service/apply.service';
 import {Exp} from '../../enity/project';
 import {ProjectService} from 'src/app/service/project.service';
@@ -9,6 +9,7 @@ import {AuditService} from 'src/app/service/audit.service';
 import {LabService} from '../../service/lab.service';
 import {DateUtils} from '../../utils/DateUtils';
 import {NzMessageService} from 'ng-zorro-antd';
+import {ModalComponent} from '../../modal/modal.component';
 
 @Component({
     selector: 'app-apply',
@@ -16,10 +17,11 @@ import {NzMessageService} from 'ng-zorro-antd';
     styleUrls: ['./apply.component.scss']
 })
 export class ApplyComponent implements OnInit {
+    @ViewChild('applyModal', {static: true}) applyModal: ModalComponent;
     exps: Exp[]; // 实验卡片
     applySubmit = new Arrange();
     arrangePeriod = new Array<ArrangePeriod>();
-    applyProId: number;
+    applyIndex: number;
     // status: number;
     status = 0;
     // 周次
@@ -69,10 +71,7 @@ export class ApplyComponent implements OnInit {
     }
 
     ngOnInit() {
-
-
         this.beizhu = new FormControl();
-
         this.projectService.getProjects(this.authenticationService.getUserNo(), DateUtils.nowTerm())
             .subscribe(result => {
                 if (result.success) {
@@ -277,18 +276,20 @@ export class ApplyComponent implements OnInit {
         if ((this.regionSelectedItems.length && this.classSelectedItems.length
             && this.weekSelectedItems.length && this.daySelectedItems.length && this.timeSelectedItems.length) !== 0) {
             // id
-            this.applySubmit.proId = this.applyProId;
+            this.applySubmit.proId = this.exps[this.applyIndex].proId;
             this.applySubmit.campus = this.regionSelectedItems[0].itemName;
             // 教师编号
             this.applySubmit.tid = this.authenticationService.getUserNo();
+            // 实验室编号
+            this.applySubmit.labId = this.labNameSelectedItems[0].id;
             // 备注
             this.applySubmit.labRemark = this.beizhu.value;
             // 实验项目名称
-            // this.applySubmit.expProname = this.exps[this.applyProId].expCname;
+            this.applySubmit.expProname = this.exps[this.applyIndex].expCname;
             // 班级
-            this.applySubmit.labClass = this.classSelectedItems[0].itemName;
+            this.applySubmit.labClass = this.classSelectedItems[0].id;
             for (let k = 1; k < this.classSelectedItems.length; k++) {
-                this.applySubmit.labClass = this.applySubmit.labClass + '-' + this.classSelectedItems[k].itemName;
+                this.applySubmit.labClass = this.applySubmit.labClass + '-' + this.classSelectedItems[k].id;
             }
             // tslint:disable-next-line: prefer-for-of
             for (let m = 0; m < this.weekSelectedItems.length; m++) {
@@ -299,13 +300,10 @@ export class ApplyComponent implements OnInit {
                     for (let j = 0; j < this.daySelectedItems[i].length; j++) {
                         // 星期
                         const a = new ArrangePeriod();
-
                         a.labWeek = this.weekSelectedItems[m].id;
                         a.labDay = this.daySelectedItems[i][j].id;
-
                         // 节次
                         a.labSession = this.timeSelectedItems[i][j].id;
-                        console.log(a);
                         this.arrangePeriod.push(a);
                     }
                 }
@@ -313,23 +311,29 @@ export class ApplyComponent implements OnInit {
             }
             this.applySubmit.arrangePeriod = this.arrangePeriod;
             console.log(this.applySubmit);
-
-            this.applyService.addArrange(this.applySubmit).subscribe();
-
-            this.messageService.success('己完成申请！');
-            this.projectService.getProjects(this.authenticationService.getUserNo(), DateUtils.nowTerm())
+            this.applyService.ifAddArrange(this.applySubmit).subscribe(
+                result => {
+                    console.log(result);
+                    if (result.success) {
+                        this.applyModal.hide();
+                        this.messageService.success('己完成申请！');
+                    } else {
+                        alert(result.message);
+                        this.messageService.error('增加申请出错，请联系管理员！');
+                    }
+                }
+            );
+            /*this.projectService.getProjects(this.authenticationService.getUserNo(), DateUtils.nowTerm())
                 .subscribe(result => {
                     if (result.success) {
                         this.exps = result.data;
                     }
-                });
-
+                });*/
         } else {
             alert('确保填写完整的信息哦！');
         }
 
         this.applySubmit = new Arrange();
         this.arrangePeriod = new Array<ArrangePeriod>();
-
     }
 }
