@@ -98,6 +98,7 @@
                     <div class="col  px-0">
                         <angular2-multiselect [data]="labTypeList"
                                               [(ngModel)]="labTypeSelectedItems"
+                                              (onSelect)="onCampusSelected($event)"
                                               [settings]="labTypeSettings">
                             <c-item>
                                 <ng-template let-item="item">
@@ -122,33 +123,8 @@
                         </angular2-multiselect>
                     </div>
 
-                    <!-- 星期 -->
+                    <!-- 周数 -->
                     <div class="col px-0 mt-3">
-                        <angular2-multiselect [data]="dayList" [(ngModel)]="daySelectedItems"
-                                              [settings]="daySettings">
-                            <c-item>
-                                <ng-template let-item="item">
-                                    <label style="min-width: 60%;">{{item.itemName}}</label>
-                                </ng-template>
-                            </c-item>
-                        </angular2-multiselect>
-                    </div>
-                </div>
-
-                <div class="row my-4">
-                    <!-- 节次 -->
-                    <div class="col px-0 mr-3">
-                        <angular2-multiselect [data]="timeList" [(ngModel)]="timeSelectedItems"
-                                              [settings]="timeSettings">
-                            <c-item>
-                                <ng-template let-item="item">
-                                    <label style="min-width: 60%;">{{item.itemName}}</label>
-                                </ng-template>
-                            </c-item>
-                        </angular2-multiselect>
-                    </div>
-                    <!-- 星期 -->
-                    <div class="col px-0">
                         <angular2-multiselect [data]="weekList" [(ngModel)]="weekSelectedItems"
                                               [settings]="weekSettings">
                             <c-item>
@@ -157,17 +133,42 @@
                                 </ng-template>
                             </c-item>
                         </angular2-multiselect>
-
                     </div>
-
-
                 </div>
 
+                <div *ngFor="let i of nums" class="row my-4">
+                    <!-- 星期 -->
+                    <div class="col px-0 mr-3">
+                        <angular2-multiselect [data]="dayList" [(ngModel)]="daySelectedItems[i]"
+                                              [settings]="daySettings">
+                            <c-item>
+                                <ng-template let-item="item">
+                                    <label style="min-width: 60%;">{{item.itemName}}</label>
+                                </ng-template>
+                            </c-item>
+                        </angular2-multiselect>
+                    </div>
+                    <!-- 节次 -->
+                    <div class="col px-0">
+                        <angular2-multiselect [data]="timeList" [(ngModel)]="timeSelectedItems[i]"
+                                              [settings]="timeSettings" (onSelect)="onTimeSelected()">
+                            <c-item>
+                                <ng-template let-item="item">
+                                    <label style="min-width: 60%;">{{item.itemName}}</label>
+                                </ng-template>
+                            </c-item>
+                        </angular2-multiselect>
+                    </div>
+                </div>
+                <div>
+                    <button (click)="addTimeSelectItem()">增加</button>
+                    <button (click)="removeTimeSelectItem()">减少</button>
+                </div>
                 <div class="row">
                     <!-- 年级 -->
                     <div class="col px-0 mr-3">
                         <angular2-multiselect [data]="gradeList" [(ngModel)]="gradeSelectedItems"
-                                              [settings]="gradeSettings">
+                                              [settings]="gradeSettings" (onSelect)="onGradeSelected($event)">
                             <c-item class="red">
                                 <ng-template let-item="item">
                                     <label style="min-width: 60%;">{{item.itemName}}</label>
@@ -179,7 +180,6 @@
                     <div class="col px-0 ">
                         <angular2-multiselect [data]="classList" [(ngModel)]="classSelectedItems"
                                               [settings]="classSettings">
-
                         </angular2-multiselect>
                     </div>
                 </div>
@@ -199,7 +199,7 @@
             <!--Footer-->
             <div class="modal-footer justify-content-center">
                 <a type="button" mdbBtn color="primary" class="waves-light"
-                   (click)="submit(i)">提交</a>
+                   (click)="submit()">提交</a>
                 <a type="button" mdbBtn color="primary" outline="true" class="waves-light"
                    data-dismiss="modal"
                    (click)="applyModal.hide()">返回</a>

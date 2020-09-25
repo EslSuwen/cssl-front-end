@@ -8,6 +8,7 @@ import {AuthenticationService} from '../../service/authentication.service';
 import {AuditService} from 'src/app/service/audit.service';
 import {LabService} from '../../service/lab.service';
 import {DateUtils} from '../../utils/DateUtils';
+import {NzMessageService} from 'ng-zorro-antd';
 
 @Component({
     selector: 'app-apply',
@@ -57,15 +58,19 @@ export class ApplyComponent implements OnInit {
     labNameSettings = {};
     beizhu: FormControl;
 
+    nums = [0];
+
     constructor(private applyService: ApplyService,
                 private projectService: ProjectService,
                 private authenticationService: AuthenticationService,
                 private auditService: AuditService,
-                private labService: LabService) {
+                private labService: LabService,
+                private messageService: NzMessageService) {
     }
 
-
     ngOnInit() {
+
+
         this.beizhu = new FormControl();
 
         this.projectService.getProjects(this.authenticationService.getUserNo(), DateUtils.nowTerm())
@@ -73,27 +78,6 @@ export class ApplyComponent implements OnInit {
                 if (result.success) {
                     console.log(result.data);
                     this.exps = result.data;
-                }
-            });
-
-        this.labService.getLab('60102').subscribe(
-            result => {
-                if (result.success) {
-                    console.log(result.data);
-                }
-            });
-
-        this.labService.getLabByType('123').subscribe(
-            result => {
-                if (result.success) {
-                    console.log(result.data);
-                }
-            });
-
-        this.labService.getLabByTypeCampus('123', '南岸').subscribe(
-            result => {
-                if (result.success) {
-                    console.log(result.data);
                 }
             });
 
@@ -145,11 +129,9 @@ export class ApplyComponent implements OnInit {
         ];
         this.daySettings = {
             badgeShowLimit: 2,
-            singleSelection: false, // 是否单选
+            singleSelection: true, // 是否单选
             text: '选择星期',
             enableCheckAll: true, // 是否可以全选
-            selectAllText: '全选',
-            unSelectAllText: '全不选',
             enableSearchFilter: false, // 查找过滤器
             // showCheckbox: false,
             // enableFilterSelectAll: true, // “全选”复选框可以选择所有过滤结果
@@ -177,8 +159,8 @@ export class ApplyComponent implements OnInit {
             // searchPlaceholderText 搜索的默认文字
         };
         this.regionList = [
-            {id: '1', itemName: '双福校区'},
-            {id: '2', itemName: '南岸校区'},
+            {id: '双福', itemName: '双福校区'},
+            {id: '南岸', itemName: '南岸校区'},
         ];
         this.regionSettings = {
             singleSelection: true, // 是否单选
@@ -213,21 +195,7 @@ export class ApplyComponent implements OnInit {
             // limitSelection: 5,
             // searchPlaceholderText 搜索的默认文字
         };
-        this.classList = [
-            {id: '1', itemName: '计算机1班'},
-            {id: '2', itemName: '计算机2班'},
-            {id: '3', itemName: '计算机3班'},
-            {id: '4', itemName: '计算机4班'},
-            {id: '5', itemName: '物联网1班'},
-            {id: '6', itemName: '物联网2班'},
-            {id: '7', itemName: '电子信息1班'},
-            {id: '8', itemName: '电子信息2班'},
-            {id: '9', itemName: '电子信息3班'},
-            {id: '10', itemName: '电子信息4班'},
-            {id: '11', itemName: '电子信息5班'},
-            {id: '12', itemName: '电子信息6班'},
-            {id: '13', itemName: '曙光班'},
-        ];
+        this.classList = [];
         this.classSettings = {
             badgeShowLimit: 2,
             singleSelection: false, // 是否单选
@@ -252,15 +220,7 @@ export class ApplyComponent implements OnInit {
             enableSearchFilter: true, // 查找过滤器
         };
 
-        this.labNameList = [
-            {id: '60101', itemName: '软件开放实验室'},
-            {id: '60102', itemName: '嵌入式系统实验室'},
-            {id: '60103', itemName: '硬件开放实验室'},
-            {id: '60104', itemName: '通信技术实验室'},
-            {id: '60105', itemName: '网络技术实验室'},
-            {id: '60201', itemName: '轨道交通实验室'},
-            {id: '60202', itemName: '计算机联锁实验室'},
-        ];
+        this.labNameList = [];
         this.labNameSettings = {
             singleSelection: true, // 是否单选
             text: '选择实验室',
@@ -268,29 +228,63 @@ export class ApplyComponent implements OnInit {
         };
     }
 
-    onCampusSelected() {
-
+    onGradeSelected(item: any) {
+        this.applyService.getClassByGrade(item.itemName).subscribe(result => {
+            if (result.success) {
+                this.classList = [];
+                result.data.forEach(each => this.classList.push({id: each.classId, itemName: each.className}));
+            }
+        });
     }
 
-    onLabTypeSelected() {
+    onTimeSelected() {
+        console.log(this.nums);
+        console.log(this.daySelectedItems);
+        console.log(this.timeSelectedItems);
+    }
 
+    onCampusSelected(item: any) {
+        if (this.regionSelectedItems.length === 0) {
+            alert('请先选择校区！');
+            this.labTypeSelectedItems = [];
+            return;
+        }
+        this.labService.getLabByTypeCampus(item.id, this.regionList[0].id).subscribe(
+            result => {
+                if (result.success) {
+                    console.log(result.data);
+                    this.labNameList = [];
+                    result.data.forEach(each => this.labNameList.push({
+                        id: each.labId,
+                        itemName: each.labId + each.labName
+                    }));
+                }
+            });
+    }
+
+    addTimeSelectItem() {
+        this.nums.push(this.nums.length);
+    }
+
+    removeTimeSelectItem() {
+        this.nums.pop();
+        this.timeSelectedItems.pop();
+        this.daySelectedItems.pop();
     }
 
     // 提交申请
-    submit(i) {
-        console.log(this.regionSelectedItems.length);
+    submit() {
         if ((this.regionSelectedItems.length && this.classSelectedItems.length
             && this.weekSelectedItems.length && this.daySelectedItems.length && this.timeSelectedItems.length) !== 0) {
             // id
-            this.applySubmit.proId = this.exps[i].proId;
-            // 校区
+            this.applySubmit.proId = this.applyProId;
             this.applySubmit.campus = this.regionSelectedItems[0].itemName;
             // 教师编号
             this.applySubmit.tid = this.authenticationService.getUserNo();
             // 备注
             this.applySubmit.labRemark = this.beizhu.value;
             // 实验项目名称
-            this.applySubmit.expProname = this.exps[i].expCname;
+            // this.applySubmit.expProname = this.exps[this.applyProId].expCname;
             // 班级
             this.applySubmit.labClass = this.classSelectedItems[0].itemName;
             for (let k = 1; k < this.classSelectedItems.length; k++) {
@@ -300,31 +294,35 @@ export class ApplyComponent implements OnInit {
             for (let m = 0; m < this.weekSelectedItems.length; m++) {
                 // 周次
                 // tslint:disable-next-line: prefer-for-of
-                for (let j = 0; j < this.daySelectedItems.length; j++) {
-                    // 星期
-                    const a = new ArrangePeriod();
+                for (let i = 0; i < this.daySelectedItems.length; i++) {
 
-                    a.labWeek = this.weekSelectedItems[m].id;
+                    for (let j = 0; j < this.daySelectedItems[i].length; j++) {
+                        // 星期
+                        const a = new ArrangePeriod();
 
-                    a.labDay = this.daySelectedItems[j].id;
+                        a.labWeek = this.weekSelectedItems[m].id;
+                        a.labDay = this.daySelectedItems[i][j].id;
 
-                    // 节次
-                    a.labSession = this.timeSelectedItems[0].id;
-                    this.arrangePeriod.push(a);
+                        // 节次
+                        a.labSession = this.timeSelectedItems[i][j].id;
+                        console.log(a);
+                        this.arrangePeriod.push(a);
+                    }
                 }
 
             }
             this.applySubmit.arrangePeriod = this.arrangePeriod;
             console.log(this.applySubmit);
 
-            // this.applyService.addArrange(this.applySubmit).subscribe();
+            this.applyService.addArrange(this.applySubmit).subscribe();
 
-            alert('己完成申请！');
-            /*this.projectService.getProjects(this.authenticationService.getUserNo(), DateUtils.nowTerm())
-              .subscribe(result => {
-                if (result.success)
-                  this.exps = result.data;
-              });*/
+            this.messageService.success('己完成申请！');
+            this.projectService.getProjects(this.authenticationService.getUserNo(), DateUtils.nowTerm())
+                .subscribe(result => {
+                    if (result.success) {
+                        this.exps = result.data;
+                    }
+                });
 
         } else {
             alert('确保填写完整的信息哦！');

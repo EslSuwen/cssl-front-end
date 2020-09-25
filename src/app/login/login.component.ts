@@ -11,12 +11,13 @@ import {ModalComponent} from '../modal/modal.component';
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-    @ViewChild('demoBasic', {static: true}) failing: ModalComponent;
-    @ViewChild('demoBasi1', {static: true}) success: ModalComponent;
+    @ViewChild('failModal', {static: true}) failing: ModalComponent;
+    @ViewChild('successModal', {static: true}) success: ModalComponent;
     validationForm: FormGroup;
     authModel: any = {};
     imgUrl = `${environment.apiUrl}/api/createImageCode`;
     username: string;
+    failMessage = '登录错误，请重试！';
 
     constructor(
         public fb: FormBuilder,
@@ -52,18 +53,16 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.authModel.username, this.authModel.password, this.authModel.imgCode)
             .subscribe(result => {
                 this.username = this.authenticationService.getUserName(); // 判断验证码是否输入正确
-                const judge = this.authenticationService.isLoggedIn();
                 if (result) {
                     // login successful
-                    // this.router.navigate(['sidenav/personalinfo']);
-                    if (judge) {
-                        this.showAndHideModal1();
+                    if (this.authenticationService.isLoggedIn()) {
+                        this.showSuccessModal();
                     } else {
-                        alert('验证码错误'); // 验证码输入错误
+                        this.showFailModal();
                     }
                 } else {
                     // login failed
-                    this.showAndHideModal();
+                    this.showFailModal();
                 }
             });
     }
@@ -72,19 +71,15 @@ export class LoginComponent implements OnInit {
         this.imgUrl = this.imgUrl + '?' + Math.random();
     }
 
-    showAndHideModal() {   // 登录失败显示的模态
+    showFailModal() {   // 登录失败显示的模态
         this.failing.show();
-
-        setTimeout(() => {
-            this.failing.hide();
-        }, 3000);
     }
 
-    showAndHideModal1() {   // 登录成功显示的模态
+    showSuccessModal() {   // 登录成功显示的模态
         this.success.show();
     }
 
     passLogin() {  // 输入正确，确认进入
-        this.router.navigate(['sidenav/personalinfo']);
+        this.router.navigate(['sidenav/personalinfo']).then();
     }
 }
