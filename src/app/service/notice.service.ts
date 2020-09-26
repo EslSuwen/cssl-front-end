@@ -4,9 +4,9 @@ import {NzMessageService} from "ng-zorro-antd";
 import {HandleError} from "./handle-error";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
-import {result} from "../enity/result";
+import {result} from "../entity/result";
 import {catchError, tap} from "rxjs/operators";
-import {Notice} from "../enity/notice";
+import {Notice} from "../entity/notice";
 
 @Injectable({
     providedIn: 'root'

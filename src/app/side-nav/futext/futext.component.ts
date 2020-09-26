@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NoticeService} from "../../service/notice.service";
-import {Notice} from "../../enity/notice";
+import {Notice} from "../../entity/notice";
 import {AuthenticationService} from "../../service/authentication.service";
 import {DateUtils} from "../../utils/DateUtils";
 import {NoticeFileService} from "../../service/notice-file.service";

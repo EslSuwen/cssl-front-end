@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuditService} from '../../service/audit.service'
-import {Exp} from '../../enity/project';
-import {Arrange} from '../../enity/arrange';
+import {Exp} from '../../entity/project';
+import {Arrange} from '../../entity/arrange';
 import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Component({

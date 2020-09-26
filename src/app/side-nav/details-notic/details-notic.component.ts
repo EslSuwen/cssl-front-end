@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Notice } from 'src/app/enity/notice';
+import { Notice } from 'src/app/entity/notice';
 
 @Component({
   selector: 'app-details-notic',

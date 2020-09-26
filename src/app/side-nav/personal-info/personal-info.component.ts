@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../service/authentication.service';
-import {Teacher} from '../../enity/teacher';
+import {Teacher} from '../../entity/teacher';
 import {TeacherService} from '../../service/teacher.service';
-import {ArrangePeriod, Curriculum} from '../../enity/arrange';
+import {ArrangePeriod, Curriculum} from '../../entity/arrange';
 import * as $ from 'jquery';
 import {DateUtils} from '../../utils/DateUtils';
 

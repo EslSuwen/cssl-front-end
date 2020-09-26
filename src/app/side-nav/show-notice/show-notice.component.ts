@@ -1,8 +1,8 @@
 import {Component, OnInit} from "@angular/core";
-import {Notice} from "../../enity/notice";
+import {Notice} from "../../entity/notice";
 import {NoticeService} from "../../service/notice.service";
 import {NoticeFileService} from "../../service/notice-file.service";
-import {NoticeFile} from "../../enity/notice-file";
+import {NoticeFile} from "../../entity/notice-file";
 import {environment} from "../../../environments/environment";
 
 @Component({

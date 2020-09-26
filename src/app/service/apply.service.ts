@@ -2,12 +2,12 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {Teach} from '../enity/teacher';
-import {Arrange} from '../enity/arrange';
+import {Teach} from '../entity/teacher';
+import {Arrange} from '../entity/arrange';
 import {NzMessageService} from 'ng-zorro-antd';
 import {catchError, tap} from 'rxjs/operators';
 import {HandleError} from './handle-error';
-import {result} from '../enity/result';
+import {result} from '../entity/result';
 
 @Injectable({
     providedIn: 'root'
@@ -46,29 +46,6 @@ export class ApplyService extends HandleError {
                 }
             ),
             catchError(this.handleError<result>('新增实验时间安排'))
-        );
-    }
-
-    /**
-     * 新增实验时间安排冲突检测
-     *
-     * @param arrange  时间安排
-     * @return 执行结果（true: 成功；false: 失败）
-     * @author suwen
-     * @date 2020/9/25 下午4:31
-     */
-    ifAddArrange(arrange: Arrange): Observable<result> {
-        const url = `${this.ARRANGE_API}/ifAddArrange`;
-        return this.http.post<result>(url, arrange).pipe(
-            tap(response => {
-                    if (response.success) {
-                        this.success(response.message);
-                    } else {
-                        this.error('新增实验时间安排检测失败');
-                    }
-                }
-            ),
-            catchError(this.handleError<result>('新增实验时间安排检测'))
         );
     }
 

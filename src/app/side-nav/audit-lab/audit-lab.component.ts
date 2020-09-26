@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ArrangeAudit} from "../../enity/arrange";
+import {ArrangeAudit} from "../../entity/arrange";
 import {AuditService} from "../../service/audit.service";
 import {NzMessageService} from "ng-zorro-antd/message";
 

@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ApplyService} from '../../service/apply.service';
-import {Exp} from '../../enity/project';
+import {Exp} from '../../entity/project';
 import {ProjectService} from 'src/app/service/project.service';
-import {Arrange, ArrangePeriod} from '../../enity/arrange';
+import {Arrange, ArrangePeriod} from '../../entity/arrange';
 import {FormControl} from '@angular/forms';
 import {AuthenticationService} from '../../service/authentication.service';
 import {AuditService} from 'src/app/service/audit.service';
@@ -10,6 +10,7 @@ import {LabService} from '../../service/lab.service';
 import {DateUtils} from '../../utils/DateUtils';
 import {NzMessageService} from 'ng-zorro-antd';
 import {ModalComponent} from '../../modal/modal.component';
+import {Class} from '../../entity/class';
 
 @Component({
     selector: 'app-apply',
@@ -287,16 +288,12 @@ export class ApplyComponent implements OnInit {
             // 实验项目名称
             this.applySubmit.expProname = this.exps[this.applyIndex].expCname;
             // 班级
-            this.applySubmit.labClass = this.classSelectedItems[0].id;
-            for (let k = 1; k < this.classSelectedItems.length; k++) {
-                this.applySubmit.labClass = this.applySubmit.labClass + '-' + this.classSelectedItems[k].id;
-            }
+            this.classSelectedItems.forEach(each => this.applySubmit.labClassInfo.push(new Class(each.id)));
             // tslint:disable-next-line: prefer-for-of
             for (let m = 0; m < this.weekSelectedItems.length; m++) {
                 // 周次
                 // tslint:disable-next-line: prefer-for-of
                 for (let i = 0; i < this.daySelectedItems.length; i++) {
-
                     for (let j = 0; j < this.daySelectedItems[i].length; j++) {
                         // 星期
                         const a = new ArrangePeriod();
@@ -307,28 +304,27 @@ export class ApplyComponent implements OnInit {
                         this.arrangePeriod.push(a);
                     }
                 }
-
             }
             this.applySubmit.arrangePeriod = this.arrangePeriod;
             console.log(this.applySubmit);
-            this.applyService.ifAddArrange(this.applySubmit).subscribe(
+            this.applyService.addArrange(this.applySubmit).subscribe(
                 result => {
                     console.log(result);
                     if (result.success) {
                         this.applyModal.hide();
                         this.messageService.success('己完成申请！');
+                        this.projectService.getProjects(this.authenticationService.getUserNo(), DateUtils.nowTerm())
+                            .subscribe(response => {
+                                if (response.success) {
+                                    this.exps = response.data;
+                                }
+                            });
                     } else {
                         alert(result.message);
                         this.messageService.error('增加申请出错，请联系管理员！');
                     }
                 }
             );
-            /*this.projectService.getProjects(this.authenticationService.getUserNo(), DateUtils.nowTerm())
-                .subscribe(result => {
-                    if (result.success) {
-                        this.exps = result.data;
-                    }
-                });*/
         } else {
             alert('确保填写完整的信息哦！');
         }

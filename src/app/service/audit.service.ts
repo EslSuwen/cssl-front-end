@@ -5,7 +5,7 @@ import {environment} from '../../environments/environment';
 import {HandleError} from './handle-error';
 import {NzMessageService} from 'ng-zorro-antd';
 import {catchError, tap} from 'rxjs/operators';
-import {result} from "../enity/result";
+import {result} from "../entity/result";
 
 @Injectable({
     providedIn: 'root'

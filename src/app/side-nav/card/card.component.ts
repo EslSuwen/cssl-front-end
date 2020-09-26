@@ -3,7 +3,7 @@ import {MDBModalRef, MDBModalService} from 'angular-bootstrap-md';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {ProjectService} from '../../service/project.service';
-import {Exp, ProjectItem} from '../../enity/project';
+import {Exp, ProjectItem} from '../../entity/project';
 import {AuthenticationService} from '../../service/authentication.service';
 import {TeacherService} from '../../service/teacher.service';
 import {NzModalRef, NzModalService} from 'ng-zorro-antd/modal';

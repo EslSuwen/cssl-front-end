@@ -4,7 +4,7 @@ import {NzMessageService} from "ng-zorro-antd";
 import {environment} from "../../environments/environment";
 import {HandleError} from "./handle-error";
 import {Observable} from "rxjs";
-import {result} from "../enity/result";
+import {result} from "../entity/result";
 import {catchError} from "rxjs/operators";
 
 @Injectable({

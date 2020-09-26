@@ -1,5 +1,5 @@
 import {TeachPlanService} from '../../service/teach-plan.service';
-import {TeachPlan} from '../../enity/teachPlan';
+import {TeachPlan} from '../../entity/teachPlan';
 import {Component, OnInit} from '@angular/core';
 import {DateUtils} from '../../utils/DateUtils';
 import {ProjectService} from '../../service/project.service';
