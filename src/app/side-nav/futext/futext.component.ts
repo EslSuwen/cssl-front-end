@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {NoticeService} from "../../service/notice.service";
-import {Notice} from "../../entity/notice";
-import {AuthenticationService} from "../../service/authentication.service";
-import {DateUtils} from "../../utils/DateUtils";
-import {NoticeFileService} from "../../service/notice-file.service";
-import {NzMessageService} from "ng-zorro-antd";
-import {filter, map} from "rxjs/operators";
-import {HttpClient, HttpEventType, HttpResponse} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
+import {NoticeService} from '../../service/notice.service';
+import {Notice} from '../../entity/notice';
+import {AuthenticationService} from '../../service/authentication.service';
+import {DateUtils} from '../../utils/DateUtils';
+import {NoticeFileService} from '../../service/notice-file.service';
+import {NzMessageService} from 'ng-zorro-antd';
+import {filter, map} from 'rxjs/operators';
+import {HttpClient, HttpEventType, HttpResponse} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
 @Component({
     selector: 'app-futext',
@@ -38,7 +38,7 @@ export class FutextComponent implements OnInit {
     // 提交数据
     onSubmit() {
         if (this.noticeHead.length == 0 || this.editorContent.length == 0) {
-            this.messageService.error("通知标题和正文不能为空");
+            this.messageService.error('通知标题和正文不能为空');
             return;
         }
         console.log(new Notice(this.authService.getUserNo(), this.noticeHead, this.editorContent));
@@ -46,15 +46,15 @@ export class FutextComponent implements OnInit {
     }
 
     fileChange(e: any) {
-        let formData = new FormData();
+        const formData = new FormData();
         formData.append('fileName', e.file.name);
         formData.append('tid', this.authService.getUserNo());
         formData.append('fileDate', DateUtils.dateFormat());
         formData.append('nFile', e.file);
 
         this.fileForm = formData;
-        console.log(this.fileForm.get("nFile"));
-        console.log(this.fileForm.get("fileName"));
+        console.log(this.fileForm.get('nFile'));
+        console.log(this.fileForm.get('fileName'));
 
     }
 
@@ -79,9 +79,9 @@ export class FutextComponent implements OnInit {
                 map((res: HttpResponse<any>) => res.body)
             ).subscribe(result => {
             if (result.success) {
-                this.messageService.success("通知文件上传成功");
+                this.messageService.success('通知文件上传成功');
             } else {
-                this.messageService.error("通知文件上传失败");
+                this.messageService.error('通知文件上传失败');
             }
             this.uploadLoading = false;
             this.nzProgressVisible = false;

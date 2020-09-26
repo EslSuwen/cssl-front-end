@@ -160,11 +160,11 @@
                         </angular2-multiselect>
                     </div>
                 </div>
-                <div>
-                    <button (click)="addTimeSelectItem()">增加</button>
-                    <button (click)="removeTimeSelectItem()">减少</button>
-                </div>
                 <div class="row">
+                    <i class="fas fa-plus-circle fa-2x mr-2" (click)="addTimeSelectItem()"></i>
+                    <i class="fas fa-minus-circle fa-2x" (click)="removeTimeSelectItem()"></i>
+                </div>
+                <div class="row mt-3">
                     <!-- 年级 -->
                     <div class="col px-0 mr-3">
                         <angular2-multiselect [data]="gradeList" [(ngModel)]="gradeSelectedItems"
