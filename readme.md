@@ -10,11 +10,9 @@
 
 ## 技术堆栈
 
-* Spring Boot 2.2.8.RELEASE
+* Spring Boot 2.3.3.RELEASE
 
 * Spring Security
-
-* Spring Data
 
 * Spring Actuator
 

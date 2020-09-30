@@ -28,8 +28,8 @@ import {ApplyExpRoomComponent} from './apply-exp-room/apply-exp-room.component';
 import {UpdatePasswordComponent} from './side-nav/update-password/update-password.component';
 import {ModalComponent} from './modal/modal.component';
 import {HasRoleDirective} from './auth/has-role.directive';
-import {CanActivateAuthGuard} from "./auth/can-activate.authguard";
-import {AuthenticationInterceptor} from "./auth/authentication-interceptor";
+import {CanActivateAuthGuard} from './auth/can-activate.authguard';
+import {AuthenticationInterceptor} from './auth/authentication-interceptor';
 import {MessageComponent} from './side-nav/message/message.component';
 import {NgZorroAntdModule, NZ_I18N, zh_CN} from 'ng-zorro-antd';
 import {registerLocaleData} from '@angular/common';
@@ -40,7 +40,9 @@ import {AuditLabComponent} from './side-nav/audit-lab/audit-lab.component';
 import {ShowNoticeComponent} from './side-nav/show-notice/show-notice.component';
 import {CardInfoComponent} from './side-nav/card-info/card-info.component';
 import {FutextComponent} from './side-nav/futext/futext.component';
-import { DetailsNoticComponent } from './side-nav/details-notic/details-notic.component';
+import {AppendComponent} from './side-nav/append/append.component';
+import {ManageComponent} from './side-nav/manage/manage.component';
+
 registerLocaleData(zh);
 const appRoutes: Routes = [
     {
@@ -53,7 +55,6 @@ const appRoutes: Routes = [
         path: 'sidenav', component: SideNavComponent,
         canActivate: [CanActivateAuthGuard],
         children: [
-
             {path: 'personalinfo', component: PersonalInfoComponent,},
             {path: 'notify', component: NotifyComponent,},
             {path: 'upload', component: UploadComponent,},
@@ -64,10 +65,12 @@ const appRoutes: Routes = [
             {path: 'applyexproom', component: ApplyExpRoomComponent,},
             {path: 'updatepassword', component: UpdatePasswordComponent,},
             {path: 'message', component: MessageComponent,},
-            {path: "show-notice", component: ShowNoticeComponent},
-            {path: "futext", component: FutextComponent},
-            {path: '**', component: Code404Component},
+            {path: 'show-notice', component: ShowNoticeComponent},
+            {path: 'futext', component: FutextComponent},
             {path: 'audit-lab', component: AuditLabComponent},
+            {path: 'append', component: AppendComponent},
+            {path: 'manage', component: ManageComponent},
+            {path: '**', component: Code404Component},
         ],
     },
     {path: '**', component: Code404Component},];
@@ -96,7 +99,8 @@ const appRoutes: Routes = [
         FutextComponent,
         ShowNoticeComponent,
         CardInfoComponent,
-        DetailsNoticComponent,
+        AppendComponent,
+        ManageComponent,
     ],
     imports: [
         BrowserModule,
@@ -106,7 +110,7 @@ const appRoutes: Routes = [
         FormsModule,
         ReactiveFormsModule,
         FormsModule,
-        QuillModule.forRoot(),  //新版的要这么引入
+        QuillModule.forRoot(),  // 新版的要这么引入
         RouterModule.forRoot(
             appRoutes,
         ),

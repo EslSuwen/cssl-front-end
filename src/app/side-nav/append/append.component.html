@@ -1,0 +1,118 @@
+<nz-tabset [nzSize]="'large'" [(nzSelectedIndex)]="tabIndex">
+    <nz-tab nzTitle="教师信息">
+        <div class="card-body col-12 px-0 mx-auto mb-6">
+            <form nz-form [formGroup]="teacherValidateForm" (ngSubmit)="teacherSubmitForm($event)">
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="7" nzRequired>工号</nz-form-label>
+                    <nz-form-control [nzSpan]="5" nzHasFeedback>
+                        <input nz-input formControlName="tid" placeholder="教师工号" maxlength="12">
+                        <nz-form-explain
+                                *ngIf="teacherValidateForm.get('tid').dirty && teacherValidateForm.get('tid').errors||teacherValidateForm.get('tid').pending ">
+                            <ng-container *ngIf="teacherValidateForm.get('tid').hasError('wrong')">
+                                请填写有效教师编号!
+                            </ng-container>
+                            <ng-container *ngIf="teacherValidateForm.get('tid').hasError('required')">
+                                请填写教师编号!
+                            </ng-container>
+                            <ng-container *ngIf="teacherValidateForm.get('tid').hasError('duplicated')">
+                                教师编号重复!
+                            </ng-container>
+                            <ng-container *ngIf="teacherValidateForm.get('tid').pending">
+                                校验中....
+                            </ng-container>
+                        </nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="7" nzRequired>姓名</nz-form-label>
+                    <nz-form-control [nzSpan]="5" nzHasFeedback>
+                        <input nz-input formControlName="tname" placeholder="教师姓名">
+                        <nz-form-explain
+                                *ngIf="teacherValidateForm.get('tname').dirty && teacherValidateForm.get('tname').errors">
+                            <ng-container *ngIf="teacherValidateForm.get('tname').hasError('required')">
+                                请填写教师姓名!
+                            </ng-container>
+                        </nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="7" nzRequired>手机</nz-form-label>
+                    <nz-form-control [nzSpan]="5" nzHasFeedback>
+                        <input nz-input formControlName="tphone" placeholder="手机号码" maxlength="11">
+                        <nz-form-explain
+                                *ngIf="teacherValidateForm.get('tphone').dirty && teacherValidateForm.get('tphone').errors">
+                            <ng-container *ngIf="teacherValidateForm.get('tphone').hasError('wrong')">
+                                请填写正确的手机号码!
+                            </ng-container>
+                            <ng-container *ngIf="teacherValidateForm.get('tphone').hasError('required')">
+                                请填写手机号码!
+                            </ng-container>
+                        </nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="7" nzRequired>权限</nz-form-label>
+                    <nz-form-control [nzSpan]="5">
+                        <nz-select formControlName="authority" nzAllowClear nzPlaceHolder="用户权限">
+                            <nz-option nzValue="0" nzLabel="教师"></nz-option>
+                            <nz-option nzValue="1" nzLabel="管理员"></nz-option>
+                            <nz-option nzValue="2" nzLabel="超级管理员"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="7">密码</nz-form-label>
+                    <nz-form-control [nzSpan]="5" nzHasFeedback>
+                        <input nz-input formControlName="tpassword" placeholder="默认密码为工号" maxlength="16">
+                        <nz-form-explain *ngIf="teacherValidateForm.get('tpassword').errors">
+                            请填写有效的密码!
+                        </nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="7">QQ</nz-form-label>
+                    <nz-form-control [nzSpan]="5">
+                        <input nz-input formControlName="tqq" placeholder="QQ号码" maxlength="12">
+                        <nz-form-explain *ngIf="teacherValidateForm.get('tqq').errors">
+                            请填写正确的QQ号码!
+                        </nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+
+
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="7">邮箱</nz-form-label>
+                    <nz-form-control [nzSpan]="5" nzHasFeedback>
+                        <input nz-input formControlName="temail" placeholder="邮箱地址">
+                        <nz-form-explain
+                                *ngIf="teacherValidateForm.get('temail').errors">
+                            <ng-container *ngIf="teacherValidateForm.get('temail').hasError('wrong')">
+                                请填写正确的邮箱地址!
+                            </ng-container>
+                        </nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-control [nzOffset]="7" [nzSpan]="5">
+                        <button nz-button nzType="primary" [disabled]="!teacherValidateForm.valid">确认登记</button>
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <button nz-button (click)="this.teacherValidateForm.reset();">取消登记</button>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </div>
+    </nz-tab>
+    <nz-tab nzTitle="班级信息"></nz-tab>
+    <nz-tab nzTitle="课程信息"></nz-tab>
+    <nz-tab nzTitle="授课信息"></nz-tab>
+</nz-tabset>
+<div *ngIf="tabIndex==0">
+
+</div>
+

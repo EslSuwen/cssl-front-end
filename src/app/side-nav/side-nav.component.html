@@ -50,6 +50,18 @@
                     <mdb-icon fas icon="hand-point-right" class="mr-1 indigo-text" size="lg"></mdb-icon>
                     申请实验室
                 </a>
+                <a *appHasRole="'SUPER_ADMIN'" mdbWavesEffect class="nav-link my-2 text-center"
+                   routerLink="/sidenav/append"
+                   routerLinkActive="active">
+                    <mdb-icon fas icon="clock" class="mr-1  red-text" size="lg"></mdb-icon>
+                    新增数据
+                </a>
+                <a *appHasRole="'SUPER_ADMIN'" mdbWavesEffect class="nav-link my-2 text-center"
+                   routerLink="/sidenav/manage"
+                   routerLinkActive="active">
+                    <mdb-icon fas icon="clock" class="mr-1  red-text" size="lg"></mdb-icon>
+                    数据管理
+                </a>
                 <a *appHasRole="'TODO'" mdbWavesEffect class="nav-link my-2 text-center"
                    routerLink="/sidenav/apply_manage"
                    routerLinkActive="active">
@@ -87,7 +99,7 @@
                                routerLinkActive="active"><span>个人信息</span></a>
                             <a mdbWavesEffect routerLink="/sidenav/updatepassword"
                                routerLinkActive="active"><span>修改密码</span></a>
-                            <a mdbWavesEffect href='http://www.cqjtu.edu.cn/'><span>学校官网</span></a>
+                            <a mdbWavesEffect target="_blank" href='http://www.cqjtu.edu.cn/'><span>学校官网</span></a>
                             <a mdbWavesEffect href="" (click)="logout()"><span>退出登录</span></a>
                         </div>
                         <div class="my-auto">

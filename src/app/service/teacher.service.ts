@@ -6,7 +6,7 @@ import {catchError, tap} from 'rxjs/operators';
 import {HandleError} from './handle-error';
 import {NzMessageService} from 'ng-zorro-antd';
 import {result} from '../entity/result';
-import {TeacherMsg} from "../entity/teacher";
+import {TeacherMsg} from '../entity/teacher';
 
 @Injectable({
     providedIn: 'root'
@@ -216,5 +216,16 @@ export class TeacherService extends HandleError {
         );
     }
 
+    /**
+     * 判断教师是否存在
+     *
+     * @param tid 教师编号
+     * @author suwen
+     * @date 2020/9/30 下午4:26
+     */
+    ifTeacher(tid: number | string): Observable<result> {
+        const url = `${this.TEACHER_API}/ifTeacher/${tid}`;
+        return this.http.get<any>(url);
+    }
 
 }

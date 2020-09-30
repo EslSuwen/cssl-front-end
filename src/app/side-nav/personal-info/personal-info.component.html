@@ -98,7 +98,9 @@
             <li class="list-group-item">邮箱:{{teacher.temail}}</li>
             <li class="list-group-item">QQ:{{teacher.tqq}}</li>
             <li class="list-group-item">电话:{{teacher.tphone}}</li>
+            <li class="list-group-item" *appHasRole="'USER'">教师用户</li>
             <li class="list-group-item" *appHasRole="'ADMIN'">管理员用户</li>
+            <li class="list-group-item" *appHasRole="'SUPER_ADMIN'">超级管理员用户</li>
             <li class="list-group-item">......</li>
         </ul>
     </div>
