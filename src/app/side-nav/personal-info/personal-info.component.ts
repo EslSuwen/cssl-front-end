@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../service/authentication.service';
-import {Teacher} from '../../enity/teacher';
+import {Teacher} from '../../entity/teacher';
 import {TeacherService} from '../../service/teacher.service';
-import {ArrangePeriod, Curriculum} from '../../enity/arrange';
+import {ArrangePeriod, Curriculum} from '../../entity/arrange';
 import * as $ from 'jquery';
 import {DateUtils} from '../../utils/DateUtils';
 
@@ -26,13 +26,10 @@ export class PersonalInfoComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(DateUtils.nowTerm())
         this.initCurriculum();
         this.teacher = this.authenticationService.getCurrentUserInfo();
         this.userName = this.teacher.tname;
         this.getCurriculum(this.authenticationService.getUserNo(), '2');
-        console.log(this.authenticationService.getAuthorities(this.authenticationService.getCurrentUser().tokenParsed));
-        console.log('isAdmin:' + this.authenticationService.hasRole('ADMIN'));
     }
 
     getCurriculum(tid: string, week: string) {

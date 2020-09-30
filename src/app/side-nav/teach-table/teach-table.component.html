@@ -1,64 +1,73 @@
 <div class="row mt-5">
     <div class="col px-0">
         <div class="card">
-            <h3 class="card-header text-center font-weight-bold text-uppercase pt-3">{{planPeriod.year}} 学期教学计划执行表
+            <h3 class="card-header text-center font-weight-bold text-uppercase pt-3">学期教学计划执行表
             </h3>
             <div class="card-body">
-                <button mdbBtn type="submit" gradient="blue" mdbWavesEffect (click)="download()">下载教学计划表
-                </button>
-            </div>
-            <div class="card-body">
-                <nz-table
-                    #TeachTable
-                    nzShowSizeChanger
-                    [nzFrontPagination]="false"
-                    [nzData]="dataSet"
-                    [nzLoading]="loading"
-                    [nzTotal]="total"
-                    [(nzPageIndex)]="pageIndex"
-                    [(nzPageSize)]="pageSize"
-                    (nzPageIndexChange)="updateData()"
-                    (nzPageSizeChange)="updateData(true)">
-                    <thead (nzSortChange)="sort($event)" nzSingleSort>
-                    <tr>
-                        <th>序号
-                        </th>
-                        <th>实验室名称</th>
-                        <th nzShowFilter [nzFilters]="filterTerm" (nzFilterChange)="updateTermFilter($event)">学期</th>
-                        <th nzShowFilter [nzFilters]="filterMajor" (nzFilterChange)="updateTermFilter($event)">专业</th>
-                        <th nzShowFilter [nzFilters]="filterClass" (nzFilterChange)="updateTermFilter($event)">班级</th>
-                        <th nzShowSort nzSortKey="type"><span>实验课程名称</span></th>
-                        <th nzShowSort nzSortKey="courseId"><span>课程代码</span></th>
-                        <th nzShowSort nzSortKey="expTime"><span>学时</span></th>
-                        <th nzShowSort nzSortKey="coursePeriod"><span>起止周</span></th>
-                        <th><span>开课学院</span></th>
-                        <th><span>校区</span></th>
-                        <th nzShowSort nzSortKey="tname"><span>实验课任课老师</span></th>
-                        <th nzShowFilter [nzFilters]="filterCourseType"
-                            (nzFilterChange)="updateCourseTypeFilter($event)">课程类别
-                        </th>
-                        <th>备注</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let each of TeachTable.data;let no=index">
-                        <th scope="row">{{no + 1}}</th>
-                        <td>{{each.labName}}</td>
-                        <td>{{each.term}}</td>
-                        <td>{{each.expMajor}}</td>
-                        <td>{{each.labClass}}</td>
-                        <td>{{each.expCname}}</td>
-                        <td>{{each.courseId}}</td>
-                        <td>{{each.expTime}}</td>
-                        <td>{{each.coursePeriod}}</td>
-                        <td>{{each.courseCollege}}</td>
-                        <td>{{each.campus}}</td>
-                        <td>{{each.tname}}</td>
-                        <td>{{each.courseType}}</td>
-                        <td>{{each.labRemark}}</td>
-                    </tr>
-                    </tbody>
-                </nz-table>
+                <div style="width: 200px" class="row">
+                    <select class="browser-default custom-select"
+                            [(ngModel)]="selectTerm">
+                        <option *ngFor="let each of filterTerm">{{each.text}}</option>
+                    </select>
+                    <button mdbBtn type="submit" gradient="blue" mdbWavesEffect (click)="download()">下载教学计划表
+                    </button>
+                </div>
+                <div class="card-body">
+                    <nz-table
+                        #TeachTable
+                        nzShowSizeChanger
+                        [nzFrontPagination]="false"
+                        [nzData]="dataSet"
+                        [nzLoading]="loading"
+                        [nzTotal]="total"
+                        [(nzPageIndex)]="pageIndex"
+                        [(nzPageSize)]="pageSize"
+                        (nzPageIndexChange)="updateData()"
+                        (nzPageSizeChange)="updateData(true)">
+                        <thead (nzSortChange)="sort($event)" nzSingleSort>
+                        <tr>
+                            <th>序号
+                            </th>
+                            <th>实验室名称</th>
+                            <th nzShowFilter [nzFilters]="filterTerm" (nzFilterChange)="updateTermFilter($event)">学期
+                            </th>
+                            <th nzShowFilter [nzFilters]="filterMajor" (nzFilterChange)="updateTermFilter($event)">专业
+                            </th>
+                            <th nzShowFilter [nzFilters]="filterClass" (nzFilterChange)="updateTermFilter($event)">班级
+                            </th>
+                            <th nzShowSort nzSortKey="type"><span>实验课程名称</span></th>
+                            <th nzShowSort nzSortKey="courseId"><span>课程代码</span></th>
+                            <th nzShowSort nzSortKey="expTime"><span>学时</span></th>
+                            <th nzShowSort nzSortKey="coursePeriod"><span>起止周</span></th>
+                            <th><span>开课学院</span></th>
+                            <th><span>校区</span></th>
+                            <th nzShowSort nzSortKey="tname"><span>实验课任课老师</span></th>
+                            <th nzShowFilter [nzFilters]="filterCourseType"
+                                (nzFilterChange)="updateCourseTypeFilter($event)">课程类别
+                            </th>
+                            <th>备注</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let each of TeachTable.data;let no=index">
+                            <th scope="row">{{no + 1}}</th>
+                            <td>{{each.labName}}</td>
+                            <td>{{each.term}}</td>
+                            <td>{{each.expMajor}}</td>
+                            <td>{{each.labClass}}</td>
+                            <td>{{each.expCname}}</td>
+                            <td>{{each.courseId}}</td>
+                            <td>{{each.expTime}}</td>
+                            <td>{{each.coursePeriod}}</td>
+                            <td>{{each.courseCollege}}</td>
+                            <td>{{each.campus}}</td>
+                            <td>{{each.tname}}</td>
+                            <td>{{each.courseType}}</td>
+                            <td>{{each.labRemark}}</td>
+                        </tr>
+                        </tbody>
+                    </nz-table>
+                </div>
             </div>
         </div>
     </div>

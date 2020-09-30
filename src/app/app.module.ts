@@ -40,10 +40,8 @@ import {AuditLabComponent} from './side-nav/audit-lab/audit-lab.component';
 import {ShowNoticeComponent} from './side-nav/show-notice/show-notice.component';
 import {CardInfoComponent} from './side-nav/card-info/card-info.component';
 import {FutextComponent} from './side-nav/futext/futext.component';
-
+import { DetailsNoticComponent } from './side-nav/details-notic/details-notic.component';
 registerLocaleData(zh);
-
-
 const appRoutes: Routes = [
     {
         path: '', // 默认路由
@@ -55,6 +53,7 @@ const appRoutes: Routes = [
         path: 'sidenav', component: SideNavComponent,
         canActivate: [CanActivateAuthGuard],
         children: [
+
             {path: 'personalinfo', component: PersonalInfoComponent,},
             {path: 'notify', component: NotifyComponent,},
             {path: 'upload', component: UploadComponent,},
@@ -97,6 +96,7 @@ const appRoutes: Routes = [
         FutextComponent,
         ShowNoticeComponent,
         CardInfoComponent,
+        DetailsNoticComponent,
     ],
     imports: [
         BrowserModule,

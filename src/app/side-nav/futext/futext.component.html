@@ -53,6 +53,9 @@
                             </div>
                         </div>
                     </nz-spin>
+                    <div *ngIf="nzProgressVisible">
+                        <nz-progress [nzPercent]="nzProgress" nzStatus="active"></nz-progress>
+                    </div>
                 </mdb-card>
             </div>
         </div>

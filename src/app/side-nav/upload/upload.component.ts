@@ -3,13 +3,13 @@ import {MDBModalRef} from 'angular-bootstrap-md';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {Router} from '@angular/router';
-import {DateUtils} from "../../utils/DateUtils";
-import {ProjectService} from "../../service/project.service";
-import {AuthenticationService} from "../../service/authentication.service";
-import {TeacherService} from "../../service/teacher.service";
-import {HttpClient} from "@angular/common/http";
-import {ExpFileService} from "../../service/exp-file.service";
-import {environment} from "../../../environments/environment";
+import {DateUtils} from '../../utils/DateUtils';
+import {ProjectService} from '../../service/project.service';
+import {AuthenticationService} from '../../service/authentication.service';
+import {TeacherService} from '../../service/teacher.service';
+import {HttpClient} from '@angular/common/http';
+import {ExpFileService} from '../../service/exp-file.service';
+import {environment} from '../../../environments/environment';
 
 @Component({
     selector: 'app-upload',
@@ -17,13 +17,11 @@ import {environment} from "../../../environments/environment";
     styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent implements OnInit {
-    modalRef: MDBModalRef;
-
-    nzProgressVisible: boolean = false;
-    nzProgress: number = 0;
+    nzProgressVisible = false;
+    nzProgress = 0;
 
     // 学期列表
-    termList = ['请选择学期', '2019-2020(2)', '2019-2020(1)', '2018-2019(2)', '2018-2019(1)']
+    termList = ['请选择学期'];
     termSelected = DateUtils.nowTerm();
 
     courseList = [];
@@ -31,10 +29,8 @@ export class UploadComponent implements OnInit {
     courseProId: number;
     courseSelectSettings = {};
 
-    switch1: any;
     // 文件上传的控件
-
-    fileStatusArray: Array<fileStatus>;
+    fileStatusArray: Array<FileStatus>;
     fileInputName = [
         {typeName: '考勤名单'},
         {typeName: '实验任务书'},
@@ -56,6 +52,15 @@ export class UploadComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.projectService.getTermList().subscribe(result => {
+            if (result.success && result.data.length > 0) {
+                console.log(result);
+                console.log(result.data);
+                result.data.forEach(each => this.termList.push(each));
+            } else {
+                this.termList.push(DateUtils.nowTerm());
+            }
+        });
         this.courseSelectSettings = {
             singleSelection: true, // 是否单选
             text: '选择课程',
@@ -66,15 +71,17 @@ export class UploadComponent implements OnInit {
     }
 
     initFileStatus() {
-        this.fileStatusArray = new Array<fileStatus>();
-        this.fileInputName.forEach(each => this.fileStatusArray.push(new fileStatus(each.typeName)));
+        this.fileStatusArray = new Array<FileStatus>();
+        this.fileInputName.forEach(each => this.fileStatusArray.push(new FileStatus(each.typeName)));
     }
 
     onSubmit() {
-        if (this.courseProId == undefined)
+        if (this.courseProId === undefined) {
             return this.nzMessage.error('请先选择课程！');
-        if (this.formData.length == 0)
+        }
+        if (this.formData.length === 0) {
             return this.nzMessage.error('请先选择文件！');
+        }
 
         this.nzProgressVisible = true;
         // TODO 异步变同步解决互斥
@@ -117,34 +124,34 @@ export class UploadComponent implements OnInit {
                     console.log(result.data.files);
                     result.data.files.forEach(each => {
                         this.fileStatusArray.forEach(file => {
-                            if (each.typeName == file.typeName) {
+                            if (each.typeName === file.typeName) {
                                 file.fileName = each.name;
                                 file.status = each.no;
                             }
                         });
                     });
                 }
-                this.nzMessage.success("获取文件关联信息成功");
+                this.nzMessage.success('获取文件关联信息成功');
             } else {
-                this.nzMessage.error("获取文件关联信息失败");
+                this.nzMessage.error('获取文件关联信息失败');
             }
-        })
+        });
     }
 
     filePreview(fileId: number, fileName: string) {
-        let fileUrl = this.expFileService.getFileUri(fileId, this.termSelected);
-        let previewUrl = `${fileUrl}&fullfilename=${fileName}`
+        const fileUrl = this.expFileService.getFileUri(fileId, this.termSelected);
+        const previewUrl = `${fileUrl}&fullfilename=${fileName}`;
         window.open(`${environment.filePreviewUrl}/onlinePreview?url=` + encodeURIComponent(previewUrl));
     }
 
     fileChange(typeName: string, e: any) {
-        if (this.courseProId == undefined) {
+        if (this.courseProId === undefined) {
             this.nzMessage.error('请先选择课程！');
             return;
         }
-        let index = this.formData.findIndex(each => each.get('typeName') == typeName);
-        if (index == -1) {
-            let formData = new FormData();
+        const index = this.formData.findIndex(each => each.get('typeName') === typeName);
+        if (index === -1) {
+            const formData = new FormData();
             formData.append('typeName', typeName);
             formData.append('proId', this.courseProId.toString());
             formData.append('file', e.file);
@@ -158,8 +165,8 @@ export class UploadComponent implements OnInit {
     }
 
     fileUpload() {
-        let tempData = this.formData.pop();
-        if (tempData != undefined) {
+        const tempData = this.formData.pop();
+        if (tempData !== undefined) {
             this.expFileService.addExpFile(tempData).subscribe(result => {
                 if (result.success) {
                     this.nzProgress += 20;
@@ -168,19 +175,19 @@ export class UploadComponent implements OnInit {
                     this.nzMessage.error('上传文件错误！');
                     return;
                 }
-            })
+            });
         } else {
             this.courseSelect({id: this.courseProId});
             this.nzProgress = 100;
             this.nzProgressVisible = false;
             this.nzProgress = 0;
-            this.nzMessage.success("上传文件成功");
+            this.nzMessage.success('上传文件成功');
             this.formData = new Array<FormData>();
         }
     }
 }
 
-class fileStatus {
+class FileStatus {
     name: string;
     typeName: string;
     status: number;

@@ -5,8 +5,8 @@ import {Observable} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {HandleError} from './handle-error';
 import {NzMessageService} from 'ng-zorro-antd';
-import {result} from '../enity/result';
-import {TeacherMsg} from "../enity/teacher";
+import {result} from '../entity/result';
+import {TeacherMsg} from "../entity/teacher";
 
 @Injectable({
     providedIn: 'root'

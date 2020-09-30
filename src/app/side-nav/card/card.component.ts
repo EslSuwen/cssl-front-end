@@ -3,12 +3,12 @@ import {MDBModalRef, MDBModalService} from 'angular-bootstrap-md';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {ProjectService} from '../../service/project.service';
-import {Exp, ProjectItem} from '../../enity/project';
-import {AuthenticationService} from "../../service/authentication.service";
-import {TeacherService} from "../../service/teacher.service";
+import {Exp, ProjectItem} from '../../entity/project';
+import {AuthenticationService} from '../../service/authentication.service';
+import {TeacherService} from '../../service/teacher.service';
 import {NzModalRef, NzModalService} from 'ng-zorro-antd/modal';
 import {Router} from '@angular/router';
-import {DateUtils} from "../../utils/DateUtils";
+import {DateUtils} from '../../utils/DateUtils';
 
 @Component({
     selector: 'app-card',
@@ -18,9 +18,9 @@ import {DateUtils} from "../../utils/DateUtils";
 export class CardComponent implements OnInit {
     nowTerm = DateUtils.nowTerm();
     confirmModal: NzModalRef;
-    //设置模态框的参数
+    // 设置模态框的参数
     addItemVisible = false;
-    addItemNum = 1; //增加表格的行数
+    addItemNum = 1; // 增加表格的行数
     courseList = [];
     courseSelectSettings = {};
     projectItems: ProjectItem[];
@@ -38,7 +38,7 @@ export class CardComponent implements OnInit {
     editExpCache = {};
 
     // 学期列表
-    termList = ['请选择学期', '2019-2020(2)', '2019-2020(1)', '2018-2019(2)', '2018-2019(1)']
+    termList = ['请选择学期'];
     termSelected = '请选择学期';
 
     constructor(private fb: FormBuilder,
@@ -53,6 +53,15 @@ export class CardComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.projectService.getTermList().subscribe(result => {
+            if (result.success && result.data.length > 0) {
+                console.log(result);
+                console.log(result.data);
+                result.data.forEach(each => this.termList.push(each));
+            } else {
+                this.termList.push(DateUtils.nowTerm());
+            }
+        });
         this.courseSelectSettings = {
             singleSelection: true, // 是否单选
             text: '选择课程',
@@ -69,25 +78,26 @@ export class CardComponent implements OnInit {
         this.teacherService.getTeaches(this.authenticationService.getUserNo(), DateUtils.nowTerm())
             .subscribe(result => {
                 if (result.success) {
-                    for (let each of result.data)
+                    for (const each of result.data) {
                         this.courseList.push({id: each.courseId, itemName: each.courseName});
+                    }
                 }
             });
         // 初始化实验卡片表单控制
         this.expCardFG = this.fb.group({
             courseSelected: ['', [Validators.required]],
             expCname: ['', [Validators.required]], // 实验课程名称
-            expEqname: ['', [Validators.required]],// 设备
-            eqnum: ['', [Validators.required, Validators.min(0), Validators.max(100)]],// 设备数量
-            expMajor: ['', [Validators.required]],// 面向专业
-            ssort: ['', [Validators.required]],// 学生类别
-            expTime: ['', [Validators.required, Validators.min(1), Validators.max(100)]],// 实验总学时
-            book: ['', [Validators.required]],// 实验教材
-            software: ['', [Validators.required]],// 实验所用软件
-            expTid: ['', [Validators.required]],// 教职工号
-            cname: ['', [Validators.required]],// 课程名
-            conName: ['', [Validators.required]],// 消耗材料名称
-            conNum: ['', [Validators.required, Validators.min(0), Validators.max(100)]],// 消耗材料数量
+            expEqname: ['', [Validators.required]], // 设备
+            eqnum: ['', [Validators.required, Validators.min(0), Validators.max(100)]], // 设备数量
+            expMajor: ['', [Validators.required]], // 面向专业
+            ssort: ['', [Validators.required]], // 学生类别
+            expTime: ['', [Validators.required, Validators.min(1), Validators.max(100)]], // 实验总学时
+            book: ['', [Validators.required]], // 实验教材
+            software: ['', [Validators.required]], // 实验所用软件
+            expTid: ['', [Validators.required]], // 教职工号
+            cname: ['', [Validators.required]], // 课程名
+            conName: ['', [Validators.required]], // 消耗材料名称
+            conNum: ['', [Validators.required, Validators.min(0), Validators.max(100)]], // 消耗材料数量
         });
 
         this.ProjectItemArray.push(new ProjectItem());
@@ -95,7 +105,7 @@ export class CardComponent implements OnInit {
 
     onSubmit() {
         if (this.expCardFG.invalid) {
-            this.nzMessage.error("请检查信息是否填写正确！")
+            this.nzMessage.error('请检查信息是否填写正确！');
             return;
         }
         const exp = new Exp();
@@ -148,7 +158,7 @@ export class CardComponent implements OnInit {
                         this.projectService.getProjectItems(result.data.proId).subscribe(result => {
                             if (result.success) {
                                 this.ProjectItemArray = result.data;
-                                this.nzMessage.success("导入成功！");
+                                this.nzMessage.success('导入成功！');
                             }
                         });
                     }
@@ -163,7 +173,7 @@ export class CardComponent implements OnInit {
         }
     }
 
-    //确认提交的模态框
+    // 确认提交的模态框
     showConfirm(): void {
         this.confirmModal = this.nzModal.confirm({
             nzTitle: '确认提交吗',
@@ -197,15 +207,16 @@ export class CardComponent implements OnInit {
         this.projectService.updateItem(this.editItemCache[ino].data).subscribe(result => {
             if (result.success) {
                 this.projectItems.forEach(each => {
-                    if (each.ino == ino) {
+                    if (each.ino === ino) {
+
                         each = this.editItemCache[ino].data;
                     }
                 });
-                this.nzMessage.success("修改成功");
+                this.nzMessage.success('修改成功');
             } else {
-                this.nzMessage.error("修改失败");
+                this.nzMessage.error('修改失败');
             }
-        })
+        });
         this.editItemCache[ino].edit = false;
     }
 
@@ -232,18 +243,18 @@ export class CardComponent implements OnInit {
     deleteItem(ino: number) {
         this.projectService.deleteItem(ino.toString()).subscribe(resutl => {
             if (resutl.success) {
-                this.nzMessage.success("删除成功！");
+                this.nzMessage.success('删除成功！');
             } else {
-                this.nzMessage.error("删除失败！");
+                this.nzMessage.error('删除失败！');
             }
-        })
+        });
     }
 
     updateItemEditCache(edit: boolean = false): void {
         this.projectItems.forEach(item => {
             if (!this.editItemCache[item.ino]) {
                 this.editItemCache[item.ino] = {
-                    edit: edit,
+                    edit,
                     data: item
                 };
             }
@@ -258,15 +269,15 @@ export class CardComponent implements OnInit {
         this.projectService.updateExp(this.editExpCache[proId].data).subscribe(result => {
             if (result.success) {
                 this.exps.forEach(each => {
-                    if (each.proId == proId) {
+                    if (each.proId === proId) {
                         each = this.editExpCache[proId].data;
                     }
                 });
-                this.nzMessage.success("修改成功");
+                this.nzMessage.success('修改成功');
             } else {
-                this.nzMessage.error("修改失败");
+                this.nzMessage.error('修改失败');
             }
-        })
+        });
         this.editExpCache[proId].edit = false;
     }
 
@@ -281,9 +292,9 @@ export class CardComponent implements OnInit {
     deleteExp(proId: number) {
         this.projectService.deleteExp(proId.toString()).subscribe(result => {
             if (result.success) {
-                this.nzMessage.success("删除成功！");
+                this.nzMessage.success('删除成功！');
             } else {
-                this.nzMessage.error("删除失败！");
+                this.nzMessage.error('删除失败！');
             }
         });
     }
@@ -292,7 +303,7 @@ export class CardComponent implements OnInit {
         this.exps.forEach(item => {
             if (!this.editExpCache[item.proId]) {
                 this.editExpCache[item.proId] = {
-                    edit: edit,
+                    edit,
                     data: item
                 };
             }

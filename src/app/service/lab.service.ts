@@ -4,7 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {NzMessageService} from "ng-zorro-antd";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
-import {result} from "../enity/result";
+import {result} from "../entity/result";
 import {catchError, tap} from "rxjs/operators";
 
 @Injectable({

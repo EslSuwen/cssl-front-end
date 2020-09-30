@@ -4,6 +4,8 @@
  * @author suwen
  * @since 2020-02-23
  */
+import {Class} from './class';
+
 export class Arrange {
 
     /** 实验室排课编号 */
@@ -36,6 +38,9 @@ export class Arrange {
     /** 备注 */
     labRemark: string;
 
+    /** 时间安排课程信息 */
+    labClassInfo: Class[];
+
     /** 排课时间 */
     arrangePeriod: Array<ArrangePeriod>;
 
@@ -50,6 +55,8 @@ export class Arrange {
         this.courseId = 0;
         this.expProname = '';
         this.labRemark = '';
+        this.expProname = '';
+        this.labClassInfo = [];
         this.arrangePeriod = new Array<ArrangePeriod>();
     }
 }

@@ -4,7 +4,7 @@ import {NzMessageService} from "ng-zorro-antd";
 import {environment} from "../../environments/environment";
 import {HandleError} from "./handle-error";
 import {Observable} from "rxjs";
-import {result} from "../enity/result";
+import {result} from "../entity/result";
 import {catchError} from "rxjs/operators";
 
 @Injectable({
@@ -52,4 +52,15 @@ export class ExpFileService extends HandleError {
             catchError(this.handleError<result>(`获得文件状态信息失败， proId：${proId}`))
         );
     }
+
+    /**
+     * 下载实验文件 zip
+     *
+     * @param proId 项目卡片编号
+     * @param term 学期
+     */
+    getFilesZip(proId: string | number, term: string): void {
+        window.location.href = `${this.FILE_API}/getFilesZip?proId=${proId}&term=${term}`;
+    }
+
 }

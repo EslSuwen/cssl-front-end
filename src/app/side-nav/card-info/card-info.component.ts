@@ -1,14 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {TeachPlan} from "../../enity/teachPlan";
-import {TeachPlanService} from "../../service/teach-plan.service";
-import {Router} from "@angular/router";
-import {NzMessageService, NzModalService} from "ng-zorro-antd";
-import {ExpFileService} from "../../service/exp-file.service";
-import {LabService} from "../../service/lab.service";
-import {LabInfo} from "../../enity/labInfo";
-import {TeacherService} from "../../service/teacher.service";
-import {TeacherMsg} from "../../enity/teacher";
-import {environment} from "../../../environments/environment";
+import {TeachPlan} from '../../entity/teachPlan';
+import {TeachPlanService} from '../../service/teach-plan.service';
+import {Router} from '@angular/router';
+import {NzMessageService, NzModalService} from 'ng-zorro-antd';
+import {ExpFileService} from '../../service/exp-file.service';
+import {LabService} from '../../service/lab.service';
+import {LabInfo} from '../../entity/labInfo';
+import {TeacherService} from '../../service/teacher.service';
+import {TeacherMsg} from '../../entity/teacher';
+import {environment} from '../../../environments/environment';
+import {DateUtils} from '../../utils/DateUtils';
 
 @Component({
     selector: 'app-card-info',
@@ -24,18 +25,18 @@ export class CardInfoComponent implements OnInit {
     sortValue = null;
     sortKey = null;
 
-    //nz modal
+    // nz modal
     isNzModalVisible = false;
     isMsgConfirmLoading = false;
 
-    //nz tabInfo
+    // nz tabInfo
     tabInfo: any = {};
 
-    //nz tab
+    // nz tab
     tabIndex = 0;
     labInfo = new LabInfo();
 
-    fileStatusArray: Array<fileStatus>;
+    fileStatusArray: Array<FileStatus>;
     fileInputName = [
         {typeName: '考勤名单'},
         {typeName: '实验任务书'},
@@ -66,10 +67,6 @@ export class CardInfoComponent implements OnInit {
         {text: '选修', value: '选修'},
     ];
     filterCourseTypeSelected = [];
-    public planPeriod: any = {
-        year: '2019-2020(1)',
-    };
-
     teachPlans: TeachPlan[];
 
     constructor(private teachPlanService: TeachPlanService,
@@ -83,7 +80,7 @@ export class CardInfoComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.teachPlanService.getTeachingPlan().subscribe(
+        this.teachPlanService.getTeachingPlan(DateUtils.nowTerm()).subscribe(
             result => {
                 if (result.success) {
                     this.teachPlans = result.data;
@@ -96,8 +93,8 @@ export class CardInfoComponent implements OnInit {
     }
 
     initFileStatus() {
-        this.fileStatusArray = new Array<fileStatus>();
-        this.fileInputName.forEach(each => this.fileStatusArray.push(new fileStatus(each.typeName)));
+        this.fileStatusArray = new Array<FileStatus>();
+        this.fileInputName.forEach(each => this.fileStatusArray.push(new FileStatus(each.typeName)));
     }
 
     fileDownload(fileNo: number) {
@@ -105,9 +102,8 @@ export class CardInfoComponent implements OnInit {
     }
 
     filePreview(fileId: number, fileName: string) {
-        let fileUrl = this.expFileService.getFileUri(fileId, this.tabInfo.term);
-        // let previewUrl = `${fileUrl}&fullfilename=${fileName}`
-        let previewUrl = `http://localhost:8090/cssl/expFile/getFile?fileId=52&term=2019-2020(2)&fullfilename=${fileName}`
+        const fileUrl = this.expFileService.getFileUri(fileId, this.tabInfo.term);
+        const previewUrl = `${fileUrl}&fullfilename=${fileName}`;
         window.open(`${environment.filePreviewUrl}/onlinePreview?url=` + encodeURIComponent(previewUrl));
     }
 
@@ -118,21 +114,21 @@ export class CardInfoComponent implements OnInit {
                 if (result.data && result.data.files) {
                     result.data.files.forEach(each => {
                         this.fileStatusArray.forEach(file => {
-                            if (each.typeName == file.typeName) {
+                            if (each.typeName === file.typeName) {
                                 file.fileName = each.name;
                                 file.status = each.no;
                             }
                         });
                     });
                 }
-                this.nzMessage.success("获取文件关联信息成功");
+                this.nzMessage.success('获取文件关联信息成功');
             }
-        })
+        });
         this.labService.getLabByProId(proId).subscribe(result => {
             if (result.success && result.data) {
                 this.labInfo = result.data;
             }
-        })
+        });
     }
 
     updateData(reset: boolean = false): void {
@@ -188,13 +184,17 @@ export class CardInfoComponent implements OnInit {
 
     handleOk(): void {
         this.isMsgConfirmLoading = true;
-        let msg = new TeacherMsg(this.tabInfo.tid, '请更新实验卡片信息', `请更新课程：${this.tabInfo.expCname} 的信息。`);
-        this.teacherService.addMsgInfo(msg).subscribe(r => this.isMsgConfirmLoading = false);
+        const msg = new TeacherMsg(this.tabInfo.tid, '请更新实验卡片信息', `请更新课程：${this.tabInfo.expCname} 的信息。`);
+        this.teacherService.addMsgInfo(msg).subscribe(() => this.isMsgConfirmLoading = false);
+    }
+
+    downloadFilesZip() {
+        this.expFileService.getFilesZip(this.tabInfo.proId, this.tabInfo.term);
     }
 
 }
 
-class fileStatus {
+class FileStatus {
     name: string;
     typeName: string;
     status: number;

@@ -4,7 +4,7 @@ import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {throwError} from 'rxjs/internal/observable/throwError';
 import {environment} from '../../environments/environment';
-import {Teacher} from '../enity/teacher';
+import {Teacher} from '../entity/teacher';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'}),

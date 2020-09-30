@@ -2,12 +2,12 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {Teach} from '../enity/teacher';
-import {Arrange} from '../enity/arrange';
+import {Teach} from '../entity/teacher';
+import {Arrange} from '../entity/arrange';
 import {NzMessageService} from 'ng-zorro-antd';
 import {catchError, tap} from 'rxjs/operators';
 import {HandleError} from './handle-error';
-import {result} from "../enity/result";
+import {result} from '../entity/result';
 
 @Injectable({
     providedIn: 'root'
@@ -57,4 +57,23 @@ export class ApplyService extends HandleError {
         return this.http.delete(this.ARRANGE_API + '/clearData/');
     }
 
+    /**
+     * 通过年级获取班级信息
+     *
+     * @param grade 年级
+     */
+    getClassByGrade(grade: string | number): Observable<result> {
+        const url = `${this.ARRANGE_API}/getClassByGrade/${grade}`;
+        return this.http.get<result>(url).pipe(
+            tap(response => {
+                    if (response.success) {
+                        this.success(response.message);
+                    } else {
+                        this.error('获取班级列表');
+                    }
+                }
+            ),
+            catchError(this.handleError<result>('获取班级列表'))
+        );
+    }
 }

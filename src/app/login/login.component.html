@@ -34,7 +34,6 @@
                                         <hr class="hr-light">
                                     </div>
                                     <!--Body-->
-
                                     <form [formGroup]="validationForm">
                                         <div class="md-form">
                                             <input type="text" id="form5" class="form-control white-text"
@@ -87,8 +86,6 @@
                                         </div>
                                     </form>
                                     <div class="text-center">
-
-
                                         <div class="inline-ul text-center d-flex justify-content-center">
                                             <a class="p-2 m-2 tw-ic">
                                                 <strong>Org@重庆交通大学信息学院</strong>
@@ -106,7 +103,7 @@
     </section>
 </header>
 <!--Main Navigation-->
-<div mdbModal #demoBasic="mdbModal" class="modal fade" id="frameModalTop" tabindex="-1" role="dialog"
+<div mdbModal #failModal class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-notify modal-danger" role="document">
@@ -114,43 +111,39 @@
         <div class="modal-content text-center">
             <!--Header-->
             <div class="modal-header d-flex justify-content-center">
-                <p class="heading">账号或密码错误，请重新输入</p>
+                <p class="heading">{{failMessage}} 请重试！</p>
             </div>
             <!--Footer-->
             <div class="modal-footer justify-content-center">
                 <a type="button" mdbBtn color="danger" outline="true" class="waves-light" mdbWavesEffect
                    data-dismiss="modal"
-                   (click)="demoBasic.hide()">确定</a>
+                   (click)="failModal.hide()">确定</a>
             </div>
             <strong>若一直登录不进去请刷新页面或者联系管理员</strong>
         </div>
         <!--/.Content-->
     </div>
 </div>
-<div mdbModal #demoBasi1="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+<div mdbModal #successModal class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
         <!--Content-->
         <div class="modal-content">
-
             <!--Header-->
             <div class="modal-header">
-                <img
-                        src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584112127594&di=d8c4933ae83b708b11f2dd4707925115&imgtype=0&src=http%3A%2F%2Fimg.mp.itc.cn%2Fupload%2F20161221%2F417e36c0dec34ed487d89c2fdcfd0132_th.jpeg"
-                        alt="avatar" class="rounded-circle img-responsive">
+                <img src="assets/img/user_avatar.jpg"
+                     alt="avatar" class="rounded-circle img-responsive">
             </div>
             <!--Body-->
             <div class="modal-body mb-1">
                 <h5 class="mt-1 mb-2 text-center">教师账号：{{username}}</h5>
-
                 <div class="text-center mt-4">
                     <button mdbBtn color="cyan" rounded="true" class="mt-1 waves-light" mdbWavesEffect
-                            (click)="demoBasi1.hide();passLogin();">确认进入管理空间
+                            (click)="successModal.hide();passLogin();">确认进入管理空间
                         <mdb-icon fas icon="sign-in-alt" class="ml-1"></mdb-icon>
                     </button>
                 </div>
             </div>
-
         </div>
         <!--/.Content-->
     </div>
