@@ -228,4 +228,28 @@ export class TeacherService extends HandleError {
         return this.http.get<any>(url);
     }
 
+    /**
+     * 判断班级是否存在
+     *
+     * @param classId 班级编号
+     * @author suwen
+     * @date 2020/9/30 下午19:26
+     */
+    ifClass(classId: number | string): Observable<result> {
+        const url = `${this.TEACHER_API}/ifClass/${classId}`;
+        return this.http.get<any>(url);
+    }
+
+    /**
+     * 判断课程是否存在
+     *
+     * @param courseId 课程编号
+     * @author suwen
+     * @date 2020/9/30 下午19:26
+     */
+    ifCurriculum(courseId: number | string): Observable<result> {
+        const url = `${this.TEACHER_API}/ifCurriculum/${courseId}`;
+        return this.http.get<any>(url);
+    }
+
 }

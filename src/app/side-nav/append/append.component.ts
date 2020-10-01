@@ -3,6 +3,8 @@ import {FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from 
 import {Observable, Observer} from 'rxjs';
 import {Teacher} from '../../entity/teacher';
 import {TeacherService} from '../../service/teacher.service';
+import {Class} from '../../entity/class';
+import {Course} from '../../entity/course';
 
 @Component({
     selector: 'app-append',
@@ -14,6 +16,8 @@ export class AppendComponent implements OnInit {
     tabIndex = 0;
 
     teacherValidateForm: FormGroup;
+    classValidateForm: FormGroup;
+    courseValidateForm: FormGroup;
 
     constructor(private fb: FormBuilder, private  teacherService: TeacherService) {
     }
@@ -27,6 +31,19 @@ export class AppendComponent implements OnInit {
             authority: ['', [Validators.required, Validators.min(0), Validators.max(2)]],
             tqq: ['', [Validators.minLength(5), Validators.maxLength(12)]],
             temail: ['', [], [this.emailAsyncValidator]],
+        });
+        this.classValidateForm = this.fb.group({
+            classId: ['', [Validators.required], [this.classIdAsyncValidator]],
+            grade: ['', [Validators.required]],
+            className: ['', [Validators.required]],
+            majorId: ['', [Validators.required]],
+            studentNum: ['', []]
+        });
+        this.courseValidateForm = this.fb.group({
+            courseId: ['', [Validators.required], [this.courseIdAsyncValidator]],
+            courseName: ['', [Validators.required]],
+            courseCollege: ['', [Validators.required]],
+            courseType: ['', [Validators.required]],
         });
     }
 
@@ -45,6 +62,34 @@ export class AppendComponent implements OnInit {
         console.log(teacher);
     }
 
+    classSubmitForm($event) {
+        console.log($event);
+        $event.preventDefault();
+        const newClass = new Class();
+        for (const key in this.classValidateForm.controls) {
+            if (key === 'grade') {
+                newClass[key] = this.classValidateForm.controls[key].value.getFullYear();
+                continue;
+            }
+            newClass[key] = this.classValidateForm.controls[key].value;
+            this.classValidateForm.controls[key].markAsDirty();
+            this.classValidateForm.controls[key].updateValueAndValidity();
+        }
+        console.log(newClass);
+    }
+
+    courseSubmitForm($event) {
+        console.log($event);
+        $event.preventDefault();
+        const course = new Course();
+        for (const key in this.courseValidateForm.controls) {
+            course[key] = this.courseValidateForm.controls[key].value;
+            this.courseValidateForm.controls[key].markAsDirty();
+            this.courseValidateForm.controls[key].updateValueAndValidity();
+        }
+        console.log(course);
+    }
+
     tidNoAsyncValidator = (control: FormControl) => new Observable((observer: Observer<ValidationErrors>) => {
         setTimeout(() => {
             /** 手机号第1位肯定是1，第2位是3，4，5，7，8其中一个，剩余的9位在0-9之间 */
@@ -54,7 +99,6 @@ export class AppendComponent implements OnInit {
                 observer.complete();
             } else {
                 this.teacherService.ifTeacher(control.value).subscribe(result => {
-                    console.log(result);
                     if (result.success) {
                         observer.next({error: true, duplicated: true});
                     } else {
@@ -65,6 +109,33 @@ export class AppendComponent implements OnInit {
             }
         }, 500);
     })
+
+    classIdAsyncValidator = (control: FormControl) => new Observable((observer: Observer<ValidationErrors>) => {
+        setTimeout(() => {
+            this.teacherService.ifClass(control.value).subscribe(result => {
+                if (result.success) {
+                    observer.next({error: true, duplicated: true});
+                } else {
+                    observer.next(null);
+                }
+                observer.complete();
+            });
+        }, 500);
+    })
+
+    courseIdAsyncValidator = (control: FormControl) => new Observable((observer: Observer<ValidationErrors>) => {
+        setTimeout(() => {
+            this.teacherService.ifCurriculum(control.value).subscribe(result => {
+                if (result.success) {
+                    observer.next({error: true, duplicated: true});
+                } else {
+                    observer.next(null);
+                }
+                observer.complete();
+            });
+        }, 500);
+    })
+
 
     phoneNoAsyncValidator = (control: FormControl) => new Observable((observer: Observer<ValidationErrors>) => {
         setTimeout(() => {

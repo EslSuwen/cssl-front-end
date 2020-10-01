@@ -100,16 +100,161 @@
 
                 <nz-form-item>
                     <nz-form-control [nzOffset]="7" [nzSpan]="5">
-                        <button nz-button nzType="primary" [disabled]="!teacherValidateForm.valid">确认登记</button>
+                        <button nz-button nzType="primary" [disabled]="!teacherValidateForm.valid">确认</button>
                         <nz-divider nzType="vertical"></nz-divider>
-                        <button nz-button (click)="this.teacherValidateForm.reset();">取消登记</button>
+                        <button nz-button (click)="this.teacherValidateForm.reset();">取消</button>
                     </nz-form-control>
                 </nz-form-item>
             </form>
         </div>
     </nz-tab>
-    <nz-tab nzTitle="班级信息"></nz-tab>
-    <nz-tab nzTitle="课程信息"></nz-tab>
+    <nz-tab nzTitle="班级信息">
+        <div class="card-body col-12 px-0 mx-auto mb-6">
+            <form nz-form [formGroup]="classValidateForm" (ngSubmit)="classSubmitForm($event)">
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="7" nzRequired>编号</nz-form-label>
+                    <nz-form-control [nzSpan]="5" nzHasFeedback>
+                        <input nz-input type="number" formControlName="classId" placeholder="班级编号" maxlength="8">
+                        <nz-form-explain
+                                *ngIf="classValidateForm.get('classId').dirty && classValidateForm.get('classId').errors||classValidateForm.get('classId').pending ">
+                            <ng-container *ngIf="classValidateForm.get('classId').hasError('wrong')">
+                                请填写有效班级编号!
+                            </ng-container>
+                            <ng-container *ngIf="classValidateForm.get('classId').hasError('duplicated')">
+                                班级编号重复!
+                            </ng-container>
+                            <ng-container *ngIf="classValidateForm.get('classId').pending">
+                                校验中....
+                            </ng-container>
+                        </nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="7" nzRequired>年级</nz-form-label>
+                    <nz-form-control [nzSpan]="5" nzHasFeedback>
+                        <nz-year-picker formControlName="grade" nzPlaceHolder="年级"></nz-year-picker>
+                        <nz-form-explain
+                                *ngIf="classValidateForm.get('grade').dirty && classValidateForm.get('grade').errors">
+                            <ng-container *ngIf="classValidateForm.get('grade').hasError('required')">
+                                请填写年级!
+                            </ng-container>
+                        </nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="7" nzRequired>班级名</nz-form-label>
+                    <nz-form-control [nzSpan]="5" nzHasFeedback>
+                        <input nz-input formControlName="className" placeholder="班级名" maxlength="11">
+                        <nz-form-explain
+                                *ngIf="classValidateForm.get('className').dirty && classValidateForm.get('className').errors">
+                            <ng-container *ngIf="classValidateForm.get('className').hasError('required')">
+                                请填写班级名!
+                            </ng-container>
+                        </nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="7" nzRequired>专业</nz-form-label>
+                    <nz-form-control [nzSpan]="5">
+                        <nz-select formControlName="majorId" nzAllowClear nzPlaceHolder="专业">
+                            <nz-option nzValue="123" nzLabel="计算机科学与技术"></nz-option>
+                            <nz-option nzValue="456" nzLabel="物联网工程"></nz-option>
+                            <nz-option nzValue="666" nzLabel="通信工程"></nz-option>
+                            <nz-option nzValue="789" nzLabel="电子信息"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="7">人数</nz-form-label>
+                    <nz-form-control [nzSpan]="5" nzHasFeedback>
+                        <nz-input-number nz-input formControlName="studentNum" [nzMin]="1" [nzMax]="100"
+                                         [nzStep]="1"></nz-input-number>
+                        <nz-form-explain *ngIf="classValidateForm.get('studentNum').errors">
+                            请填写有效的人数!
+                        </nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+
+
+                <nz-form-item>
+                    <nz-form-control [nzOffset]="7" [nzSpan]="5">
+                        <button nz-button nzType="primary" [disabled]="!classValidateForm.valid">确认</button>
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <button nz-button (click)="this.classValidateForm.reset();">取消</button>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </div>
+    </nz-tab>
+    <nz-tab nzTitle="课程信息">
+        <div class="card-body col-12 px-0 mx-auto mb-6">
+            <form nz-form [formGroup]="courseValidateForm" (ngSubmit)="courseSubmitForm($event)">
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="7" nzRequired>编号</nz-form-label>
+                    <nz-form-control [nzSpan]="5" nzHasFeedback>
+                        <input nz-input type="number" formControlName="courseId" placeholder="课程编号">
+                        <nz-form-explain
+                                *ngIf="courseValidateForm.get('courseId').dirty && courseValidateForm.get('courseId').errors||courseValidateForm.get('courseId').pending ">
+                            <ng-container *ngIf="courseValidateForm.get('courseId').hasError('required')">
+                                请填写课程编号!
+                            </ng-container>
+                            <ng-container *ngIf="courseValidateForm.get('courseId').hasError('duplicated')">
+                                课程编号重复!
+                            </ng-container>
+                            <ng-container *ngIf="courseValidateForm.get('courseId').pending">
+                                校验中....
+                            </ng-container>
+                        </nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="7" nzRequired>课程名</nz-form-label>
+                    <nz-form-control [nzSpan]="5" nzHasFeedback>
+                        <input nz-input formControlName="courseName" placeholder="课程名" maxlength="11">
+                        <nz-form-explain
+                                *ngIf="courseValidateForm.get('courseName').dirty && courseValidateForm.get('courseName').errors">
+                            <ng-container>
+                                请填写课程名!
+                            </ng-container>
+                        </nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="7" nzRequired>类型</nz-form-label>
+                    <nz-form-control [nzSpan]="5">
+                        <nz-select formControlName="courseType" nzAllowClear nzPlaceHolder="课程类型">
+                            <nz-option nzValue="必修" nzLabel="必修"></nz-option>
+                            <nz-option nzValue="选修" nzLabel="选修"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="7" nzRequired>学院</nz-form-label>
+                    <nz-form-control [nzSpan]="5">
+                        <nz-select formControlName="courseCollege" nzAllowClear nzPlaceHolder="开课学院">
+                            <nz-option nzValue="信息科学与工程" nzLabel="信息科学与工程"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+
+
+                <nz-form-item>
+                    <nz-form-control [nzOffset]="7" [nzSpan]="5">
+                        <button nz-button nzType="primary" [disabled]="!courseValidateForm.valid">确认</button>
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <button nz-button (click)="this.courseValidateForm.reset();">取消</button>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </div>
+    </nz-tab>
     <nz-tab nzTitle="授课信息"></nz-tab>
 </nz-tabset>
 <div *ngIf="tabIndex==0">
