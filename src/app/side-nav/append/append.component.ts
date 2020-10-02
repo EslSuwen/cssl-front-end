@@ -60,6 +60,11 @@ export class AppendComponent implements OnInit {
             teacher.tpassword = teacher.tid;
         }
         console.log(teacher);
+        this.teacherService.addTeacher(teacher).subscribe(result => {
+            if (result.success) {
+                this.teacherValidateForm.reset();
+            }
+        });
     }
 
     classSubmitForm($event) {
@@ -76,6 +81,11 @@ export class AppendComponent implements OnInit {
             this.classValidateForm.controls[key].updateValueAndValidity();
         }
         console.log(newClass);
+        this.teacherService.addClass(newClass).subscribe(result => {
+            if (result.success) {
+                this.classValidateForm.reset();
+            }
+        });
     }
 
     courseSubmitForm($event) {
@@ -88,6 +98,11 @@ export class AppendComponent implements OnInit {
             this.courseValidateForm.controls[key].updateValueAndValidity();
         }
         console.log(course);
+        this.teacherService.addCurriculum(course).subscribe(result => {
+            if (result.success) {
+                this.courseValidateForm.reset();
+            }
+        });
     }
 
     tidNoAsyncValidator = (control: FormControl) => new Observable((observer: Observer<ValidationErrors>) => {
@@ -112,6 +127,11 @@ export class AppendComponent implements OnInit {
 
     classIdAsyncValidator = (control: FormControl) => new Observable((observer: Observer<ValidationErrors>) => {
         setTimeout(() => {
+            if (control.value.toString().length > 8) {
+                observer.next({error: true, wrong: true});
+                observer.complete();
+                return;
+            }
             this.teacherService.ifClass(control.value).subscribe(result => {
                 if (result.success) {
                     observer.next({error: true, duplicated: true});
