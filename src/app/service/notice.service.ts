@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {NzMessageService} from "ng-zorro-antd";
-import {HandleError} from "./handle-error";
-import {environment} from "../../environments/environment";
-import {Observable} from "rxjs";
-import {result} from "../entity/result";
-import {catchError, tap} from "rxjs/operators";
-import {Notice} from "../entity/notice";
+import {HttpClient} from '@angular/common/http';
+import {NzMessageService} from 'ng-zorro-antd';
+import {HandleError} from './handle-error';
+import {environment} from '../../environments/environment';
+import {Observable} from 'rxjs';
+import {result} from '../entity/result';
+import {catchError, tap} from 'rxjs/operators';
+import {Notice} from '../entity/notice';
 
 @Injectable({
     providedIn: 'root'
@@ -59,10 +59,10 @@ export class NoticeService extends HandleError {
                 if (response.success) {
                     this.success(response.message);
                 } else {
-                    this.error("获取所有通知信息");
+                    this.error('获取所有通知信息');
                 }
             }),
-            catchError(this.handleError<result>("获取所有通知信息"))
+            catchError(this.handleError<result>('获取所有通知信息'))
         );
     }
 
@@ -83,10 +83,10 @@ export class NoticeService extends HandleError {
                 if (response.success) {
                     this.success(response.message);
                 } else {
-                    this.error("获取所有通知信息");
+                    this.error('获取所有通知信息');
                 }
             }),
-            catchError(this.handleError<result>("获取所有通知信息"))
+            catchError(this.handleError<result>('获取所有通知信息'))
         );
     }
 
@@ -105,10 +105,10 @@ export class NoticeService extends HandleError {
                 if (response.success) {
                     this.success(response.message);
                 } else {
-                    this.error("增加通知信息失败");
+                    this.error('增加通知信息失败');
                 }
             }),
-            catchError(this.handleError<result>("增加通知信息失败"))
+            catchError(this.handleError<result>('增加通知信息失败'))
         );
     }
 
@@ -127,10 +127,10 @@ export class NoticeService extends HandleError {
                 if (response.success) {
                     this.success(response.message);
                 } else {
-                    this.error("修改通知信息失败");
+                    this.error('修改通知信息失败');
                 }
             }),
-            catchError(this.handleError<result>("修改通知信息失败"))
+            catchError(this.handleError<result>('修改通知信息失败'))
         );
     }
 
@@ -152,10 +152,10 @@ export class NoticeService extends HandleError {
                 if (response.success) {
                     this.success(response.message);
                 } else {
-                    this.error("删除通知信息失败");
+                    this.error('删除通知信息失败');
                 }
             }),
-            catchError(this.handleError<result>("删除通知信息失败"))
+            catchError(this.handleError<result>('删除通知信息失败'))
         );
     }
 
