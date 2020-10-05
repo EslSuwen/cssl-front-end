@@ -6,7 +6,7 @@ import {catchError, tap} from 'rxjs/operators';
 import {HandleError} from './handle-error';
 import {NzMessageService} from 'ng-zorro-antd';
 import {result} from '../entity/result';
-import {Teacher, TeacherMsg} from '../entity/teacher';
+import {Teach, Teacher, TeacherMsg} from '../entity/teacher';
 import {Course} from '../entity/course';
 import {Class} from '../entity/class';
 
@@ -62,6 +62,27 @@ export class TeacherService extends HandleError {
                     if (response.success) {
                         this.success(response.message);
                     } else {
+                        this.error('根据教师编号获得教师信息失败');
+                    }
+                }
+            ),
+            catchError(this.handleError<result>(`根据教师编号获得教师信息，教师编号为：${tid}`))
+        );
+    }
+
+    /**
+     * @description 根据教师编号获得教师授课信息
+     *
+     * @param tid 教师编号
+     * @return 教师授课信息
+     * @author suwen
+     * @date 2020/10/5 下午2:28
+     */
+    getTeachByTid(tid: string | number): Observable<result> {
+        const url = `${this.TEACH_API}/getTeach/${tid}`;
+        return this.http.get<result>(url).pipe(
+            tap(response => {
+                    if (!response.success) {
                         this.error('根据教师编号获得教师信息失败');
                     }
                 }
@@ -330,9 +351,7 @@ export class TeacherService extends HandleError {
         const url = `${this.TEACHER_API}/getTeacher`;
         return this.http.get<result>(url).pipe(
             tap(response => {
-                    if (response.success) {
-                        this.success(response.message);
-                    } else {
+                    if (!response.success) {
                         this.error('获取教师信息');
                     }
                 }
@@ -345,9 +364,7 @@ export class TeacherService extends HandleError {
         const url = `${this.TEACHER_API}/getClass`;
         return this.http.get<result>(url).pipe(
             tap(response => {
-                    if (response.success) {
-                        this.success(response.message);
-                    } else {
+                    if (!response.success) {
                         this.error('获取班级信息');
                     }
                 }
@@ -360,14 +377,75 @@ export class TeacherService extends HandleError {
         const url = `${this.TEACHER_API}/getCourse`;
         return this.http.get<result>(url).pipe(
             tap(response => {
-                    if (response.success) {
-                        this.success(response.message);
-                    } else {
+                    if (!response.success) {
                         this.error('获取课程信息');
                     }
                 }
             ),
             catchError(this.handleError<result>('获取课程信息'))
         );
+    }
+
+    getAvailableCourse(tid: string | number): Observable<result> {
+        const url = `${this.TEACH_API}/getAvailableCourse/${tid}`;
+        return this.http.get<result>(url).pipe(
+            tap(response => {
+                    if (!response.success) {
+                        this.error('获取可用课程信息');
+                    }
+                }
+            ),
+            catchError(this.handleError<result>('获取可用课程信息'))
+        );
+    }
+
+    addTeach(teach: Teach[]): Observable<result> {
+        const url = `${this.TEACH_API}/addTeaches`;
+        return this.http.post<result>(url, teach).pipe(
+            tap(response => {
+                    if (response.success) {
+                        this.message.success(response.message);
+                    } else {
+                        this.message.error('增加授课信息');
+                    }
+                }
+            ),
+            catchError(this.handleError<result>('增加授课信息'))
+        );
+    }
+
+    updateTeacher(teacher: Teacher): Observable<result> {
+        const url = `${this.TEACHER_API}/updateTeacher`;
+        return this.http.put<result>(url, teacher);
+    }
+
+    updateClass(newClass: Class): Observable<result> {
+        const url = `${this.TEACHER_API}/updateClass`;
+        return this.http.put<result>(url, newClass);
+    }
+
+    updateCourse(course: Course): Observable<result> {
+        const url = `${this.TEACHER_API}/updateCourse`;
+        return this.http.put<result>(url, course);
+    }
+
+    removeTeacher(tid: number | string): Observable<result> {
+        const url = `${this.TEACHER_API}/removeTeacher/${tid}`;
+        return this.http.delete<result>(url);
+    }
+
+    removeClass(classId: number | string): Observable<result> {
+        const url = `${this.TEACHER_API}/removeClass/${classId}`;
+        return this.http.delete<result>(url);
+    }
+
+    removeCourse(courseId: number | string): Observable<result> {
+        const url = `${this.TEACHER_API}/removeCourse/${courseId}`;
+        return this.http.delete<result>(url);
+    }
+
+    removeTeach(tid: number | string, courseId: number | string): Observable<result> {
+        const url = `${this.TEACH_API}/removeTeach?tid=${tid}&courseId=${courseId}`;
+        return this.http.delete<result>(url);
     }
 }

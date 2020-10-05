@@ -36,25 +36,15 @@ export class Teach {
     /** 课程号 */
     courseId: number;
 
-    /** 实验室申请权限 */
-    applyLimit: number;
+    /** 教职工号 */
+    tname: string;
 
     /** 课程名 */
     courseName: string;
 
-    /** 课程实验室申请状态 */
-    status: string;
-
-    /** 课程实验室编号 */
-    labId: string;
-
-    constructor() {
-        this.tid = 'init';
-        this.courseId = 0;
-        this.applyLimit = 0;
-        this.courseName = 'init';
-        this.status = 'init';
-        this.labId = 'init';
+    constructor(tid?: string, courseId?: number) {
+        this.tid = tid ? tid : '';
+        this.courseId = courseId ? courseId : 0;
     }
 }
 

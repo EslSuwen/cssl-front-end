@@ -1,4 +1,4 @@
-<nz-tabset [nzSize]="'large'" [(nzSelectedIndex)]="tabIndex">
+<nz-tabset [nzSize]="'large'">
     <nz-tab nzTitle="教师信息">
         <div class="card-body col-12 px-0 mx-auto mb-6">
             <form nz-form [formGroup]="teacherValidateForm" (ngSubmit)="teacherSubmitForm($event)">
@@ -255,6 +255,5 @@
             </form>
         </div>
     </nz-tab>
-    <nz-tab nzTitle="授课信息"></nz-tab>
 </nz-tabset>
 

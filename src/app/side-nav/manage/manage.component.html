@@ -53,7 +53,7 @@
                             {{data.temail}}
                         </ng-container>
                         <ng-container *ngIf="editTeacherCache[data.tid].edit">
-                            <input type="text" nz-input [(ngModel)]="editTeacherCache[data.tid].data.temail">
+                            <input type="email" nz-input [(ngModel)]="editTeacherCache[data.tid].data.temail">
                         </ng-container>
                     </td>
                     <td [ngSwitch]="data.authority">
@@ -63,12 +63,17 @@
                             <ng-container *ngSwitchCase="2">超级管理员</ng-container>
                         </ng-container>
                         <ng-container *ngIf="editTeacherCache[data.tid].edit">
-                            <input type="text" nz-input [(ngModel)]="editTeacherCache[data.tid].data.authority">
+                            <nz-select [(ngModel)]="editTeacherCache[data.tid].data.authority"
+                                       nzPlaceHolder="选择权限">
+                                <nz-option nzValue="0" nzLabel="教师"></nz-option>
+                                <nz-option nzValue="1" nzLabel="管理员"></nz-option>
+                                <nz-option nzValue="2" nzLabel="超级管理员"></nz-option>
+                            </nz-select>
                         </ng-container>
                     </td>
                     <td>
                         <ng-container *ngIf="!editTeacherCache[data.tid].edit">
-                            <button nz-button [nzType]="'primary'">详情
+                            <button nz-button [nzType]="'primary'" (click)="onTeachInfo(data.tid)">详情
                             </button>
                         </ng-container>
                         <nz-divider nzType="vertical"></nz-divider>
@@ -264,5 +269,62 @@
             </nz-table>
         </div>
     </nz-tab>
-    <nz-tab nzTitle="授课信息"></nz-tab>
 </nz-tabset>
+<nz-modal [(nzVisible)]="isTeachVisible" (nzOnCancel)="isTeachVisible=false" nzWidth="50%">
+    <nz-card nzTitle="授课信息" nzBordered="false">
+        <nz-table
+            #teachTable
+            nzBordered
+            [nzData]="teachSet"
+            [nzPageSize]="8">
+            <thead>
+            <tr>
+                <th nzWidth="15%">授课教师</th>
+                <th nzWidth="15%">课程名</th>
+                <th nzWidth="20%">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let data of teachTable.data">
+                <td>
+                    <ng-container>
+                        {{data.tname}}
+                    </ng-container>
+                </td>
+                <td>
+                    <ng-container>
+                        {{data.courseName}}
+                    </ng-container>
+                </td>
+                <td>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <ng-container>
+                        <button nz-button [nzType]="'primary'" nz-popconfirm nzPopconfirmTitle="确定删除?"
+                                (nzOnConfirm)="deleteTeach(data.courseId)">删除
+                        </button>
+                    </ng-container>
+                </td>
+            </tr>
+            </tbody>
+        </nz-table>
+        <div *nzModalFooter>
+            <button nz-button nzType="primary" (click)="onAddTeach()">增加</button>
+        </div>
+    </nz-card>
+    <nz-modal title="增加授课信息" [(nzVisible)]="isAddTeachVisible" (nzOnOk)="addTeach()"
+              (nzOnCancel)="isAddTeachVisible=false" nzWidth="50%">
+        <nz-card nzTitle="增加授课信息" nzBordered="false">
+            <nz-select
+                    [nzMaxTagCount]="3"
+                    [nzMaxTagPlaceholder]="tagPlaceHolder"
+                    nzMode="multiple"
+                    nzPlaceHolder="选择课程"
+                    [(ngModel)]="courseSelectedItems">
+                <nz-option *ngFor="let option of courseList" [nzLabel]="option.courseName"
+                           [nzValue]="option.courseId"></nz-option>
+            </nz-select>
+            <ng-template #tagPlaceHolder let-selectedList> 和其他 {{ selectedList.length }} 门课程</ng-template>
+        </nz-card>
+    </nz-modal>
+
+</nz-modal>

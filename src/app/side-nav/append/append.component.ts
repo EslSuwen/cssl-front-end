@@ -13,8 +13,6 @@ import {Course} from '../../entity/course';
 })
 export class AppendComponent implements OnInit {
 
-    tabIndex = 0;
-
     teacherValidateForm: FormGroup;
     classValidateForm: FormGroup;
     courseValidateForm: FormGroup;
