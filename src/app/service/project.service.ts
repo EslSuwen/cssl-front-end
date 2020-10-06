@@ -42,6 +42,17 @@ export class ProjectService extends HandleError {
         );
     }
 
+    addExpClass(expClass: any[]): Observable<result> {
+        return this.http.post<result>(this.PROJECT_API + '/addExpClass', expClass).pipe(
+            tap(response => {
+                if (!response.success) {
+                    this.error('增加项目班级失败');
+                }
+            }),
+            catchError(this.handleError<result>('增加项目班级失败'))
+        );
+    }
+
     /**
      * @description 增加实验卡片项目项
      *
@@ -78,13 +89,24 @@ export class ProjectService extends HandleError {
 
         return this.http.get<result>(url, {params: {tid, term}}).pipe(
             tap(response => {
-                if (response.success) {
-                    this.success(response.message);
-                } else {
+                if (!response.success) {
                     this.error(`根据教师编号获取项目卡片失败，教师编号：${tid}`);
                 }
             }),
             catchError(this.handleError<result>(`根据教师编号获取项目卡片失败,教师编号${tid}`))
+        );
+    }
+
+    getExpClass(proId: number): Observable<result> {
+        const url = `${this.PROJECT_API}/getExpClass/${proId}`;
+
+        return this.http.get<result>(url).pipe(
+            tap(response => {
+                if (!response.success) {
+                    this.error('获取项目班级数据成功');
+                }
+            }),
+            catchError(this.handleError<result>('获取项目班级数据成功'))
         );
     }
 
@@ -100,9 +122,7 @@ export class ProjectService extends HandleError {
         const url = `${this.ITEM_API}/getProjectItem/${proId}`;
         return this.http.get<result>(url).pipe(
             tap(response => {
-                if (response.success) {
-                    this.success(response.message);
-                } else {
+                if (!response.success) {
                     this.error(`根据教师编号获取项目卡片项，项目卡片编号：${proId}`);
                 }
             }),

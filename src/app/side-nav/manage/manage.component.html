@@ -78,7 +78,7 @@
                         </ng-container>
                         <nz-divider nzType="vertical"></nz-divider>
                         <ng-container *ngIf="!editTeacherCache[data.tid].edit">
-                            <button nz-button [nzType]="'primary'"
+                            <button nz-button [nzType]="'default'"
                                     (click)="this.editTeacherCache[data.tid].edit = true">更改
                             </button>
                         </ng-container>
@@ -93,7 +93,7 @@
                         </ng-container>
                         <nz-divider nzType="vertical"></nz-divider>
                         <ng-container style="color: #D9D9D9">
-                            <button nz-button [nzType]="'primary'" nz-popconfirm nzPopconfirmTitle="确定删除?"
+                            <button nz-button [nzType]="'danger'" nz-popconfirm nzPopconfirmTitle="确定删除?"
                                     (nzOnConfirm)="deleteTeacher(data.tid)">删除
                             </button>
                         </ng-container>
@@ -178,7 +178,7 @@
                         </ng-container>
                         <nz-divider nzType="vertical"></nz-divider>
                         <ng-container style="color: #D9D9D9">
-                            <button nz-button [nzType]="'primary'" nz-popconfirm nzPopconfirmTitle="确定删除?"
+                            <button nz-button [nzType]="'danger'" nz-popconfirm nzPopconfirmTitle="确定删除?"
                                     (nzOnConfirm)="deleteClass(data.classId)">删除
                             </button>
                         </ng-container>
@@ -259,7 +259,7 @@
                         </ng-container>
                         <nz-divider nzType="vertical"></nz-divider>
                         <ng-container style="color: #D9D9D9">
-                            <button nz-button [nzType]="'primary'" nz-popconfirm nzPopconfirmTitle="确定删除?"
+                            <button nz-button [nzType]="'danger'" nz-popconfirm nzPopconfirmTitle="确定删除?"
                                     (nzOnConfirm)="deleteCourse(data.courseId)">删除
                             </button>
                         </ng-container>
@@ -299,7 +299,7 @@
                 <td>
                     <nz-divider nzType="vertical"></nz-divider>
                     <ng-container>
-                        <button nz-button [nzType]="'primary'" nz-popconfirm nzPopconfirmTitle="确定删除?"
+                        <button nz-button [nzType]="'danger'" nz-popconfirm nzPopconfirmTitle="确定删除?"
                                 (nzOnConfirm)="deleteTeach(data.courseId)">删除
                         </button>
                     </ng-container>

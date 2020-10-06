@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-1 mt-5">
-        <input type="checkbox" [(ngModel)]="switch2" id="flag1">
+        <input (click)="classSelectedItems=[]" type="checkbox" [(ngModel)]="switch2" id="flag1">
         <label class="slider-v3 blue lighten-4" for="flag1"></label>
     </div>
     <label class="disabled font-weight-bold" *ngIf="switch2">请在下面添加实验课程：
@@ -86,9 +86,20 @@
                                 <mdb-error *ngIf="expCardFG.get('software').invalid">填写软件名!</mdb-error>
                             </div>
                         </td>
+                        <td></td>
                     </tr>
                     </tbody>
                 </table>
+                <nz-select
+                        [nzMaxTagCount]="6"
+                        [nzMaxTagPlaceholder]="tagPlaceHolder"
+                        nzMode="multiple"
+                        nzPlaceHolder="选择班级"
+                        [(ngModel)]="classSelectedItems">
+                    <nz-option *ngFor="let option of classList" [nzLabel]="option.className"
+                               [nzValue]="option.classId"></nz-option>
+                </nz-select>
+                <ng-template #tagPlaceHolder let-selectedList> 和其他 {{ selectedList.length }} 个班级</ng-template>
             </div>
         </div>
         <div class="card">
@@ -106,14 +117,14 @@
                            bordered="true">
                         <thead>
                         <tr class="black white-text">
-                            <th class="text-center">序号</th>
-                            <th class="text-center">实验项目编号</th>
-                            <th class="text-center">实验项目名称</th>
-                            <th class="text-center">实验类别</th>
-                            <th class="text-center">实验学时</th>
-                            <th class="text-center">分组人数</th>
-                            <th class="text-center">实验目的</th>
-                            <th class="text-center">可执行操作</th>
+                            <th>序号</th>
+                            <th>实验项目编号</th>
+                            <th>实验项目名称</th>
+                            <th>实验类别</th>
+                            <th>实验学时</th>
+                            <th>分组人数</th>
+                            <th>实验目的</th>
+                            <th>可执行操作</th>
                         </tr>
                         </thead>
                         <tbody *ngIf="switch2">
@@ -200,15 +211,16 @@
                     <thead class="black white-text">
                     <tr>
                         <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody *ngIf="!switch2">
                     <tr mdbTableCol *ngFor="let each of exps"
-                        (click)="loadProjectItems(each.proId);this.itemTitle=each.cname;">
+                        (click)="loadProjectItems(each.proId);this.itemTitle=each.courseName;">
                         <td>
-                            <ng-container *ngIf="!editExpCache[each.proId].edit">{{each.cname}}</ng-container>
+                            <ng-container *ngIf="!editExpCache[each.proId].edit">{{each.courseName}}</ng-container>
                             <ng-container *ngIf="editExpCache[each.proId].edit">
-                                <input type="text" nz-input [(ngModel)]="editExpCache[each.proId].data.cname">
+                                <input type="text" nz-input [(ngModel)]="editExpCache[each.proId].data.courseName">
                             </ng-container>
                         </td>
                         <td>
@@ -262,8 +274,9 @@
                                         (nzOnCancel)="this.editExpCache[each.proId].edit = false">保存
                                 </button>
                             </ng-container>
+                            <nz-divider nzType="vertical"></nz-divider>
                             <ng-container style="color: #D9D9D9">
-                                <button nz-button [nzType]="'primary'" nz-popconfirm nzPopconfirmTitle="确定删除?"
+                                <button nz-button [nzType]="'danger'" nz-popconfirm nzPopconfirmTitle="确定删除?"
                                         (nzOnConfirm)="deleteExp(each.proId)">删除
                                 </button>
                             </ng-container>
@@ -271,6 +284,16 @@
                     </tr>
                     </tbody>
                 </table>
+                <nz-select
+                        [nzMaxTagCount]="6"
+                        [nzMaxTagPlaceholder]="tagPlaceHolder"
+                        nzMode="multiple"
+                        nzPlaceHolder="选择班级"
+                        [(ngModel)]="classSelectedItems" nzDisabled>
+                    <nz-option *ngFor="let option of classList" [nzLabel]="option.className"
+                               [nzValue]="option.classId"></nz-option>
+                </nz-select>
+                <ng-template #tagPlaceHolder let-selectedList> 和其他 {{ selectedList.length }} 个班级</ng-template>
             </div>
         </div>
         <h3 class="card-header text-center font-weight-bold">{{itemTitle}}实验项目细则
@@ -281,14 +304,14 @@
                        bordered="true">
                     <thead>
                     <tr class="black white-text">
-                        <th class="text-center">序号</th>
-                        <th class="text-center">实验项目编号</th>
-                        <th class="text-center">实验项目名称</th>
-                        <th class="text-center">实验类别</th>
-                        <th class="text-center">实验学时</th>
-                        <th class="text-center">分组人数</th>
-                        <th class="text-center">实验目的</th>
-                        <th class="text-center">可执行操作</th>
+                        <th>序号</th>
+                        <th>实验项目编号</th>
+                        <th>实验项目名称</th>
+                        <th>实验类别</th>
+                        <th>实验学时</th>
+                        <th>分组人数</th>
+                        <th>实验目的</th>
+                        <th>可执行操作</th>
                     </tr>
                     </thead>
                     <tbody>

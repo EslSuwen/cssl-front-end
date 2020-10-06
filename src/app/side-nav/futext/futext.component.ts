@@ -49,7 +49,7 @@ export class FutextComponent implements OnInit {
         const formData = new FormData();
         formData.append('fileName', e.file.name);
         formData.append('tid', this.authService.getUserNo());
-        formData.append('fileDate', DateUtils.dateFormat());
+        formData.append('fileDate', DateUtils.now());
         formData.append('nFile', e.file);
 
         this.fileForm = formData;

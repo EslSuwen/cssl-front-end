@@ -29,7 +29,7 @@ export class Notice {
     constructor(tid?: string, noticeHead?: string, noticeContent?: string, noticeDate?: string) {
         this.tid = tid ? tid : '';
         this.noticeHead = noticeHead ? noticeHead : '';
-        this.noticeDate = noticeDate ? noticeDate : DateUtils.dateFormat();
+        this.noticeDate = noticeDate ? noticeDate : DateUtils.now();
         this.noticeContent = noticeContent ? noticeContent : '';
     }
 }

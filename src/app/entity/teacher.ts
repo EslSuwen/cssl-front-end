@@ -78,7 +78,7 @@ export class TeacherMsg {
     constructor(tid?: string, mtitile?: string, mtext?: string, mresult?: number, mdate?: string, mstatus?: number) {
         this.tid = tid ? tid : '';
         this.mtitle = mtitile ? mtitile : '';
-        this.mdate = mdate ? mdate : DateUtils.dateFormat();
+        this.mdate = mdate ? mdate : DateUtils.now();
         this.mtext = mtext ? mtext : '';
         this.mstatus = mstatus ? mstatus : 0;
         this.mresult = mresult ? mresult : 0;

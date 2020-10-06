@@ -23,7 +23,7 @@ export class Exp {
     // 教职工号
     expTid: string;
     // 课程名
-    cname: string;
+    courseName: string;
     // 课程编号
     courseId: number;
     // 消耗材料名称
@@ -49,7 +49,7 @@ export class Exp {
         this.book = '';
         this.software = '';
         this.expTid = '';
-        this.cname = '';
+        this.courseName = '';
         this.conName = '';
         this.conNum = 0;
         this.status = '';
