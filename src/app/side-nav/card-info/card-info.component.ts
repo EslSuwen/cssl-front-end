@@ -108,7 +108,7 @@ export class CardInfoComponent implements OnInit {
     }
 
     expSelect(proId: number) {
-        this.expFileService.getFileStatus(proId).subscribe(result => {
+        this.expFileService.getFileStatus(proId, '1').subscribe(result => {
             if (result.success) {
                 this.initFileStatus();
                 if (result.data && result.data.files) {

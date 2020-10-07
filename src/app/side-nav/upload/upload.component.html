@@ -2,17 +2,39 @@
     <div class="col-5 my-auto animated fadeIn">
         <div class="row m-3 ">
             <div class="col-8 px-0 mb-3 mx-auto">
-                <select class="browser-default custom-select" [(ngModel)]="termSelected"
-                        (ngModelChange)="onTermSelected()">
-                    <option *ngFor="let each of termList">{{each}}</option>
-                </select>
+                <nz-select
+                        [(ngModel)]="termSelected"
+                        nzPlaceHolder="请选择学期"
+                        (ngModelChange)="onTermSelected()"
+                        nzMode="default">
+                    <nz-option *ngFor="let option of termList" [nzLabel]="option"
+                               [nzValue]="option"></nz-option>
+                </nz-select>
             </div>
         </div>
         <div class="row m-3">
             <div class="col-8 px-0 mx-auto mb-3">
-                <angular2-multiselect [data]="courseList" [settings]="courseSelectSettings" [(ngModel)]="courseSelected"
-                                      (onSelect)="courseSelect($event)">
-                </angular2-multiselect>
+                <nz-select
+                        [(ngModel)]="courseSelected"
+                        nzPlaceHolder="请选择课程"
+                        (ngModelChange)="courseSelect($event)"
+                        nzMode="default">
+                    <nz-option *ngFor="let option of courseList" [nzLabel]="option.itemName"
+                               [nzValue]="option.id"></nz-option>
+                </nz-select>
+            </div>
+        </div>
+
+        <div class="row m-3">
+            <div class="col-8 px-0 mx-auto mb-3">
+                <nz-select
+                        [(ngModel)]="classSelected"
+                        (ngModelChange)="classSelect()"
+                        nzPlaceHolder="请选择班级"
+                        nzMode="default">
+                    <nz-option *ngFor="let option of classList" [nzLabel]="option.className"
+                               [nzValue]="option.classId"></nz-option>
+                </nz-select>
             </div>
         </div>
         <div class="row m-3">

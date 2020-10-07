@@ -10,7 +10,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown';
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {QuillModule} from 'ngx-quill';
-// import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {Ng2FileInputModule} from 'ng2-file-input';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
@@ -24,7 +23,6 @@ import {TeachTableComponent} from './side-nav/teach-table/teach-table.component'
 import {ApplyComponent} from './side-nav/apply/apply.component';
 import {FooterComponent} from './side-nav/footer/footer.component';
 import {SideCardComponent} from './side-nav/side-card/side-card.component';
-import {ApplyExpRoomComponent} from './apply-exp-room/apply-exp-room.component';
 import {UpdatePasswordComponent} from './side-nav/update-password/update-password.component';
 import {ModalComponent} from './modal/modal.component';
 import {HasRoleDirective} from './auth/has-role.directive';
@@ -62,7 +60,6 @@ const appRoutes: Routes = [
             {path: 'cardInfo', component: CardInfoComponent},
             {path: 'teachtable', component: TeachTableComponent,},
             {path: 'apply', component: ApplyComponent,},
-            {path: 'applyexproom', component: ApplyExpRoomComponent,},
             {path: 'updatepassword', component: UpdatePasswordComponent,},
             {path: 'message', component: MessageComponent,},
             {path: 'show-notice', component: ShowNoticeComponent},
@@ -88,7 +85,6 @@ const appRoutes: Routes = [
         ApplyComponent,
         FooterComponent,
         SideCardComponent,
-        ApplyExpRoomComponent,
         UpdatePasswordComponent,
         ModalComponent,
         HasRoleDirective,

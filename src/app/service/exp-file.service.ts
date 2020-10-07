@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {NzMessageService} from "ng-zorro-antd";
-import {environment} from "../../environments/environment";
-import {HandleError} from "./handle-error";
-import {Observable} from "rxjs";
-import {result} from "../entity/result";
-import {catchError} from "rxjs/operators";
+import {HttpClient} from '@angular/common/http';
+import {NzMessageService} from 'ng-zorro-antd';
+import {environment} from '../../environments/environment';
+import {HandleError} from './handle-error';
+import {Observable} from 'rxjs';
+import {result} from '../entity/result';
+import {catchError} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -42,12 +42,13 @@ export class ExpFileService extends HandleError {
      * 获得文件状态
      *
      * @param proId 项目编号
+     * @param classId 班级编号
      * @return 文件状态
      * @author suwen
      * @date 2020/7/8 上午10:12
      */
-    getFileStatus(proId: string | number): Observable<result> {
-        const url = `${this.FILE_API}/getFileStatus/${proId}`;
+    getFileStatus(proId: string | number, classId: number | string): Observable<result> {
+        const url = `${this.FILE_API}/getFileStatus?proId=${proId}&classId=${classId}`;
         return this.http.get<result>(url).pipe(
             catchError(this.handleError<result>(`获得文件状态信息失败， proId：${proId}`))
         );
