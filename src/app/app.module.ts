@@ -19,7 +19,6 @@ import {PersonalInfoComponent} from './side-nav/personal-info/personal-info.comp
 import {NotifyComponent} from './side-nav/notify/notify.component';
 import {UploadComponent} from './side-nav/upload/upload.component';
 import {CardComponent} from './side-nav/card/card.component';
-import {TeachTableComponent} from './side-nav/teach-table/teach-table.component';
 import {ApplyComponent} from './side-nav/apply/apply.component';
 import {FooterComponent} from './side-nav/footer/footer.component';
 import {SideCardComponent} from './side-nav/side-card/side-card.component';
@@ -58,7 +57,6 @@ const appRoutes: Routes = [
             {path: 'upload', component: UploadComponent,},
             {path: 'card', component: CardComponent,},
             {path: 'cardInfo', component: CardInfoComponent},
-            {path: 'teachtable', component: TeachTableComponent,},
             {path: 'apply', component: ApplyComponent,},
             {path: 'updatepassword', component: UpdatePasswordComponent,},
             {path: 'message', component: MessageComponent,},
@@ -81,7 +79,6 @@ const appRoutes: Routes = [
         NotifyComponent,
         UploadComponent,
         CardComponent,
-        TeachTableComponent,
         ApplyComponent,
         FooterComponent,
         SideCardComponent,

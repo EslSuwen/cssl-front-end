@@ -25,13 +25,11 @@ export class TeachPlanService extends HandleError {
      * @author suwen
      * @date 2020/5/27 上午11:01
      */
-    getTeachingPlan(term: string): Observable<result> {
-        const url = `${this.ARRANGE_API}/getTeachingPlan/${term}`;
+    getTeachingPlan(): Observable<result> {
+        const url = `${this.ARRANGE_API}/getTeachingPlan`;
         return this.http.get<result>(url).pipe(
             tap(response => {
-                if (response.success) {
-                    this.success(response.message);
-                } else {
+                if (!response.success) {
                     this.error('获取教学计划表失败');
                 }
             }),
@@ -42,10 +40,9 @@ export class TeachPlanService extends HandleError {
     /**
      * 获取教学计划表 xlsx 文件下载
      *
-     * @author suwen
      * @param term 学期
      */
-    getTeachingPlanExcel(term: string): void {
-        window.location.href = `${this.ARRANGE_API}/getTeachingPlanExcel/${term}`;
+    getTeachingPlanExcel(): void {
+        window.location.href = `${this.ARRANGE_API}/getTeachingPlanExcel`;
     }
 }
