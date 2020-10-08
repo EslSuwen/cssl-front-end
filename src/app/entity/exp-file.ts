@@ -51,6 +51,9 @@ export class ExpFileStore {
     /** 项目ID */
     proId: number;
 
+    /** 班级编号 */
+    classId: number;
+
     /** 项目文件类型名 */
     typeName: string;
 

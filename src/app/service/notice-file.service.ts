@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {NzMessageService} from "ng-zorro-antd";
-import {HandleError} from "./handle-error";
-import {environment} from "../../environments/environment";
-import {Observable} from "rxjs";
-import {result} from "../entity/result";
-import {catchError, tap} from "rxjs/operators";
+import {HttpClient} from '@angular/common/http';
+import {NzMessageService} from 'ng-zorro-antd';
+import {HandleError} from './handle-error';
+import {environment} from '../../environments/environment';
+import {Observable} from 'rxjs';
+import {result} from '../entity/result';
+import {catchError, tap} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -28,7 +28,7 @@ export class NoticeFileService extends HandleError {
      * @return 通知文件id
      * @author suwen
      * @date 2020/8/24 下午4:25
-     * @param fileId
+     * @param fileId 文件编号
      */
     getById(fileId: number | string): Observable<result> {
         const url = `${this.NOTICE_API}/getById/${fileId}`;
@@ -60,10 +60,10 @@ export class NoticeFileService extends HandleError {
                 if (response.success) {
                     this.success(response.message);
                 } else {
-                    this.error("获取所有通知文件");
+                    this.error('获取所有通知文件');
                 }
             }),
-            catchError(this.handleError<result>("获取所有通知文件"))
+            catchError(this.handleError<result>('获取所有通知文件'))
         );
     }
 
@@ -83,10 +83,10 @@ export class NoticeFileService extends HandleError {
                 if (response.success) {
                     this.success(response.message);
                 } else {
-                    this.error("增加通知文件失败");
+                    this.error('增加通知文件失败');
                 }
             }),
-            catchError(this.handleError<result>("增加通知文件失败"))
+            catchError(this.handleError<result>('增加通知文件失败'))
         );
     }
 
@@ -106,17 +106,17 @@ export class NoticeFileService extends HandleError {
      * @date 2020/8/24 下午4:25
      */
     remove(fileId: string | number): Observable<result> {
-        const url = `${this.NOTICE_API}/${fileId}}`;
+        const url = `${this.NOTICE_API}/remove/${fileId}`;
 
         return this.http.delete<result>(url).pipe(
             tap(response => {
                 if (response.success) {
                     this.success(response.message);
                 } else {
-                    this.error("删除通知文件失败");
+                    this.error('删除通知文件失败');
                 }
             }),
-            catchError(this.handleError<result>("删除通知文件失败"))
+            catchError(this.handleError<result>('删除通知文件失败'))
         );
     }
 

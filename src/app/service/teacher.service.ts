@@ -6,7 +6,9 @@ import {catchError, tap} from 'rxjs/operators';
 import {HandleError} from './handle-error';
 import {NzMessageService} from 'ng-zorro-antd';
 import {result} from '../entity/result';
-import {TeacherMsg} from "../entity/teacher";
+import {Teach, Teacher, TeacherMsg} from '../entity/teacher';
+import {Course} from '../entity/course';
+import {Class} from '../entity/class';
 
 @Injectable({
     providedIn: 'root'
@@ -60,6 +62,27 @@ export class TeacherService extends HandleError {
                     if (response.success) {
                         this.success(response.message);
                     } else {
+                        this.error('根据教师编号获得教师信息失败');
+                    }
+                }
+            ),
+            catchError(this.handleError<result>(`根据教师编号获得教师信息，教师编号为：${tid}`))
+        );
+    }
+
+    /**
+     * @description 根据教师编号获得教师授课信息
+     *
+     * @param tid 教师编号
+     * @return 教师授课信息
+     * @author suwen
+     * @date 2020/10/5 下午2:28
+     */
+    getTeachByTid(tid: string | number): Observable<result> {
+        const url = `${this.TEACH_API}/getTeach/${tid}`;
+        return this.http.get<result>(url).pipe(
+            tap(response => {
+                    if (!response.success) {
                         this.error('根据教师编号获得教师信息失败');
                     }
                 }
@@ -216,5 +239,213 @@ export class TeacherService extends HandleError {
         );
     }
 
+    /**
+     * 判断教师是否存在
+     *
+     * @param tid 教师编号
+     * @author suwen
+     * @date 2020/9/30 下午4:26
+     */
+    ifTeacher(tid: number | string): Observable<result> {
+        const url = `${this.TEACHER_API}/ifTeacher/${tid}`;
+        return this.http.get<result>(url).pipe(
+            catchError(this.handleError<result>(`判断教师是否存在, tid= ${tid}`))
+        );
+    }
 
+    /**
+     * 判断班级是否存在
+     *
+     * @param classId 班级编号
+     * @author suwen
+     * @date 2020/9/30 下午19:26
+     */
+    ifClass(classId: number | string): Observable<result> {
+        const url = `${this.TEACHER_API}/ifClass/${classId}`;
+        return this.http.get<result>(url).pipe(
+            catchError(this.handleError<result>(`判断班级是否存在, classId= ${classId}`))
+        );
+    }
+
+    /**
+     * 判断课程是否存在
+     *
+     * @param courseId 课程编号
+     * @author suwen
+     * @date 2020/9/30 下午19:26
+     */
+    ifCurriculum(courseId: number | string): Observable<result> {
+        const url = `${this.TEACHER_API}/ifCurriculum/${courseId}`;
+        return this.http.get<result>(url).pipe(
+            catchError(this.handleError<result>(`判断课程是否存在, courseId= ${courseId}`))
+        );
+    }
+
+    /**
+     * 增加教师
+     *
+     * @param teacher 教师
+     * @author suwen
+     * @date 2020/10/2 上午9:34
+     */
+    addTeacher(teacher: Teacher): Observable<result> {
+        const url = `${this.TEACHER_API}/addTeacher`;
+        return this.http.post<result>(url, teacher).pipe(
+            tap(response => {
+                    if (response.success) {
+                        this.success(response.message);
+                    } else {
+                        this.error('增加教师失败');
+                    }
+                }
+            ),
+            catchError(this.handleError<result>(`增加教师失败, tid=${teacher.tid}`))
+        );
+    }
+
+    /**
+     * 增加班级
+     *
+     * @param newClass 班级
+     * @author suwen
+     * @date 2020/10/2 上午9:34
+     */
+    addClass(newClass: Class): Observable<result> {
+        const url = `${this.TEACHER_API}/addClass`;
+        return this.http.post<result>(url, newClass).pipe(
+            tap(response => {
+                    if (response.success) {
+                        this.success(response.message);
+                    } else {
+                        this.error('增加班级失败');
+                    }
+                }
+            ),
+            catchError(this.handleError<result>(`增加班级失败, classId=${newClass.classId}`))
+        );
+    }
+
+    /**
+     * 增加课程
+     *
+     * @param course 课程
+     * @author suwen
+     * @date 2020/10/2 上午9:34
+     */
+    addCurriculum(course: Course): Observable<result> {
+        const url = `${this.TEACHER_API}/addCurriculum`;
+        return this.http.post<result>(url, course).pipe(
+            tap(response => {
+                    if (response.success) {
+                        this.success(response.message);
+                    } else {
+                        this.error('增加课程失败');
+                    }
+                }
+            ),
+            catchError(this.handleError<result>(`增加课程失败, courseId=${course.courseId}`))
+        );
+    }
+
+    getTeacher(): Observable<result> {
+        const url = `${this.TEACHER_API}/getTeacher`;
+        return this.http.get<result>(url).pipe(
+            tap(response => {
+                    if (!response.success) {
+                        this.error('获取教师信息');
+                    }
+                }
+            ),
+            catchError(this.handleError<result>('获取教师信息'))
+        );
+    }
+
+    getClass(): Observable<result> {
+        const url = `${this.TEACHER_API}/getClass`;
+        return this.http.get<result>(url).pipe(
+            tap(response => {
+                    if (!response.success) {
+                        this.error('获取班级信息');
+                    }
+                }
+            ),
+            catchError(this.handleError<result>('获取班级信息'))
+        );
+    }
+
+    getCourse(): Observable<result> {
+        const url = `${this.TEACHER_API}/getCourse`;
+        return this.http.get<result>(url).pipe(
+            tap(response => {
+                    if (!response.success) {
+                        this.error('获取课程信息');
+                    }
+                }
+            ),
+            catchError(this.handleError<result>('获取课程信息'))
+        );
+    }
+
+    getAvailableCourse(tid: string | number): Observable<result> {
+        const url = `${this.TEACH_API}/getAvailableCourse/${tid}`;
+        return this.http.get<result>(url).pipe(
+            tap(response => {
+                    if (!response.success) {
+                        this.error('获取可用课程信息');
+                    }
+                }
+            ),
+            catchError(this.handleError<result>('获取可用课程信息'))
+        );
+    }
+
+    addTeach(teach: Teach[]): Observable<result> {
+        const url = `${this.TEACH_API}/addTeaches`;
+        return this.http.post<result>(url, teach).pipe(
+            tap(response => {
+                    if (response.success) {
+                        this.message.success(response.message);
+                    } else {
+                        this.message.error('增加授课信息');
+                    }
+                }
+            ),
+            catchError(this.handleError<result>('增加授课信息'))
+        );
+    }
+
+    updateTeacher(teacher: Teacher): Observable<result> {
+        const url = `${this.TEACHER_API}/updateTeacher`;
+        return this.http.put<result>(url, teacher);
+    }
+
+    updateClass(newClass: Class): Observable<result> {
+        const url = `${this.TEACHER_API}/updateClass`;
+        return this.http.put<result>(url, newClass);
+    }
+
+    updateCourse(course: Course): Observable<result> {
+        const url = `${this.TEACHER_API}/updateCourse`;
+        return this.http.put<result>(url, course);
+    }
+
+    removeTeacher(tid: number | string): Observable<result> {
+        const url = `${this.TEACHER_API}/removeTeacher/${tid}`;
+        return this.http.delete<result>(url);
+    }
+
+    removeClass(classId: number | string): Observable<result> {
+        const url = `${this.TEACHER_API}/removeClass/${classId}`;
+        return this.http.delete<result>(url);
+    }
+
+    removeCourse(courseId: number | string): Observable<result> {
+        const url = `${this.TEACHER_API}/removeCourse/${courseId}`;
+        return this.http.delete<result>(url);
+    }
+
+    removeTeach(tid: number | string, courseId: number | string): Observable<result> {
+        const url = `${this.TEACH_API}/removeTeach?tid=${tid}&courseId=${courseId}`;
+        return this.http.delete<result>(url);
+    }
 }

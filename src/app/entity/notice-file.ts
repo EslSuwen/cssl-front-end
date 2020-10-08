@@ -29,7 +29,7 @@ export class NoticeFile {
     constructor(fileName?: string, tid?: string, fileDate?: string) {
         this.fileName = fileName ? fileName : '';
         this.tid = tid ? tid : '';
-        this.fileDate = fileDate ? fileDate : DateUtils.dateFormat();
+        this.fileDate = fileDate ? fileDate : DateUtils.now();
     }
 
 }

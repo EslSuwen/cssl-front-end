@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {Teach} from '../entity/teacher';
 import {Arrange} from '../entity/arrange';
 import {NzMessageService} from 'ng-zorro-antd';
 import {catchError, tap} from 'rxjs/operators';
@@ -20,11 +19,6 @@ export class ApplyService extends HandleError {
     }
 
     private ARRANGE_API = `${environment.apiUrl}/arrange`;
-    private TEACH_API = `${environment.apiUrl}/teach`;
-
-    addToDatabase(teach: Teach): Observable<any> {
-        return this.http.post<any>(this.ARRANGE_API + 'add/', teach);
-    }
 
     /**
      * 新增实验时间安排
@@ -49,13 +43,6 @@ export class ApplyService extends HandleError {
         );
     }
 
-    getArranges(): Observable<Teach[]> {
-        return this.http.get<Teach[]>(this.TEACH_API + '/getTeachInfo/256740953460');
-    }
-
-    clearDatabase(): Observable<any> {
-        return this.http.delete(this.ARRANGE_API + '/clearData/');
-    }
 
     /**
      * 通过年级获取班级信息

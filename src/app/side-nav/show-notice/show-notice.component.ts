@@ -1,14 +1,14 @@
-import {Component, OnInit} from "@angular/core";
-import {Notice} from "../../entity/notice";
-import {NoticeService} from "../../service/notice.service";
-import {NoticeFileService} from "../../service/notice-file.service";
-import {NoticeFile} from "../../entity/notice-file";
-import {environment} from "../../../environments/environment";
+import {Component, OnInit} from '@angular/core';
+import {Notice} from '../../entity/notice';
+import {NoticeService} from '../../service/notice.service';
+import {NoticeFileService} from '../../service/notice-file.service';
+import {NoticeFile} from '../../entity/notice-file';
+import {environment} from '../../../environments/environment';
 
 @Component({
-    selector: "app-show-notice",
-    templateUrl: "./show-notice.component.html",
-    styleUrls: ["./show-notice.component.scss"],
+    selector: 'app-show-notice',
+    templateUrl: './show-notice.component.html',
+    styleUrls: ['./show-notice.component.scss'],
 })
 export class ShowNoticeComponent implements OnInit {
     noticePageIndex = 1;
@@ -35,11 +35,7 @@ export class ShowNoticeComponent implements OnInit {
     filterNoticeSelected = [];
     filterFileSelected = [];
     // TODO 实现通过动态加载
-    filterTname: { text: string, value: string }[] = [
-        {text: '李益才', value: '李益才'},
-        {text: '徐毅', value: '徐毅'},
-        {text: '米波', value: '米波'},
-    ];
+    filterTname: { text: string, value: string }[] = [];
 
     constructor(private noticeService: NoticeService, private noticeFileService: NoticeFileService) {
     }
@@ -48,7 +44,12 @@ export class ShowNoticeComponent implements OnInit {
         this.noticeService.getAllNotice().subscribe(result => {
             if (result.success) {
                 this.notices = result.data;
-                this.notices.forEach(each => each.noticeDate = each.noticeDate.substr(0, 10));
+                this.notices.forEach(each => {
+                    each.noticeDate = each.noticeDate.substr(0, 10);
+                    if (this.filterTname.findIndex(data => data.text == each.tname) === -1) {
+                        this.filterTname.push({text: each.tname, value: each.tname});
+                    }
+                });
                 this.updateNoticeData(true);
                 this.noticeInfo = result.data[0];
             }
@@ -59,7 +60,7 @@ export class ShowNoticeComponent implements OnInit {
                 this.files.forEach(each => each.fileDate = each.fileDate.substr(0, 10));
                 this.updateFileData(true);
             }
-        })
+        });
     }
 
     updateNoticeData(reset: boolean = false): void {
@@ -130,12 +131,32 @@ export class ShowNoticeComponent implements OnInit {
     }
 
     filePreview(fileId: number, fileName: string) {
-        let fileUrl = this.noticeFileService.getFileUri(fileId);
-        let previewUrl = `${fileUrl}?fullfilename=${fileName}`
+        const fileUrl = this.noticeFileService.getFileUri(fileId);
+        const previewUrl = `${fileUrl}?fullfilename=${fileName}`;
         window.open(`${environment.filePreviewUrl}/onlinePreview?url=` + encodeURIComponent(previewUrl));
     }
 
     fileDownLoad(fileId: number) {
         window.location.href = this.noticeFileService.getFileUri(fileId);
+    }
+
+    deleteNotice(nid: string | number) {
+        this.noticeService.removeNotice(nid).subscribe(result => {
+            console.log(result);
+            if (result.success) {
+                this.notices = this.notices.filter(each => each.nid !== nid);
+                this.updateNoticeData(true);
+            }
+        });
+    }
+
+
+    deleteNoticeFile(fileId: string | number) {
+        this.noticeFileService.remove(fileId).subscribe(result => {
+            if (result.success) {
+                this.files = this.files.filter(each => each.fileId != fileId);
+                this.updateFileData(true);
+            }
+        });
     }
 }

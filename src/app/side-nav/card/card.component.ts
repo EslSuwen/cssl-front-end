@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MDBModalRef, MDBModalService} from 'angular-bootstrap-md';
+import {MDBModalService} from 'angular-bootstrap-md';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {ProjectService} from '../../service/project.service';
@@ -22,14 +22,15 @@ export class CardComponent implements OnInit {
     addItemVisible = false;
     addItemNum = 1; // 增加表格的行数
     courseList = [];
+    courseSelected: any;
     courseSelectSettings = {};
     projectItems: ProjectItem[];
+
     exps: Exp[]; // 实验卡片
     switch2: any;
-    modalRef: MDBModalRef; // 模态
     expCardFG: FormGroup;
     id: number;
-    headElements = ['课程名', '实验课程名', '仪器设备(数量)', '消耗材料(数量)', '实验总学时', '实验教材', '实验所用软件', '操作'];
+    headElements = ['课程名', '实验课程名', '仪器设备(数量)', '消耗材料(数量)', '实验总学时', '实验教材', '实验所用软件'];
     ProjectItemArray: Array<ProjectItem> = [];
     itemTitle: string;
 
@@ -40,6 +41,9 @@ export class CardComponent implements OnInit {
     // 学期列表
     termList = ['请选择学期'];
     termSelected = '请选择学期';
+
+    classSelectedItems = [];
+    classList = [];
 
     constructor(private fb: FormBuilder,
                 private modalService: MDBModalService,
@@ -65,14 +69,7 @@ export class CardComponent implements OnInit {
         this.courseSelectSettings = {
             singleSelection: true, // 是否单选
             text: '选择课程',
-            // enableCheckAll: true, // 是否可以全选
-            // selectAllText: '全选',
-            // unSelectAllText: '全不选',
             enableSearchFilter: false, // 查找过滤器
-            // showCheckbox: false,
-            // enableFilterSelectAll: true, // “全选”复选框可以选择所有过滤结果
-            // limitSelection: 5,
-            // searchPlaceholderText 搜索的默认文字
         };
         // 初始化数据
         this.teacherService.getTeaches(this.authenticationService.getUserNo(), DateUtils.nowTerm())
@@ -83,19 +80,21 @@ export class CardComponent implements OnInit {
                     }
                 }
             });
+        this.teacherService.getClass().subscribe(result => {
+            if (result.success) {
+                this.classList = result.data;
+            }
+        });
         // 初始化实验卡片表单控制
         this.expCardFG = this.fb.group({
             courseSelected: ['', [Validators.required]],
             expCname: ['', [Validators.required]], // 实验课程名称
             expEqname: ['', [Validators.required]], // 设备
             eqnum: ['', [Validators.required, Validators.min(0), Validators.max(100)]], // 设备数量
-            expMajor: ['', [Validators.required]], // 面向专业
-            ssort: ['', [Validators.required]], // 学生类别
             expTime: ['', [Validators.required, Validators.min(1), Validators.max(100)]], // 实验总学时
             book: ['', [Validators.required]], // 实验教材
             software: ['', [Validators.required]], // 实验所用软件
             expTid: ['', [Validators.required]], // 教职工号
-            cname: ['', [Validators.required]], // 课程名
             conName: ['', [Validators.required]], // 消耗材料名称
             conNum: ['', [Validators.required, Validators.min(0), Validators.max(100)]], // 消耗材料数量
         });
@@ -111,26 +110,31 @@ export class CardComponent implements OnInit {
         const exp = new Exp();
         for (const key in this.expCardFG.controls) {
             if (key === 'courseSelected') {
+                exp.courseId = this.courseSelected.id;
                 continue;
             }
             exp[key] = this.expCardFG.controls[key].value;
         }
-        exp.status = 'AUDITING';
         exp.labStatus = 'UNCHECK';
         exp.term = DateUtils.nowTerm();
 
         console.log(exp);
         console.log(this.ProjectItemArray);
-        /*this.projectService.addProject(exp).subscribe(result => {
-          if (!result.success) {
-            return;
-          }
-          console.log(result.data);
-          this.ProjectItemArray.map(each=>each.proId=result.data);
-          this.exps.push(exp);
-          this.projectService.addProjectItems(this.ProjectItemArray).subscribe();
-        })*/
-        this.nzMessage.success('提交成功!!!,等待管理员审核');
+        console.log(this.classSelectedItems);
+        this.projectService.addProject(exp).subscribe(result => {
+            if (!result.success) {
+                return;
+            }
+            console.log(result.data);
+            this.ProjectItemArray.map(each => each.proId = result.data.proId);
+            this.exps.push(exp);
+            this.editExpCache[result.data.proId] = {edit: false, data: result.data};
+            const expClass = [];
+            this.classSelectedItems.forEach(each => expClass.push({proId: result.data.proId, classId: each}));
+            this.projectService.addExpClass(expClass).subscribe();
+            this.projectService.addProjectItems(this.ProjectItemArray).subscribe();
+        });
+        this.nzMessage.success('提交成功!!');
         this.switch2 = false;
     }
 
@@ -144,10 +148,17 @@ export class CardComponent implements OnInit {
                     this.updateItemEditCache();
                 }
             });
+        this.projectService.getExpClass(proId).subscribe(result => {
+            if (result.success) {
+                this.classSelectedItems = [];
+                result.data.forEach(each => this.classSelectedItems.push(each.classId));
+            }
+        });
     }
 
     // 重用往期卡片信息
     courseSelect(item: any) {
+        this.courseSelected = item;
         this.projectService.reuseCard(this.authenticationService.getUserNo(), item.id).subscribe(result => {
             if (result.success) {
                 this.nzModal.confirm({
@@ -155,9 +166,9 @@ export class CardComponent implements OnInit {
                     nzContent: '导入往期信息后仍可修改',
                     nzOnOk: () => {
                         this.expCardFG.patchValue(result.data);
-                        this.projectService.getProjectItems(result.data.proId).subscribe(result => {
-                            if (result.success) {
-                                this.ProjectItemArray = result.data;
+                        this.projectService.getProjectItems(result.data.proId).subscribe(response => {
+                            if (response.success) {
+                                this.ProjectItemArray = response.data;
                                 this.nzMessage.success('导入成功！');
                             }
                         });
@@ -187,7 +198,8 @@ export class CardComponent implements OnInit {
 
     // 学期选择后加载卡片信息
     onTermSelected() {
-        console.log(this.termSelected);
+        this.classSelectedItems = [];
+        this.projectItems = [];
         this.projectService.getProjects(this.authenticationService.getUserNo(), this.termSelected)
             .subscribe(result => {
                 if (result.success) {

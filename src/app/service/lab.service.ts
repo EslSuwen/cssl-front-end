@@ -95,7 +95,7 @@ export class LabService extends HandleError {
      */
     getLabByProId(proId: string | number): Observable<result> {
         const url = `${this.LAB_API}/getLabByProId`;
-        if (typeof proId == "number") {
+        if (typeof proId == 'number') {
             proId = proId.toString();
         }
         return this.http.get<result>(url, {params: {proId}}).pipe(

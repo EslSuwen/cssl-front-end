@@ -5,7 +5,7 @@
         <div class="col-2 animated fadeInLeft px-0 mr-2" id="sidenav" *ngIf="toggleFlag">
             <nav class="nav nav-pills flex-column light-blue lighten-5 mt-1 z-depth-2">
 
-                <a class="nav-link my-1 font-weight-bold" href="http://sise.cqjtu.edu.cn/">
+                <a target="_blank" class="nav-link my-1 font-weight-bold" href="http://sise.cqjtu.edu.cn/">
                     <img src="assets/img/information.png"/>
                     信息科学与工程学院</a>
                 <a class=" unique-color-dark a1 "></a>
@@ -36,19 +36,25 @@
                 </a>
                 <a *appHasRole="'ADMIN'" mdbWavesEffect class="nav-link my-2 text-center" routerLink="/sidenav/cardInfo"
                    routerLinkActive="active">
-                    <mdb-icon fas icon="bars" class="mr-1 green-text" size="lg"></mdb-icon>
+                    <mdb-icon fas icon="chart-bar" class="mr-1 green-text" size="lg"></mdb-icon>
                     实验卡片总览
-                </a>
-                <a *appHasRole="'ADMIN'" mdbWavesEffect class="nav-link my-2 text-center"
-                   routerLink="/sidenav/teachtable"
-                   routerLinkActive="active">
-                    <mdb-icon fas icon="list-ol" class="mr-1 orange-text" size="lg"></mdb-icon>
-                    教学执行计划表
                 </a>
                 <a mdbWavesEffect class="nav-link my-2 text-center" routerLink="/sidenav/apply"
                    routerLinkActive="active">
                     <mdb-icon fas icon="hand-point-right" class="mr-1 indigo-text" size="lg"></mdb-icon>
                     申请实验室
+                </a>
+                <a *appHasRole="'SUPER_ADMIN'" mdbWavesEffect class="nav-link my-2 text-center"
+                   routerLink="/sidenav/append"
+                   routerLinkActive="active">
+                    <mdb-icon fas icon="file-alt" class="mr-1  red-text" size="lg"></mdb-icon>
+                    新增数据
+                </a>
+                <a *appHasRole="'SUPER_ADMIN'" mdbWavesEffect class="nav-link my-2 text-center"
+                   routerLink="/sidenav/manage"
+                   routerLinkActive="active">
+                    <mdb-icon fas icon="indent" class="mr-1  red-text" size="lg"></mdb-icon>
+                    数据管理
                 </a>
                 <a *appHasRole="'TODO'" mdbWavesEffect class="nav-link my-2 text-center"
                    routerLink="/sidenav/apply_manage"
@@ -87,11 +93,10 @@
                                routerLinkActive="active"><span>个人信息</span></a>
                             <a mdbWavesEffect routerLink="/sidenav/updatepassword"
                                routerLinkActive="active"><span>修改密码</span></a>
-                            <a mdbWavesEffect href='http://www.cqjtu.edu.cn/'><span>学校官网</span></a>
+                            <a mdbWavesEffect target="_blank" href='http://www.cqjtu.edu.cn/'><span>学校官网</span></a>
                             <a mdbWavesEffect href="" (click)="logout()"><span>退出登录</span></a>
                         </div>
                         <div class="my-auto">
-
                             <a nz-dropdown [nzDropdownMenu]="menu">
                                 <mdb-badge color="blue" mdbDropdownToggle classInside="dropdown-toggle"
                                            class="waves-effect" mdbWavesEffect>

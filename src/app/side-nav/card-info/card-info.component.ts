@@ -5,11 +5,10 @@ import {Router} from '@angular/router';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {ExpFileService} from '../../service/exp-file.service';
 import {LabService} from '../../service/lab.service';
-import {LabInfo} from '../../entity/labInfo';
 import {TeacherService} from '../../service/teacher.service';
 import {TeacherMsg} from '../../entity/teacher';
 import {environment} from '../../../environments/environment';
-import {DateUtils} from '../../utils/DateUtils';
+import {ProjectService} from '../../service/project.service';
 
 @Component({
     selector: 'app-card-info',
@@ -32,10 +31,6 @@ export class CardInfoComponent implements OnInit {
     // nz tabInfo
     tabInfo: any = {};
 
-    // nz tab
-    tabIndex = 0;
-    labInfo = new LabInfo();
-
     fileStatusArray: Array<FileStatus>;
     fileInputName = [
         {typeName: '考勤名单'},
@@ -45,22 +40,8 @@ export class CardInfoComponent implements OnInit {
         {typeName: '实验报告'}];
 
     searchList = '';
-    filterMajor = [
-        {text: '计算机科学与技术', value: '0'},
-        {text: '物联网技术', value: '1'},
-        {text: '通信技术', value: '2'},
-    ];
-    filterClass = [
-        {text: '计算机一班', value: '0'},
-        {text: '计算机二班', value: '1'},
-        {text: '计算机三班', value: '2'},
-    ];
-    filterTerm = [
-        {text: '2019-2020(2)', value: '2019-2020(2)'},
-        {text: '2019-2020(1)', value: '2019-2020(1)'},
-        {text: '2018-2019(2)', value: '2018-2019(2)'},
-        {text: '2018-2019(1)', value: '2018-2019(1)'},
-    ];
+
+    filterTerm: { text: string, value: string }[] = [];
     filterTermSelected = [];
     filterCourseType = [
         {text: '必修', value: '必修'},
@@ -69,6 +50,9 @@ export class CardInfoComponent implements OnInit {
     filterCourseTypeSelected = [];
     teachPlans: TeachPlan[];
 
+    classSelected: string;
+    classList = [];
+
     constructor(private teachPlanService: TeachPlanService,
                 private teacherService: TeacherService,
                 private labService: LabService,
@@ -76,11 +60,17 @@ export class CardInfoComponent implements OnInit {
                 private modalService: NzModalService,
                 private expFileService: ExpFileService,
                 private nzMessage: NzMessageService,
+                private projectService: ProjectService,
     ) {
     }
 
     ngOnInit() {
-        this.teachPlanService.getTeachingPlan(DateUtils.nowTerm()).subscribe(
+        this.projectService.getTermList().subscribe(result => {
+            if (result.success) {
+                result.data.forEach(each => this.filterTerm.push({text: each, value: each}));
+            }
+        });
+        this.teachPlanService.getTeachingPlan().subscribe(
             result => {
                 if (result.success) {
                     this.teachPlans = result.data;
@@ -101,6 +91,10 @@ export class CardInfoComponent implements OnInit {
         window.location.href = this.expFileService.getFileUri(fileNo, this.tabInfo.term);
     }
 
+    download() {
+        this.teachPlanService.getTeachingPlanExcel();
+    }
+
     filePreview(fileId: number, fileName: string) {
         const fileUrl = this.expFileService.getFileUri(fileId, this.tabInfo.term);
         const previewUrl = `${fileUrl}&fullfilename=${fileName}`;
@@ -108,7 +102,14 @@ export class CardInfoComponent implements OnInit {
     }
 
     expSelect(proId: number) {
-        this.expFileService.getFileStatus(proId).subscribe(result => {
+        this.projectService.getExpClass(proId).subscribe(result => {
+            this.classList = result.data;
+        });
+
+    }
+
+    classSelect() {
+        this.expFileService.getFileStatus(this.tabInfo.proId, this.classSelected).subscribe(result => {
             if (result.success) {
                 this.initFileStatus();
                 if (result.data && result.data.files) {
@@ -124,12 +125,8 @@ export class CardInfoComponent implements OnInit {
                 this.nzMessage.success('获取文件关联信息成功');
             }
         });
-        this.labService.getLabByProId(proId).subscribe(result => {
-            if (result.success && result.data) {
-                this.labInfo = result.data;
-            }
-        });
     }
+
 
     updateData(reset: boolean = false): void {
         if (reset) {
