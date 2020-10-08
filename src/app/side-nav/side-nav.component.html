@@ -5,7 +5,7 @@
         <div class="col-2 animated fadeInLeft px-0 mr-2" id="sidenav" *ngIf="toggleFlag">
             <nav class="nav nav-pills flex-column light-blue lighten-5 mt-1 z-depth-2">
 
-                <a class="nav-link my-1 font-weight-bold" href="http://sise.cqjtu.edu.cn/">
+                <a target="_blank" class="nav-link my-1 font-weight-bold" href="http://sise.cqjtu.edu.cn/">
                     <img src="assets/img/information.png"/>
                     信息科学与工程学院</a>
                 <a class=" unique-color-dark a1 "></a>
@@ -97,7 +97,6 @@
                             <a mdbWavesEffect href="" (click)="logout()"><span>退出登录</span></a>
                         </div>
                         <div class="my-auto">
-
                             <a nz-dropdown [nzDropdownMenu]="menu">
                                 <mdb-badge color="blue" mdbDropdownToggle classInside="dropdown-toggle"
                                            class="waves-effect" mdbWavesEffect>

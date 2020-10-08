@@ -9,7 +9,33 @@
                 <thead>
                 <tr>
                     <th nzWidth="15%">工号</th>
-                    <th nzWidth="15%">姓名</th>
+                    <th nzWidth="15%" nzCustomFilter>姓名
+                        <i nz-th-extra
+                           class="ant-table-filter-icon"
+                           nz-icon
+                           nz-dropdown
+                           #dropdown="nzDropdown"
+                           nzType="search"
+                           [nzDropdownMenu]="TnameSearchMenu"
+                           [class.ant-table-filter-open]="dropdown.nzVisible"
+                           nzTrigger="click"
+                           nzPlacement="bottomRight"
+                           [nzClickHide]="false"
+                           nzTableFilter
+                        ></i>
+                        <nz-dropdown-menu #TnameSearchMenu="nzDropdownMenu">
+                            <div class="ant-table-filter-dropdown">
+                                <div class="search-box">
+                                    <input type="text" nz-input placeholder="请输入姓名：" [(ngModel)]="TnameSearchValue"/>
+                                    <button nz-button nzSize="small" nzType="primary" (click)="TnameSearch()"
+                                            class="search-button">
+                                        搜索
+                                    </button>
+                                    <button nz-button nzSize="small" (click)="TnameSearchReset()">重置</button>
+                                </div>
+                            </div>
+                        </nz-dropdown-menu>
+                    </th>
                     <th nzWidth="10%">手机号</th>
                     <th nzWidth="10%">QQ号</th>
                     <th nzWidth="15%">邮箱</th>
@@ -113,7 +139,34 @@
                 <thead>
                 <tr>
                     <th nzWidth="15%">编号</th>
-                    <th nzWidth="15%">班级名</th>
+                    <th nzWidth="15%" nzCustomFilter>班级名
+                        <i nz-th-extra
+                           class="ant-table-filter-icon"
+                           nz-icon
+                           nz-dropdown
+                           #dropdown="nzDropdown"
+                           nzType="search"
+                           [nzDropdownMenu]="classNameSearchMenu"
+                           [class.ant-table-filter-open]="dropdown.nzVisible"
+                           nzTrigger="click"
+                           nzPlacement="bottomRight"
+                           [nzClickHide]="false"
+                           nzTableFilter
+                        ></i>
+                        <nz-dropdown-menu #classNameSearchMenu="nzDropdownMenu">
+                            <div class="ant-table-filter-dropdown">
+                                <div class="search-box">
+                                    <input type="text" nz-input placeholder="请输入班级名："
+                                           [(ngModel)]="classNameSearchValue"/>
+                                    <button nz-button nzSize="small" nzType="primary" (click)="ClassNameSearch()"
+                                            class="search-button">
+                                        搜索
+                                    </button>
+                                    <button nz-button nzSize="small" (click)="ClassNameSearchReset()">重置</button>
+                                </div>
+                            </div>
+                        </nz-dropdown-menu>
+                    </th>
                     <th nzWidth="10%">专业</th>
                     <th nzWidth="10%">人数</th>
                     <th nzWidth="20%">操作</th>
@@ -198,7 +251,34 @@
                 <thead>
                 <tr>
                     <th nzWidth="15%">编号</th>
-                    <th nzWidth="15%">课程名</th>
+                    <th nzWidth="15%" nzCustomFilter>课程名
+                        <i nz-th-extra
+                           class="ant-table-filter-icon"
+                           nz-icon
+                           nz-dropdown
+                           #dropdown="nzDropdown"
+                           nzType="search"
+                           [nzDropdownMenu]="courseNameSearchMenu"
+                           [class.ant-table-filter-open]="dropdown.nzVisible"
+                           nzTrigger="click"
+                           nzPlacement="bottomRight"
+                           [nzClickHide]="false"
+                           nzTableFilter
+                        ></i>
+                        <nz-dropdown-menu #courseNameSearchMenu="nzDropdownMenu">
+                            <div class="ant-table-filter-dropdown">
+                                <div class="search-box">
+                                    <input type="text" nz-input placeholder="请输入课程名："
+                                           [(ngModel)]="courseNameSearchValue"/>
+                                    <button nz-button nzSize="small" nzType="primary" (click)="CourseNameSearch()"
+                                            class="search-button">
+                                        搜索
+                                    </button>
+                                    <button nz-button nzSize="small" (click)="CourseNameSearchReset()">重置</button>
+                                </div>
+                            </div>
+                        </nz-dropdown-menu>
+                    </th>
                     <th nzWidth="10%">所属学院</th>
                     <th nzWidth="10%">类型</th>
                     <th nzWidth="20%">操作</th>
@@ -280,7 +360,33 @@
             <thead>
             <tr>
                 <th nzWidth="15%">授课教师</th>
-                <th nzWidth="15%">课程名</th>
+                <th nzWidth="15%" nzCustomFilter>课程名
+                    <i nz-th-extra
+                       class="ant-table-filter-icon"
+                       nz-icon
+                       nz-dropdown
+                       #dropdown="nzDropdown"
+                       nzType="search"
+                       [nzDropdownMenu]="teachNameSearchMenu"
+                       [class.ant-table-filter-open]="dropdown.nzVisible"
+                       nzTrigger="click"
+                       nzPlacement="bottomRight"
+                       [nzClickHide]="false"
+                       nzTableFilter
+                    ></i>
+                    <nz-dropdown-menu #teachNameSearchMenu="nzDropdownMenu">
+                        <div class="ant-table-filter-dropdown">
+                            <div class="search-box">
+                                <input type="text" nz-input placeholder="请输入课程名：" [(ngModel)]="teachNameSearchValue"/>
+                                <button nz-button nzSize="small" nzType="primary" (click)="TeachNameSearch()"
+                                        class="search-button">
+                                    搜索
+                                </button>
+                                <button nz-button nzSize="small" (click)="TeachNameSearchReset()">重置</button>
+                            </div>
+                        </div>
+                    </nz-dropdown-menu>
+                </th>
                 <th nzWidth="20%">操作</th>
             </tr>
             </thead>

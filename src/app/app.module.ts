@@ -94,6 +94,7 @@ const appRoutes: Routes = [
         CardInfoComponent,
         AppendComponent,
         ManageComponent,
+
     ],
     imports: [
         BrowserModule,

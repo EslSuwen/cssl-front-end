@@ -13,9 +13,13 @@ import {Course} from '../../entity/course';
 export class ManageComponent implements OnInit {
 
     teacherSet = [];
+    teacherData = [];
     classSet = [];
+    classData = [];
     courseSet = [];
+    courseData = [];
     teachSet = [];
+    teachData = [];
     editTeacherCache = {};
     editClassCache = {};
     editCourseCache = {};
@@ -27,12 +31,18 @@ export class ManageComponent implements OnInit {
     courseSelectedItems = [];
     teachTid;
 
+    TnameSearchValue = '';
+    classNameSearchValue = '';
+    courseNameSearchValue = '';
+    teachNameSearchValue = '';
+
     constructor(private teacherService: TeacherService, private message: NzMessageService) {
     }
 
     ngOnInit() {
         this.teacherService.getTeacher().subscribe(result => {
                 if (result.success) {
+                    this.teacherData = result.data;
                     this.teacherSet = result.data;
                     this.teacherSet.forEach(item => {
                         if (!this.editTeacherCache[item.tid]) {
@@ -47,6 +57,7 @@ export class ManageComponent implements OnInit {
         );
         this.teacherService.getClass().subscribe(result => {
                 if (result.success) {
+                    this.classData = result.data;
                     this.classSet = result.data;
                     this.classSet.forEach(item => {
                         if (!this.editClassCache[item.classId]) {
@@ -61,6 +72,7 @@ export class ManageComponent implements OnInit {
         );
         this.teacherService.getCourse().subscribe(result => {
                 if (result.success) {
+                    this.courseData = result.data;
                     this.courseSet = result.data;
                     this.courseSet.forEach(item => {
                         if (!this.editCourseCache[item.courseId]) {
@@ -201,6 +213,7 @@ export class ManageComponent implements OnInit {
         this.teachTid = tid;
         this.teacherService.getTeachByTid(tid).subscribe(result => {
             if (result.success) {
+                this.teachData = result.data;
                 this.teachSet = result.data;
                 this.isTeachVisible = true;
             }
@@ -237,5 +250,41 @@ export class ManageComponent implements OnInit {
                 this.message.error('删除失败');
             }
         });
+    }
+
+    TnameSearch() {
+        this.teacherSet = this.teacherData.filter((each) => each.tname.indexOf(this.TnameSearchValue) !== -1);
+    }
+
+    TnameSearchReset() {
+        this.TnameSearchValue = '';
+        this.teacherSet = this.teacherData;
+    }
+
+    ClassNameSearch() {
+        this.classSet = this.classData.filter((each) => each.className.indexOf(this.classNameSearchValue) !== -1);
+    }
+
+    ClassNameSearchReset() {
+        this.classNameSearchValue = '';
+        this.classSet = this.classData;
+    }
+
+    CourseNameSearch() {
+        this.courseSet = this.courseData.filter((each) => each.courseName.indexOf(this.courseNameSearchValue) !== -1);
+    }
+
+    CourseNameSearchReset() {
+        this.courseNameSearchValue = '';
+        this.courseSet = this.courseData;
+    }
+
+    TeachNameSearch() {
+        this.teachSet = this.teachData.filter((each) => each.courseName.indexOf(this.teachNameSearchValue) !== -1);
+    }
+
+    TeachNameSearchReset() {
+        this.teachNameSearchValue = '';
+        this.teachSet = this.teachData;
     }
 }

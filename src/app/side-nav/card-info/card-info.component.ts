@@ -8,7 +8,7 @@ import {LabService} from '../../service/lab.service';
 import {TeacherService} from '../../service/teacher.service';
 import {TeacherMsg} from '../../entity/teacher';
 import {environment} from '../../../environments/environment';
-import {ProjectService} from "../../service/project.service";
+import {ProjectService} from '../../service/project.service';
 
 @Component({
     selector: 'app-card-info',
@@ -41,12 +41,7 @@ export class CardInfoComponent implements OnInit {
 
     searchList = '';
 
-    filterTerm = [
-        {text: '2019-2020(2)', value: '2019-2020(2)'},
-        {text: '2019-2020(1)', value: '2019-2020(1)'},
-        {text: '2018-2019(2)', value: '2018-2019(2)'},
-        {text: '2018-2019(1)', value: '2018-2019(1)'},
-    ];
+    filterTerm: { text: string, value: string }[] = [];
     filterTermSelected = [];
     filterCourseType = [
         {text: '必修', value: '必修'},
@@ -70,6 +65,11 @@ export class CardInfoComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.projectService.getTermList().subscribe(result => {
+            if (result.success) {
+                result.data.forEach(each => this.filterTerm.push({text: each, value: each}));
+            }
+        });
         this.teachPlanService.getTeachingPlan().subscribe(
             result => {
                 if (result.success) {
