@@ -29,7 +29,7 @@ import {CanActivateAuthGuard} from './auth/can-activate.authguard';
 import {AuthenticationInterceptor} from './auth/authentication-interceptor';
 import {MessageComponent} from './side-nav/message/message.component';
 import {NgZorroAntdModule, NZ_I18N, zh_CN} from 'ng-zorro-antd';
-import {registerLocaleData} from '@angular/common';
+import {HashLocationStrategy, LocationStrategy, registerLocaleData} from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import {ApplyManageComponent} from './side-nav/apply-manage/apply-manage.component';
 import {Code404Component} from './code404/code404.component';
@@ -125,7 +125,11 @@ const appRoutes: Routes = [
         NgZorroAntdModule,
     ],
     entryComponents: [ModalComponent],
-    providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true}, {
+    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthenticationInterceptor,
+        multi: true
+    }, {
         provide: NZ_I18N,
         useValue: zh_CN
     }],
