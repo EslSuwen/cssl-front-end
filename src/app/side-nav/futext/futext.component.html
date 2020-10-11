@@ -41,18 +41,19 @@
                             <h4 class="white-text">通知文件上传</h4>
                         </div>
                     </div>
-                    <nz-spin [nzSpinning]="uploadLoading">
-                        <div class="row m-3 ">
-                            <div class="col-3">
-                                <ng2-file-input [drop-text]="'请选择文件：'"
-                                                (onAdded)="fileChange($event)"></ng2-file-input>
-                            </div>
-                            <div style="margin: auto;">
-                                <button mdbBtn type="submit" gradient="blue" mdbWavesEffect (click)="fileUpload()">上传
-                                </button>
-                            </div>
-                        </div>
-                    </nz-spin>
+                    <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
+                        <button nz-button><i nz-icon nzType="upload"></i><span>Select File</span></button>
+                    </nz-upload>
+                    <button
+                            nz-button
+                            [nzType]="'primary'"
+                            [nzLoading]="uploading"
+                            (click)="handleUpload()"
+                            [disabled]="fileList.length == 0"
+                            style="margin-top: 16px"
+                    >
+                        {{ uploading ? 'Uploading' : 'Start Upload' }}
+                    </button>
                     <div *ngIf="nzProgressVisible">
                         <nz-progress [nzPercent]="nzProgress" nzStatus="active"></nz-progress>
                     </div>

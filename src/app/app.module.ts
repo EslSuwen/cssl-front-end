@@ -39,27 +39,29 @@ import {CardInfoComponent} from './side-nav/card-info/card-info.component';
 import {FutextComponent} from './side-nav/futext/futext.component';
 import {AppendComponent} from './side-nav/append/append.component';
 import {ManageComponent} from './side-nav/manage/manage.component';
+import {IndexComponent} from './index/index.component';
 
 registerLocaleData(zh);
 const appRoutes: Routes = [
     {
         path: '', // 默认路由
-        redirectTo: '/login',
+        redirectTo: '/index',
         pathMatch: 'full'
     },
+    {path: 'index', component: IndexComponent},
     {path: 'login', component: LoginComponent},
     {
         path: 'sidenav', component: SideNavComponent,
         canActivate: [CanActivateAuthGuard],
         children: [
-            {path: 'personalinfo', component: PersonalInfoComponent,},
-            {path: 'notify', component: NotifyComponent,},
-            {path: 'upload', component: UploadComponent,},
-            {path: 'card', component: CardComponent,},
+            {path: 'personalinfo', component: PersonalInfoComponent},
+            {path: 'notify', component: NotifyComponent},
+            {path: 'upload', component: UploadComponent},
+            {path: 'card', component: CardComponent},
             {path: 'cardInfo', component: CardInfoComponent},
-            {path: 'apply', component: ApplyComponent,},
-            {path: 'updatepassword', component: UpdatePasswordComponent,},
-            {path: 'message', component: MessageComponent,},
+            {path: 'apply', component: ApplyComponent},
+            {path: 'updatepassword', component: UpdatePasswordComponent},
+            {path: 'message', component: MessageComponent},
             {path: 'show-notice', component: ShowNoticeComponent},
             {path: 'futext', component: FutextComponent},
             {path: 'audit-lab', component: AuditLabComponent},
@@ -94,6 +96,7 @@ const appRoutes: Routes = [
         CardInfoComponent,
         AppendComponent,
         ManageComponent,
+        IndexComponent,
 
     ],
     imports: [

@@ -4,7 +4,7 @@ import {Notice} from '../../entity/notice';
 import {AuthenticationService} from '../../service/authentication.service';
 import {DateUtils} from '../../utils/DateUtils';
 import {NoticeFileService} from '../../service/notice-file.service';
-import {NzMessageService} from 'ng-zorro-antd';
+import {NzMessageService, NzNotificationService, UploadFile} from 'ng-zorro-antd';
 import {filter, map} from 'rxjs/operators';
 import {HttpClient, HttpEventType, HttpResponse} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
@@ -20,15 +20,18 @@ export class FutextComponent implements OnInit {
     public editorContent = '';
     public placeholder = '这里进行编辑';
     noticeHead = '';
-    fileForm = new FormData();
     uploadLoading = false;
     nzProgressVisible = false;
     nzProgress: number;
 
+    // 文件上传
+    uploading = false;
+    fileList: UploadFile[] = [];
+
     constructor(private noticeService: NoticeService,
                 private noticeFileService: NoticeFileService,
                 private authService: AuthenticationService,
-                private messageService: NzMessageService,
+                private notification: NzNotificationService,
                 private http: HttpClient) {
     }
 
@@ -38,31 +41,18 @@ export class FutextComponent implements OnInit {
     // 提交数据
     onSubmit() {
         if (this.noticeHead.length == 0 || this.editorContent.length == 0) {
-            this.messageService.error('通知标题和正文不能为空');
+            this.notification.error('通知标题和正文不能为空', '请输入标题和正文');
             return;
         }
         console.log(new Notice(this.authService.getUserNo(), this.noticeHead, this.editorContent));
         this.noticeService.addNotice(new Notice(this.authService.getUserNo(), this.noticeHead, this.editorContent)).subscribe();
     }
 
-    fileChange(e: any) {
-        const formData = new FormData();
-        formData.append('fileName', e.file.name);
-        formData.append('tid', this.authService.getUserNo());
-        formData.append('fileDate', DateUtils.now());
-        formData.append('nFile', e.file);
-
-        this.fileForm = formData;
-        console.log(this.fileForm.get('nFile'));
-        console.log(this.fileForm.get('fileName'));
-
-    }
-
     // 含进度回显文件上传
-    fileUpload() {
+    fileUpload(formData: FormData) {
         this.uploadLoading = true;
         this.nzProgressVisible = true;
-        this.http.post(`${environment.apiUrl}/noticeFile/add`, this.fileForm, {reportProgress: true, observe: 'events'})
+        this.http.post(`${environment.apiUrl}/noticeFile/add`, formData, {reportProgress: true, observe: 'events'})
             .pipe(
                 filter((event => {
                     switch (event.type) {
@@ -79,12 +69,32 @@ export class FutextComponent implements OnInit {
                 map((res: HttpResponse<any>) => res.body)
             ).subscribe(result => {
             if (result.success) {
-                this.messageService.success('通知文件上传成功');
+                this.notification.success('上传成功', `通知文件" ${formData.get('fileName')} "上传成功`);
             } else {
-                this.messageService.error('通知文件上传失败');
+                this.notification.success('上传失败', `通知文件" ${formData.get('fileName')} "上传失败`);
             }
+            this.handleUpload();
+        });
+    }
+
+    beforeUpload = (file: UploadFile): boolean => {
+        this.fileList = this.fileList.concat(file);
+        return false;
+    }
+
+    handleUpload(): void {
+        const uploadFile: any = this.fileList.pop();
+        if (uploadFile !== undefined) {
+            const formData = new FormData();
+            formData.append('fileName', uploadFile.name);
+            formData.append('tid', this.authService.getUserNo());
+            formData.append('fileDate', DateUtils.now());
+            formData.append('nFile', uploadFile);
+            this.fileUpload(formData);
+        } else {
+            this.uploading = false;
             this.uploadLoading = false;
             this.nzProgressVisible = false;
-        });
+        }
     }
 }
