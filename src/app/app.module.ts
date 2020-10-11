@@ -10,7 +10,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown';
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {QuillModule} from 'ngx-quill';
-import {Ng2FileInputModule} from 'ng2-file-input';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import {LoginComponent} from './login/login.component';
@@ -70,7 +69,7 @@ const appRoutes: Routes = [
             {path: '**', component: Code404Component},
         ],
     },
-    {path: '**', component: Code404Component},];
+    {path: '**', component: Code404Component}];
 
 @NgModule({
     declarations: [
@@ -114,16 +113,6 @@ const appRoutes: Routes = [
         AngularMultiSelectModule,
         OwlDateTimeModule,
         OwlNativeDateTimeModule,
-        Ng2FileInputModule.forRoot({
-            // dropText: 'Drop file here',
-            browseText: '选择',
-            removeText: '删除',
-            invalidFileText: '你上传了其他类型的文件',
-            invalidFileTimeout: 8000,
-            removable: true,
-            multiple: false,
-            showPreviews: true
-        }),
         HttpClientModule,
         NgZorroAntdModule,
     ],
