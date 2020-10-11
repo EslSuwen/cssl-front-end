@@ -23,7 +23,6 @@ export class CardComponent implements OnInit {
     addItemNum = 1; // 增加表格的行数
     courseList = [];
     courseSelected: any;
-    courseSelectSettings = {};
     projectItems: ProjectItem[];
 
     exps: Exp[]; // 实验卡片
@@ -66,17 +65,12 @@ export class CardComponent implements OnInit {
                 this.termList.push(DateUtils.nowTerm());
             }
         });
-        this.courseSelectSettings = {
-            singleSelection: true, // 是否单选
-            text: '选择课程',
-            enableSearchFilter: false, // 查找过滤器
-        };
         // 初始化数据
         this.teacherService.getTeaches(this.authenticationService.getUserNo(), DateUtils.nowTerm())
             .subscribe(result => {
                 if (result.success) {
                     for (const each of result.data) {
-                        this.courseList.push({id: each.courseId, itemName: each.courseName});
+                        this.courseList.push({courseId: each.courseId, courseName: each.courseName});
                     }
                 }
             });
@@ -157,9 +151,9 @@ export class CardComponent implements OnInit {
     }
 
     // 重用往期卡片信息
-    courseSelect(item: any) {
-        this.courseSelected = item;
-        this.projectService.reuseCard(this.authenticationService.getUserNo(), item.id).subscribe(result => {
+    courseSelect(courseId: any) {
+        this.courseSelected = courseId;
+        this.projectService.reuseCard(this.authenticationService.getUserNo(), courseId.id).subscribe(result => {
             if (result.success) {
                 this.nzModal.confirm({
                     nzTitle: '是否导入上次开课卡片信息',

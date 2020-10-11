@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {NzMessageService} from 'ng-zorro-antd';
+import {NzMessageService} from 'ng-zorro-antd/message';
 import {HandleError} from './handle-error';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';

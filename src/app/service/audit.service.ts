@@ -3,9 +3,9 @@ import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {HandleError} from './handle-error';
-import {NzMessageService} from 'ng-zorro-antd';
 import {catchError, tap} from 'rxjs/operators';
-import {result} from "../entity/result";
+import {result} from '../entity/result';
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Injectable({
     providedIn: 'root'

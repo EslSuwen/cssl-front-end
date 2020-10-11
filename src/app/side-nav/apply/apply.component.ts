@@ -8,9 +8,9 @@ import {AuthenticationService} from '../../service/authentication.service';
 import {AuditService} from 'src/app/service/audit.service';
 import {LabService} from '../../service/lab.service';
 import {DateUtils} from '../../utils/DateUtils';
-import {NzMessageService} from 'ng-zorro-antd';
 import {ModalComponent} from '../../modal/modal.component';
 import {Class} from '../../entity/class';
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
     selector: 'app-apply',

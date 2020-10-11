@@ -2,13 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {TeachPlan} from '../../entity/teachPlan';
 import {TeachPlanService} from '../../service/teach-plan.service';
 import {Router} from '@angular/router';
-import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {ExpFileService} from '../../service/exp-file.service';
 import {LabService} from '../../service/lab.service';
 import {TeacherService} from '../../service/teacher.service';
 import {TeacherMsg} from '../../entity/teacher';
 import {environment} from '../../../environments/environment';
 import {ProjectService} from '../../service/project.service';
+import {NzModalService} from 'ng-zorro-antd/modal';
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Component({
     selector: 'app-card-info',

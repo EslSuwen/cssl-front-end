@@ -4,10 +4,11 @@ import {Notice} from '../../entity/notice';
 import {AuthenticationService} from '../../service/authentication.service';
 import {DateUtils} from '../../utils/DateUtils';
 import {NoticeFileService} from '../../service/notice-file.service';
-import {NzMessageService, NzNotificationService, UploadFile} from 'ng-zorro-antd';
 import {filter, map} from 'rxjs/operators';
 import {HttpClient, HttpEventType, HttpResponse} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
+import {NzNotificationService} from 'ng-zorro-antd/notification';
+import {NzUploadFile} from 'ng-zorro-antd/upload';
 
 @Component({
     selector: 'app-futext',
@@ -26,7 +27,7 @@ export class FutextComponent implements OnInit {
 
     // 文件上传
     uploading = false;
-    fileList: UploadFile[] = [];
+    fileList: NzUploadFile[] = [];
 
     constructor(private noticeService: NoticeService,
                 private noticeFileService: NoticeFileService,
@@ -77,7 +78,7 @@ export class FutextComponent implements OnInit {
         });
     }
 
-    beforeUpload = (file: UploadFile): boolean => {
+    beforeUpload = (file: NzUploadFile): boolean => {
         this.fileList = this.fileList.concat(file);
         return false;
     }

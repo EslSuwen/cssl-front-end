@@ -1,4 +1,4 @@
-import {NzMessageService} from 'ng-zorro-antd';
+import {NzMessageService} from 'ng-zorro-antd/message';
 import {Observable, of} from 'rxjs';
 
 /**

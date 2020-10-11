@@ -3,7 +3,7 @@ import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {HandleError} from './handle-error';
-import {NzMessageService} from 'ng-zorro-antd';
+import {NzMessageService} from 'ng-zorro-antd/message';
 import {catchError, tap} from 'rxjs/operators';
 import {result} from '../entity/result';
 

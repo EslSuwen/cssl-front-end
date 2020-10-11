@@ -25,10 +25,14 @@
                     <tbody *ngIf="switch2">
                     <tr mdbTableCol [formGroup]="expCardFG">
                         <td style="width: 200px;">
-                            <angular2-multiselect [data]="courseList" formControlName="courseSelected"
-                                                  [settings]="courseSelectSettings"
-                                                  (onSelect)="courseSelect($event)">
-                            </angular2-multiselect>
+                            <nz-select
+                                    [(ngModel)]="courseSelected"
+                                    nzPlaceHolder="请选择课程"
+                                    (ngModelChange)="courseSelect($event)"
+                                    nzMode="default">
+                                <nz-option *ngFor="let option of courseList" [nzLabel]="option.courseName"
+                                           [nzValue]="option.courseId"></nz-option>
+                            </nz-select>
                         </td>
                         <td>
                             <div class="md-form my-0">

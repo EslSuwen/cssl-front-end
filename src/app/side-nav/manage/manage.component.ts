@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {TeacherService} from '../../service/teacher.service';
 import {Teach, Teacher} from '../../entity/teacher';
-import {NzMessageService} from 'ng-zorro-antd';
 import {Class} from '../../entity/class';
 import {Course} from '../../entity/course';
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Component({
     selector: 'app-manage',

@@ -1,3 +1,4 @@
+<!--
 <div class="row mt-2">
     <div class="col px-0 mt-4">
         <mdb-card cascade="true" narrower="true">
@@ -10,7 +11,7 @@
                     <button mdbBtn color="white" outline="true" rounded="true" size="sm" type="button" class="px-2"
                             mdbWavesEffect>
                         <i class="far fa-grin-beam fa-2x"></i>
-                        <!-- <i class="fab fa-angellist"></i> -->
+                        &lt;!&ndash; <i class="fab fa-angellist"></i> &ndash;&gt;
                     </button>
                 </div>
                 <a class="white-text mx-3">申请情况一览</a>
@@ -60,7 +61,7 @@
                             <i class="fas fa-arrow-right ml-2"></i>
                         </button>
                     </td>
-                    <!--/.Content-->
+                    &lt;!&ndash;/.Content&ndash;&gt;
                 </tr>
                 </tbody>
             </table>
@@ -71,18 +72,18 @@
      id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-notify modal-info" role="document">
-        <!--Content-->
+        &lt;!&ndash;Content&ndash;&gt;
         <div class="modal-content ">
-            <!--Header-->
+            &lt;!&ndash;Header&ndash;&gt;
             <div class="modal-header d-flex justify-content-center text-center">
                 <mdb-icon fas icon="bell" size="2x"
                           class="animated rotateIn mr-1 deep-purple-text"></mdb-icon>
                 <p class="heading">请填写申请信息！</p>
             </div>
-            <!--Body-->
+            &lt;!&ndash;Body&ndash;&gt;
             <div class="modal-body">
                 <div class="row">
-                    <!-- 校区 -->
+                    &lt;!&ndash; 校区 &ndash;&gt;
                     <div class="col px-0 mr-3">
                         <angular2-multiselect [data]="regionList" [(ngModel)]="regionSelectedItems"
                                               [settings]="regionSettings">
@@ -94,7 +95,7 @@
                         </angular2-multiselect>
                     </div>
 
-                    <!-- 实验室类型 -->
+                    &lt;!&ndash; 实验室类型 &ndash;&gt;
                     <div class="col  px-0">
                         <angular2-multiselect [data]="labTypeList"
                                               [(ngModel)]="labTypeSelectedItems"
@@ -103,6 +104,7 @@
                             <c-item>
                                 <ng-template let-item="item">
                                     <label style="min-width: 60%;">{{item.itemName}}</label>
+
                                 </ng-template>
                             </c-item>
                         </angular2-multiselect>
@@ -110,7 +112,7 @@
                 </div>
 
                 <div class="row">
-                    <!-- 实验室名 -->
+                    &lt;!&ndash; 实验室名 &ndash;&gt;
                     <div class="col px-0 mr-3 mt-3">
                         <angular2-multiselect [data]=" labNameList"
                                               [(ngModel)]="labNameSelectedItems"
@@ -123,7 +125,7 @@
                         </angular2-multiselect>
                     </div>
 
-                    <!-- 周数 -->
+                    &lt;!&ndash; 周数 &ndash;&gt;
                     <div class="col px-0 mt-3">
                         <angular2-multiselect [data]="weekList" [(ngModel)]="weekSelectedItems"
                                               [settings]="weekSettings">
@@ -137,7 +139,7 @@
                 </div>
 
                 <div *ngFor="let i of nums" class="row my-4">
-                    <!-- 星期 -->
+                    &lt;!&ndash; 星期 &ndash;&gt;
                     <div class="col px-0 mr-3">
                         <angular2-multiselect [data]="dayList" [(ngModel)]="daySelectedItems[i]"
                                               [settings]="daySettings">
@@ -148,7 +150,7 @@
                             </c-item>
                         </angular2-multiselect>
                     </div>
-                    <!-- 节次 -->
+                    &lt;!&ndash; 节次 &ndash;&gt;
                     <div class="col px-0">
                         <angular2-multiselect [data]="timeList" [(ngModel)]="timeSelectedItems[i]"
                                               [settings]="timeSettings" (onSelect)="onTimeSelected()">
@@ -165,7 +167,7 @@
                     <i class="fas fa-minus-circle fa-2x" (click)="removeTimeSelectItem()"></i>
                 </div>
                 <div class="row mt-3">
-                    <!-- 年级 -->
+                    &lt;!&ndash; 年级 &ndash;&gt;
                     <div class="col px-0 mr-3">
                         <angular2-multiselect [data]="gradeList" [(ngModel)]="gradeSelectedItems"
                                               [settings]="gradeSettings" (onSelect)="onGradeSelected($event)">
@@ -176,7 +178,7 @@
                             </c-item>
                         </angular2-multiselect>
                     </div>
-                    <!-- 班级 -->
+                    &lt;!&ndash; 班级 &ndash;&gt;
                     <div class="col px-0 ">
                         <angular2-multiselect [data]="classList" [(ngModel)]="classSelectedItems"
                                               [settings]="classSettings">
@@ -196,7 +198,7 @@
                 </div>
             </div>
 
-            <!--Footer-->
+            &lt;!&ndash;Footer&ndash;&gt;
             <div class="modal-footer justify-content-center">
                 <a type="button" mdbBtn color="primary" class="waves-light"
                    (click)="submit()">提交</a>
@@ -205,6 +207,7 @@
                    (click)="applyModal.hide()">返回</a>
             </div>
         </div>
-        <!--/.Content-->
+        &lt;!&ndash;/.Content&ndash;&gt;
     </div>
 </div>
+-->

@@ -4,11 +4,11 @@ import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {HandleError} from './handle-error';
-import {NzMessageService} from 'ng-zorro-antd';
 import {result} from '../entity/result';
 import {Teach, Teacher, TeacherMsg} from '../entity/teacher';
 import {Course} from '../entity/course';
 import {Class} from '../entity/class';
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Injectable({
     providedIn: 'root'
