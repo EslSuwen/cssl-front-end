@@ -1,4 +1,3 @@
-import {NzMessageService} from 'ng-zorro-antd/message';
 import {Observable, of} from 'rxjs';
 
 /**
@@ -8,23 +7,23 @@ import {Observable, of} from 'rxjs';
  * @date 2020/5/27 下午2:06
  */
 export class HandleError {
-    constructor(
-        public message: NzMessageService) {
+    constructor() {
     }
 
     public success(message: string) {
-        this.message.create('success', message);
+        console.log('success', message);
     }
 
     public error(message: string) {
-        this.message.create('error', message);
+        console.error('error', message);
     }
 
     public handleError<T>(operation = 'operation', result?: T) {
 
         return (error: any): Observable<T> => {
             let msg = error.message;
-            if (error.error.code !== 'undefined' && (typeof error.error.message === 'string' && error.error.message.constructor === String)) {
+            if (error.error.code !== 'undefined'
+                && (typeof error.error.message === 'string' && error.error.message.constructor === String)) {
                 msg = error.error.message;
             }
             console.error(error);

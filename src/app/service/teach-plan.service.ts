@@ -3,7 +3,6 @@ import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {HandleError} from './handle-error';
-import {NzMessageService} from 'ng-zorro-antd/message';
 import {catchError, tap} from 'rxjs/operators';
 import {result} from '../entity/result';
 
@@ -12,8 +11,8 @@ import {result} from '../entity/result';
 })
 export class TeachPlanService extends HandleError {
 
-    constructor(private http: HttpClient, message: NzMessageService) {
-        super(message);
+    constructor(private http: HttpClient) {
+        super();
     }
 
     private ARRANGE_API = `${environment.apiUrl}/arrange`;

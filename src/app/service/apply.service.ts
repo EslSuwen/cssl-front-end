@@ -6,16 +6,14 @@ import {Arrange} from '../entity/arrange';
 import {catchError, tap} from 'rxjs/operators';
 import {HandleError} from './handle-error';
 import {result} from '../entity/result';
-import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ApplyService extends HandleError {
 
-    constructor(private http: HttpClient,
-                message: NzMessageService) {
-        super(message);
+    constructor(private http: HttpClient) {
+        super();
     }
 
     private ARRANGE_API = `${environment.apiUrl}/arrange`;

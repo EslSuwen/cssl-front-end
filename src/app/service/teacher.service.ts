@@ -8,15 +8,14 @@ import {result} from '../entity/result';
 import {Teach, Teacher, TeacherMsg} from '../entity/teacher';
 import {Course} from '../entity/course';
 import {Class} from '../entity/class';
-import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TeacherService extends HandleError {
 
-    constructor(private http: HttpClient, message: NzMessageService) {
-        super(message);
+    constructor(private http: HttpClient) {
+        super();
     }
 
     private TEACHER_API = `${environment.apiUrl}/teacher`;
@@ -404,9 +403,9 @@ export class TeacherService extends HandleError {
         return this.http.post<result>(url, teach).pipe(
             tap(response => {
                     if (response.success) {
-                        this.message.success(response.message);
+                        this.success(response.message);
                     } else {
-                        this.message.error('增加授课信息');
+                        this.error('增加授课信息');
                     }
                 }
             ),

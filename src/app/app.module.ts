@@ -8,7 +8,6 @@ import zh from '@angular/common/locales/zh';
 import {NZ_I18N, zh_CN} from 'ng-zorro-antd/i18n';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {QuillModule} from 'ngx-quill';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
@@ -31,7 +30,8 @@ import {NzPopconfirmModule} from 'ng-zorro-antd/popconfirm';
 import {NzDatePickerModule} from 'ng-zorro-antd/date-picker';
 import {NzSliderModule} from 'ng-zorro-antd/slider';
 import {NzResultModule} from 'ng-zorro-antd/result';
-
+import {NzMessageModule} from 'ng-zorro-antd/message';
+import {NzNotificationModule} from 'ng-zorro-antd/notification';
 
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
@@ -126,13 +126,11 @@ const appRoutes: Routes = [
         RouterModule.forRoot(
             appRoutes,
         ),
-        OwlDateTimeModule,
-        OwlNativeDateTimeModule,
         HttpClientModule,
         NzDropDownModule, NzCardModule, NzSelectModule, NzFormModule, NzInputModule, NzInputNumberModule,
         NzModalModule, NzUploadModule, NzIconModule, NzDividerModule, NzTableModule, NzButtonModule, NzTabsModule,
         NzProgressModule, NzBadgeModule, NzTagModule, NzPopconfirmModule, NzDatePickerModule, NzSliderModule,
-        NzResultModule,
+        NzResultModule, NzMessageModule, NzNotificationModule
 
     ],
     entryComponents: [ModalComponent],

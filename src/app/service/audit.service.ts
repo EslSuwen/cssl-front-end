@@ -5,7 +5,6 @@ import {environment} from '../../environments/environment';
 import {HandleError} from './handle-error';
 import {catchError, tap} from 'rxjs/operators';
 import {result} from '../entity/result';
-import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Injectable({
     providedIn: 'root'
@@ -13,11 +12,9 @@ import {NzMessageService} from 'ng-zorro-antd/message';
 export class AuditService extends HandleError {
 
 
-    constructor(
-        private http: HttpClient, message: NzMessageService) {
-        super(message);
+    constructor(private http: HttpClient) {
+        super();
     }
-
     private PROJECT_API = `${environment.apiUrl}/project`;
     private ARRANGE_API = `${environment.apiUrl}/arrange`;
 

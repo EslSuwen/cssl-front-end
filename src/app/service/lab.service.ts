@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HandleError} from './handle-error';
 import {HttpClient} from '@angular/common/http';
-import {NzMessageService} from 'ng-zorro-antd/message';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
 import {result} from '../entity/result';
@@ -12,8 +11,8 @@ import {catchError, tap} from 'rxjs/operators';
 })
 export class LabService extends HandleError {
 
-    constructor(private http: HttpClient, message: NzMessageService) {
-        super(message);
+    constructor(private http: HttpClient) {
+        super();
     }
 
     private LAB_API = `${environment.apiUrl}/lab`;

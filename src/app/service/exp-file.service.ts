@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {NzMessageService} from 'ng-zorro-antd/message';
 import {environment} from '../../environments/environment';
 import {HandleError} from './handle-error';
 import {Observable} from 'rxjs';
@@ -12,8 +11,8 @@ import {catchError} from 'rxjs/operators';
 })
 export class ExpFileService extends HandleError {
 
-    constructor(private http: HttpClient, message: NzMessageService) {
-        super(message);
+    constructor(private http: HttpClient) {
+        super();
     }
 
     private FILE_API = `${environment.apiUrl}/expFile`;

@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {NzMessageService} from 'ng-zorro-antd/message';
 import {HandleError} from './handle-error';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
@@ -15,8 +14,8 @@ export class NoticeService extends HandleError {
 
     private NOTICE_API = `${environment.apiUrl}/notice`;
 
-    constructor(private http: HttpClient, message: NzMessageService) {
-        super(message);
+    constructor(private http: HttpClient) {
+        super();
     }
 
     /**
