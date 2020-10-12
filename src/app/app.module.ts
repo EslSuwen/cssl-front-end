@@ -32,6 +32,9 @@ import {NzSliderModule} from 'ng-zorro-antd/slider';
 import {NzResultModule} from 'ng-zorro-antd/result';
 import {NzMessageModule} from 'ng-zorro-antd/message';
 import {NzNotificationModule} from 'ng-zorro-antd/notification';
+import {NzPageHeaderModule} from 'ng-zorro-antd/page-header';
+import {NzDescriptionsModule} from 'ng-zorro-antd/descriptions';
+
 
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
@@ -57,6 +60,7 @@ import {FutextComponent} from './side-nav/futext/futext.component';
 import {AppendComponent} from './side-nav/append/append.component';
 import {ManageComponent} from './side-nav/manage/manage.component';
 import {IndexComponent} from './index/index.component';
+import {NoticeFileComponent} from './side-nav/notice-file/notice-file.component';
 
 registerLocaleData(zh);
 const appRoutes: Routes = [
@@ -86,6 +90,7 @@ const appRoutes: Routes = [
             {path: '**', component: Code404Component},
         ],
     },
+    {path: 'noticeFile', component: NoticeFileComponent},
     {path: '**', component: Code404Component}];
 
 @NgModule({
@@ -112,6 +117,7 @@ const appRoutes: Routes = [
         AppendComponent,
         ManageComponent,
         IndexComponent,
+        NoticeFileComponent,
 
     ],
     imports: [
@@ -130,7 +136,7 @@ const appRoutes: Routes = [
         NzDropDownModule, NzCardModule, NzSelectModule, NzFormModule, NzInputModule, NzInputNumberModule,
         NzModalModule, NzUploadModule, NzIconModule, NzDividerModule, NzTableModule, NzButtonModule, NzTabsModule,
         NzProgressModule, NzBadgeModule, NzTagModule, NzPopconfirmModule, NzDatePickerModule, NzSliderModule,
-        NzResultModule, NzMessageModule, NzNotificationModule
+        NzResultModule, NzMessageModule, NzNotificationModule, NzPageHeaderModule, NzDescriptionsModule
 
     ],
     entryComponents: [ModalComponent],

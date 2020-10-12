@@ -50,8 +50,8 @@ export class NoticeService extends HandleError {
      * @author suwen
      * @date 2020/8/24 下午4:25
      */
-    getAllNotice(): Observable<result> {
-        const url = `${this.NOTICE_API}/getAllNotice`;
+    getAllNotice(noticeType: string): Observable<result> {
+        const url = `${this.NOTICE_API}/getAllNotice/${noticeType}`;
 
         return this.http.get<result>(url).pipe(
             tap(response => {

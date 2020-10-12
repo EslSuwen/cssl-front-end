@@ -1,50 +1,83 @@
-<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark blue ie-nav fixed-top" [containerInside]="false">
+<div style="height: 124px">
+    <div class="bg" style="height: 124px"><img class="mt-3 mgl" src="assets/img/logo.gif" alt="logo"/>
+    </div>
+</div>
+
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark blue ie-nav" [containerInside]="false">
     <mdb-navbar-brand>
-        <a class="logo navbar-brand" href="#"><strong>Navbar</strong></a>
+        <a class="logo navbar-brand mgl" href="#"><strong>首页</strong></a>
     </mdb-navbar-brand>
     <links>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active waves-light" mdbWavesEffect>
-                <a class="nav-link">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item waves-light" mdbWavesEffect>
-                <a class="nav-link">Features</a>
-            </li>
-            <li class="nav-item waves-light" mdbWavesEffect>
-                <a class="nav-link">Pricing</a>
-            </li>
-            <li class="nav-item waves-light" mdbWavesEffect>
-                <a class="nav-link">Opinions</a>
+                <a class="nav-link">部门 <span class="sr-only">(current)</span></a>
             </li>
         </ul>
         <ul class="navbar-nav nav-flex-icons">
             <li class="nav-item waves-light" mdbWavesEffect>
-                <a class="nav-link">
-                    <mdb-icon fab icon="facebook-f"></mdb-icon>
-                </a>
+                <a class="nav-link">规章</a>
             </li>
             <li class="nav-item waves-light" mdbWavesEffect>
-                <a class="nav-link">
-                    <mdb-icon fab icon="twitter"></mdb-icon>
-                </a>
+                <a class="nav-link">教学 </a>
             </li>
             <li class="nav-item waves-light" mdbWavesEffect>
-                <a class="nav-link">
-                    <mdb-icon fab icon="instagram"></mdb-icon>
-                </a>
+                <a class="nav-link" routerLink="/r">下载</a>
             </li>
         </ul>
     </links>
 </mdb-navbar>
 <!-- Main -->
 <main>
-    <div class="container" style="height:1500px;">
+    <div class="container">
         <div class="row pt-5">
             <div class="col text-center">
-                <h2>This Navbar is fixed</h2>
-                <h5>It will always stay visible on the top, even when you scroll down</h5>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-9 animated fadeInLeft">
+                <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+                    <mdb-carousel-item>
+                        <div class="view w-100">
+                            <img class="d-block w-100" src="assets/img/_DSC0057.jpg" style="height: 365px"
+                                 alt="First slide">
+                            <div class="mask rgba-black-light waves-light" mdbWavesEffect></div>
+                        </div>
+                        <div class="carousel-caption">
+                            <p>物联网工程</p>
+                        </div>
+                    </mdb-carousel-item>
+                    <mdb-carousel-item>
+                        <div class="view w-100">
+                            <img class="d-block w-100" src="assets/img/222.jpg" style="height: 365px"
+                                 alt="Second slide">
+                            <div class="mask rgba-black-strong waves-light" mdbWavesEffect></div>
+                        </div>
+                        <div class="carousel-caption">
+                            <p>轨道交通运管与信控</p>
+                        </div>
+                    </mdb-carousel-item>
+                    <mdb-carousel-item>
+                        <div class="view w-100">
+                            <img class="d-block w-100" src="assets/img/_DSC0093.jpg" style="height: 365px"
+                                 alt="Third slide">
+                            <div class="mask rgba-black-slight waves-light" mdbWavesEffect></div>
+                        </div>
+                        <div class="carousel-caption">
+                            <p>大数据与人工智能</p>
+                        </div>
+                    </mdb-carousel-item>
+                </mdb-carousel>
+            </div>
+            <div class="col-3">
+                <app-login></app-login>
+            </div>
+        </div>
+
+        <div class="col text-center  mt-5">
+            <app-show-notice></app-show-notice>
         </div>
     </div>
 </main>
 <!-- /.Main -->
+<app-footer></app-footer>
+

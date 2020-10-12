@@ -1,0 +1,43 @@
+<div class="ant-col-12">
+    <nz-card>
+        <nz-table
+            #NoticeFileTable
+            nzShowSizeChanger
+            [nzFrontPagination]="false"
+            [nzData]="fileDataSet"
+            [nzLoading]="fileLoading"
+            [nzTotal]="fileTotal"
+            [(nzPageIndex)]="filePageIndex"
+            [(nzPageSize)]="filePageSize"
+            (nzPageIndexChange)="updateFileData()"
+            (nzPageSizeChange)="updateFileData(true)">
+            <thead (nzSortChange)="fileSort($event)" nzSingleSort>
+            <tr>
+                <th>文件名</th>
+                <th nzShowFilter [nzFilters]="filterTname"
+                    (nzFilterChange)="updateFileFilter($event)">
+                    发布人
+                </th>
+                <th nzShowSort nzSortKey="fileDate">时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let each of NoticeFileTable.data;let no=index">
+                <td (click)="filePreview(each.fileId,each.fileName)">
+                                    <span nz-tooltip
+                                          nzTooltipTitle="预览">{{each.fileName}}</span>
+                </td>
+                <td>{{each.tname}}</td>
+                <td>{{each.fileDate}}</td>
+                <td>
+                    <button nz-button nzType="primary" (click)="fileDownLoad(each.fileId)">下载</button>
+                    <button *appHasRole="'SUPER_ADMIN'" nz-button nzType="danger"
+                            (click)="deleteNoticeFile(each.fileId)">删除
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </nz-table>
+    </nz-card>
+</div>

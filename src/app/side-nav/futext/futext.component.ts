@@ -21,6 +21,7 @@ export class FutextComponent implements OnInit {
     public editorContent = '';
     public placeholder = '这里进行编辑';
     noticeHead = '';
+    noticeType = '';
     uploadLoading = false;
     nzProgressVisible = false;
     nzProgress: number;

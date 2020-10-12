@@ -41,7 +41,7 @@ export class ShowNoticeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.noticeService.getAllNotice().subscribe(result => {
+        this.noticeService.getAllNotice('通知').subscribe(result => {
             if (result.success) {
                 this.notices = result.data;
                 this.notices.forEach(each => {

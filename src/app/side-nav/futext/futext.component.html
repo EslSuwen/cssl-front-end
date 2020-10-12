@@ -11,10 +11,17 @@
     </label>
 </div>
 <div *ngIf="switch" class="mt-5">
-    <div class="row">
+    <div class="col text-center">
         <label>
-            <input nz-input placeholder="通知标题" [(ngModel)]="noticeHead"/>
+            <input nz-input placeholder="标题" style="width: 200px" [(ngModel)]="noticeHead"/>
         </label>
+        <nz-divider nzType="vertical" ></nz-divider>
+        <nz-select [(ngModel)]="noticeType" style="width: 200px"
+                   nzPlaceHolder="选择类型">
+            <nz-option nzValue="通知" nzLabel="通知"></nz-option>
+            <nz-option nzValue="规章" nzLabel="规章"></nz-option>
+            <nz-option nzValue="教学" nzLabel="教学"></nz-option>
+        </nz-select>
     </div>
     <div class="row">
         <div class="col mt-5">

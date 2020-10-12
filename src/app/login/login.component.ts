@@ -12,7 +12,6 @@ import {ModalComponent} from '../modal/modal.component';
 })
 export class LoginComponent implements OnInit {
     @ViewChild('failModal', {static: true}) failing: ModalComponent;
-    @ViewChild('successModal', {static: true}) success: ModalComponent;
     validationForm: FormGroup;
     authModel: any = {};
     imgUrl = `${environment.apiUrl}/api/createImageCode`;
@@ -57,30 +56,14 @@ export class LoginComponent implements OnInit {
                 if (result) {
                     // login successful
                     if (this.authenticationService.isLoggedIn()) {
-                        this.showSuccessModal();
+                        this.router.navigate(['sidenav/personalinfo']).then();
                     } else {
-                        this.showFailModal();
+                        this.failing.show();
                     }
                 } else {
                     // login failed
-                    this.showFailModal();
+                    this.failing.show();
                 }
             });
-    }
-
-    refresh() {
-        this.imgUrl = this.imgUrl + '?' + Math.random();
-    }
-
-    showFailModal() {   // 登录失败显示的模态
-        this.failing.show();
-    }
-
-    showSuccessModal() {   // 登录成功显示的模态
-        this.success.show();
-    }
-
-    passLogin() {  // 输入正确，确认进入
-        this.router.navigate(['sidenav/personalinfo']).then();
     }
 }

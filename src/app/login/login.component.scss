@@ -1,38 +1,3 @@
-.intro-header {
-  height: unset !important;
-}
-
-.intro-2 {
-  background: url("../../assets/img/002.jpg") center center;
-  background-size: cover;
-}
-
-.view {
-  height: 100vh !important;
-}
-
-.top-nav-collapse {
-  background-color: #525566 !important;
-}
-
-.navbar:not(.top-nav-collapse) {
-  background: transparent !important;
-}
-
-@media (max-width: 768px) {
-  .navbar:not(.top-nav-collapse) {
-    background: #f0f1f3 !important;
-  }
-}
-
-.rgba-gradient .full-bg-img {
-  background: linear-gradient(45deg, rgba(83, 125, 210, 0.4), rgba(178, 30, 123, 0.4) 100%);
-}
-
-.full-bg-img {
-  height: 100%;
-}
-
 .card {
   background-color: rgba(129, 166, 247, 0.4);
 }
@@ -44,19 +9,6 @@
 
 .md-form label {
   color: #ffffff;
-}
-
-h6 {
-  line-height: 1.7;
-}
-
-@media (max-width: 740px) {
-  .full-height,
-  .full-height body,
-  .full-height header,
-  .full-height header .view {
-    height: 1040px;
-  }
 }
 
 .authImageCode {
