@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Notice} from '../../entity/notice';
 import {NoticeService} from '../../service/notice.service';
 import {NoticeFileService} from '../../service/notice-file.service';
-import {NoticeFile} from '../../entity/notice-file';
-import {environment} from '../../../environments/environment';
 
 @Component({
     selector: 'app-show-notice',
@@ -30,7 +28,7 @@ export class ShowNoticeComponent implements OnInit {
     noticeInfoVisible = false;
     noticeInfo: Notice;
     notices: Notice[];
-    files: NoticeFile[];
+    files: Notice[];
 
     filterNoticeSelected = [];
     filterFileSelected = [];
@@ -54,10 +52,15 @@ export class ShowNoticeComponent implements OnInit {
                 this.noticeInfo = result.data[0];
             }
         });
-        this.noticeFileService.getAll().subscribe(result => {
+        this.noticeService.getAllNotice('规章').subscribe(result => {
             if (result.success) {
                 this.files = result.data;
-                this.files.forEach(each => each.fileDate = each.fileDate.substr(0, 10));
+                this.files.forEach(each => {
+                    each.noticeDate = each.noticeDate.substr(0, 10);
+                    if (this.filterTname.findIndex(data => data.text == each.tname) === -1) {
+                        this.filterTname.push({text: each.tname, value: each.tname});
+                    }
+                });
                 this.updateFileData(true);
             }
         });
@@ -130,32 +133,12 @@ export class ShowNoticeComponent implements OnInit {
         });
     }
 
-    filePreview(fileId: number, fileName: string) {
-        const fileUrl = this.noticeFileService.getFileUri(fileId);
-        const previewUrl = `${fileUrl}?fullfilename=${fileName}`;
-        window.open(`${environment.filePreviewUrl}/onlinePreview?url=` + encodeURIComponent(previewUrl));
-    }
-
-    fileDownLoad(fileId: number) {
-        window.location.href = this.noticeFileService.getFileUri(fileId);
-    }
-
     deleteNotice(nid: string | number) {
         this.noticeService.removeNotice(nid).subscribe(result => {
             console.log(result);
             if (result.success) {
                 this.notices = this.notices.filter(each => each.nid !== nid);
                 this.updateNoticeData(true);
-            }
-        });
-    }
-
-
-    deleteNoticeFile(fileId: string | number) {
-        this.noticeFileService.remove(fileId).subscribe(result => {
-            if (result.success) {
-                this.files = this.files.filter(each => each.fileId != fileId);
-                this.updateFileData(true);
             }
         });
     }

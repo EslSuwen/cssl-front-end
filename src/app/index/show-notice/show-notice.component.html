@@ -77,27 +77,24 @@
                     (nzPageSizeChange)="updateFileData(true)">
                     <thead (nzSortChange)="fileSort($event)" nzSingleSort>
                     <tr>
-                        <th>文件名</th>
+                        <th><h2>规章制度</h2></th>
                         <th nzShowFilter [nzFilters]="filterTname"
-                            (nzFilterChange)="updateFileFilter($event)">
+                            (nzFilterChange)="updateNoticeFilter($event)">
                             发布人
                         </th>
-                        <th nzShowSort nzSortKey="fileDate">时间</th>
-                        <th>操作</th>
+                        <th nzShowSort nzSortKey="noticeDate">时间</th>
+                        <th *appHasRole="'SUPER_ADMIN'">操作</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr *ngFor="let each of NoticeFileTable.data;let no=index">
-                        <td (click)="filePreview(each.fileId,each.fileName)">
-                                    <span nz-tooltip
-                                          nzTooltipTitle="预览">{{each.fileName}}</span>
-                        </td>
+                        <td (click)="showNoticeInfo(each.nid)"><span nz-tooltip
+                                                                     nzTooltipTitle="查看">{{each.noticeHead}}</span></td>
                         <td>{{each.tname}}</td>
-                        <td>{{each.fileDate}}</td>
-                        <td>
-                            <button nz-button nzType="primary" (click)="fileDownLoad(each.fileId)">下载</button>
-                            <button *appHasRole="'SUPER_ADMIN'" nz-button nzType="danger"
-                                    (click)="deleteNoticeFile(each.fileId)">删除
+                        <td>{{each.noticeDate}}</td>
+                        <td *appHasRole="'SUPER_ADMIN'">
+                            <button nz-button nzType="danger"
+                                    (click)="deleteNotice(each.nid)">删除
                             </button>
                         </td>
                     </tr>

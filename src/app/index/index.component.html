@@ -5,23 +5,21 @@
 
 <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark blue ie-nav" [containerInside]="false">
     <mdb-navbar-brand>
-        <a class="logo navbar-brand mgl" href="#"><strong>首页</strong></a>
+        <a class="logo navbar-brand mgl" (click)="tabIndex=0"><strong>首页</strong></a>
     </mdb-navbar-brand>
     <links>
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active waves-light" mdbWavesEffect>
-                <a class="nav-link">部门 <span class="sr-only">(current)</span></a>
-            </li>
-        </ul>
-        <ul class="navbar-nav nav-flex-icons">
             <li class="nav-item waves-light" mdbWavesEffect>
-                <a class="nav-link">规章</a>
+                <a class="nav-link" (click)="tabIndex=1">部门</a>
             </li>
             <li class="nav-item waves-light" mdbWavesEffect>
-                <a class="nav-link">教学 </a>
+                <a class="nav-link" (click)="tabIndex=2">规章</a>
             </li>
             <li class="nav-item waves-light" mdbWavesEffect>
-                <a class="nav-link" routerLink="/r">下载</a>
+                <a class="nav-link" (click)="tabIndex=3">教学 </a>
+            </li>
+            <li class="nav-item waves-light" mdbWavesEffect>
+                <a class="nav-link" (click)="tabIndex=4">下载</a>
             </li>
         </ul>
     </links>
@@ -29,52 +27,139 @@
 <!-- Main -->
 <main>
     <div class="container">
-        <div class="row pt-5">
-            <div class="col text-center">
+        <div *ngIf="tabIndex==0">
+            <div class="row pt-5">
+                <div class="col text-center">
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-9 animated fadeInLeft">
-                <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
-                    <mdb-carousel-item>
-                        <div class="view w-100">
-                            <img class="d-block w-100" src="assets/img/_DSC0057.jpg" style="height: 365px"
-                                 alt="First slide">
-                            <div class="mask rgba-black-light waves-light" mdbWavesEffect></div>
-                        </div>
-                        <div class="carousel-caption">
-                            <p>物联网工程</p>
-                        </div>
-                    </mdb-carousel-item>
-                    <mdb-carousel-item>
-                        <div class="view w-100">
-                            <img class="d-block w-100" src="assets/img/222.jpg" style="height: 365px"
-                                 alt="Second slide">
-                            <div class="mask rgba-black-strong waves-light" mdbWavesEffect></div>
-                        </div>
-                        <div class="carousel-caption">
-                            <p>轨道交通运管与信控</p>
-                        </div>
-                    </mdb-carousel-item>
-                    <mdb-carousel-item>
-                        <div class="view w-100">
-                            <img class="d-block w-100" src="assets/img/_DSC0093.jpg" style="height: 365px"
-                                 alt="Third slide">
-                            <div class="mask rgba-black-slight waves-light" mdbWavesEffect></div>
-                        </div>
-                        <div class="carousel-caption">
-                            <p>大数据与人工智能</p>
-                        </div>
-                    </mdb-carousel-item>
-                </mdb-carousel>
+            <div class="row">
+                <div class="col-9 animated fadeInLeft">
+                    <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+                        <mdb-carousel-item>
+                            <div class="view w-100">
+                                <img class="d-block w-100" src="assets/img/_DSC0057.jpg" style="height: 365px"
+                                     alt="First slide">
+                                <div class="mask rgba-black-light waves-light" mdbWavesEffect></div>
+                            </div>
+                            <div class="carousel-caption">
+                                <p>物联网工程</p>
+                            </div>
+                        </mdb-carousel-item>
+                        <mdb-carousel-item>
+                            <div class="view w-100">
+                                <img class="d-block w-100" src="assets/img/222.jpg" style="height: 365px"
+                                     alt="Second slide">
+                                <div class="mask rgba-black-strong waves-light" mdbWavesEffect></div>
+                            </div>
+                            <div class="carousel-caption">
+                                <p>轨道交通运管与信控</p>
+                            </div>
+                        </mdb-carousel-item>
+                        <mdb-carousel-item>
+                            <div class="view w-100">
+                                <img class="d-block w-100" src="assets/img/_DSC0093.jpg" style="height: 365px"
+                                     alt="Third slide">
+                                <div class="mask rgba-black-slight waves-light" mdbWavesEffect></div>
+                            </div>
+                            <div class="carousel-caption">
+                                <p>大数据与人工智能</p>
+                            </div>
+                        </mdb-carousel-item>
+                    </mdb-carousel>
+                </div>
+                <div class="col-3">
+                    <app-login></app-login>
+                </div>
             </div>
-            <div class="col-3">
-                <app-login></app-login>
+
+            <div class="col text-center animated fadeInUp mt-5">
+                <app-show-notice></app-show-notice>
             </div>
         </div>
 
-        <div class="col text-center  mt-5">
-            <app-show-notice></app-show-notice>
+        <div class="animated fadeInUp">
+            <div *ngIf="tabIndex==1" style="height: 1600px">
+                <nz-card class="mt-5">
+                    <article nz-typography>
+                        <h1 nz-typography>中心简介</h1>
+                        <p nz-typography>
+                            信息科学与工程学院信息技术实践教学中心成立于2015年10月，是由学院的原通信技术实验室、计算机软件实验室和现代电子技术实验室合并组建而成。实践教学中心分南岸和双福两个部分，占地面积约为3500平米，实验仪器、设备共计2258余台/套，总价值约为3100万，涵盖电子技术、通信技术、物联网技术以及高性能计算、大数据存储等。
+                        </p>
+                        <p nz-typography>
+                            信息技术实践教学中心包含一个<span><mark>“重庆市公共交通运营大数据工程技术”</mark></span>研究中心；一个<span><mark>“交通大数据处理与云计算”</mark></span>平台；以及<span><strong>物联网技术基础、物联网实训实验室\平台，通信技术、网络技术实验室，计算机软件技术实验室，轨道交通与运管实验室\平台，信号与系统/EDA实验室，单片机、嵌入式系统实验室，软硬件开放实验室</strong></span>等组成。
+                        </p>
+                        <p nz-typography>
+                            中心目前有专职教师6名，兼职教师15名，其中高级职称9名，中级职称11名，博士学位教师占50%以上，硕士学位教师占40%以上。主要为学院开设的计算机科学与技术、通信工程、电子信息技术、物联网工程、数据科学与大数据技术、人工智能六个本科专业，以及一个计算机科学与技术一级硕士点提供实验、实践和创新平台；同时还承担六个专业的实训课程包括数据结构、数据库技术、城市轨道交通信号，单片机原理与应用、计算机网络、通信原理等课程，专业方向实训的嵌入式系统、JAVA、移动应用APP、程序设计等项目实训课程。
+                        </p>
+                        <p nz-typography>
+                            实验室制定了详细的开放实验室管理办法，在南岸和双福校区设置有专门的开放实验室，每年参与开放实验的学生达到700余人次。本中心承担了学院的各类竞赛如：全国蓝桥杯程序设计竞赛、重庆市程序设计竞赛、单片机设计竞赛、全国大学生电子竞赛、全国大学生智能车竞赛等竞赛。
+                        </p>
+                    </article>
+                    <nz-divider></nz-divider>
+                    <article>
+                        <h1 nz-typography>实验室名称与分工：</h1>
+                        <p nz-typography><span><strong>信息技术实践教学中心实验室（房间）名称与分工表</strong></span></p>
+                        <nz-divider></nz-divider>
+                        <img src="assets/img/lab_intro.png" alt="intro"/>
+                    </article>
+                </nz-card>
+            </div>
+
+            <div *ngIf="tabIndex==2" style="height: 1600px">
+                <article nz-typography>
+                    <h1 nz-typography>Introduction</h1>
+                    <p nz-typography>
+                        In the process of internal desktop applications development, many different design specs and
+                        implementations would be involved,
+                        which might cause designers and developers difficulties and duplication and reduce the
+                        efficiency of development.
+                    </p>
+                    <p nz-typography>
+                        After massive project practice and summaries, Ant Design, a design language for
+                        backgroundapplications, is refined by Ant UED Team,
+                        which aims to
+                        <span nz-typography
+                        ><strong
+                        >uniform the user interface specs for internal background projects, lower the unnecessary cost of design differences and
+            implementation and liberate the resources ofdesign and front-end development</strong
+                        ></span
+                        >.
+                    </p>
+                    <h2 nz-typography>Guidelines and Resources</h2>
+                    <p nz-typography>
+                        We supply a series of design principles, practical patterns and high quality design resources
+                        (<span nz-typography
+                    ><code>Sketch</code></span
+                    >
+                        and <span nz-typography><code>Axure</code></span
+                    >), to help people create their product prototypes beautifully and efficiently.
+                    </p>
+                    <div nz-typography>
+                        <ul>
+                            <li>
+                                <a href="/docs/spec/proximity">Principles</a>
+                            </li>
+                            <li>
+                                <a href="/docs/pattern/navigation">Patterns</a>
+                            </li>
+                            <li>
+                                <a href="/docs/resource/download">Resource Download</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <p nz-typography>
+                        Press <span nz-typography><kbd>Esc</kbd></span> to exist...
+                    </p>
+                </article>
+                <nz-divider></nz-divider>
+            </div>
+
+            <div *ngIf="tabIndex==3" style="height: 600px">
+            </div>
+
+            <div *ngIf="tabIndex==4" style="height: 600px">
+                <app-notice-file></app-notice-file>
+            </div>
         </div>
     </div>
 </main>

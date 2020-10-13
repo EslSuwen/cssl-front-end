@@ -34,10 +34,10 @@ import {NzMessageModule} from 'ng-zorro-antd/message';
 import {NzNotificationModule} from 'ng-zorro-antd/notification';
 import {NzPageHeaderModule} from 'ng-zorro-antd/page-header';
 import {NzDescriptionsModule} from 'ng-zorro-antd/descriptions';
-
+import {NzTypographyModule} from 'ng-zorro-antd/typography';
 
 import {AppComponent} from './app.component';
-import {LoginComponent} from './login/login.component';
+import {LoginComponent} from './index/login/login.component';
 import {SideNavComponent} from './side-nav/side-nav.component';
 import {PersonalInfoComponent} from './side-nav/personal-info/personal-info.component';
 import {UploadComponent} from './side-nav/upload/upload.component';
@@ -54,13 +54,13 @@ import {MessageComponent} from './side-nav/message/message.component';
 import {ApplyManageComponent} from './side-nav/apply-manage/apply-manage.component';
 import {Code404Component} from './code404/code404.component';
 import {AuditLabComponent} from './side-nav/audit-lab/audit-lab.component';
-import {ShowNoticeComponent} from './side-nav/show-notice/show-notice.component';
+import {ShowNoticeComponent} from './index/show-notice/show-notice.component';
 import {CardInfoComponent} from './side-nav/card-info/card-info.component';
 import {FutextComponent} from './side-nav/futext/futext.component';
 import {AppendComponent} from './side-nav/append/append.component';
 import {ManageComponent} from './side-nav/manage/manage.component';
 import {IndexComponent} from './index/index.component';
-import {NoticeFileComponent} from './side-nav/notice-file/notice-file.component';
+import {NoticeFileComponent} from './index/notice-file/notice-file.component';
 
 registerLocaleData(zh);
 const appRoutes: Routes = [
@@ -136,7 +136,8 @@ const appRoutes: Routes = [
         NzDropDownModule, NzCardModule, NzSelectModule, NzFormModule, NzInputModule, NzInputNumberModule,
         NzModalModule, NzUploadModule, NzIconModule, NzDividerModule, NzTableModule, NzButtonModule, NzTabsModule,
         NzProgressModule, NzBadgeModule, NzTagModule, NzPopconfirmModule, NzDatePickerModule, NzSliderModule,
-        NzResultModule, NzMessageModule, NzNotificationModule, NzPageHeaderModule, NzDescriptionsModule
+        NzResultModule, NzMessageModule, NzNotificationModule, NzPageHeaderModule, NzDescriptionsModule,
+        NzTypographyModule
 
     ],
     entryComponents: [ModalComponent],
