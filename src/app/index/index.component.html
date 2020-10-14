@@ -25,7 +25,7 @@
     </links>
 </mdb-navbar>
 <!-- Main -->
-<main>
+<main style="background:#f1f1f1;">
     <div class="container">
         <div *ngIf="tabIndex==0">
             <div class="row pt-5">
@@ -79,6 +79,7 @@
 
         <div class="animated fadeInUp">
             <div *ngIf="tabIndex==1" style="height: 1600px">
+                <nz-divider></nz-divider>
                 <nz-card class="mt-5">
                     <article nz-typography>
                         <h1 nz-typography>中心简介</h1>
@@ -105,59 +106,18 @@
                 </nz-card>
             </div>
 
-            <div *ngIf="tabIndex==2" style="height: 1600px">
-                <article nz-typography>
-                    <h1 nz-typography>Introduction</h1>
-                    <p nz-typography>
-                        In the process of internal desktop applications development, many different design specs and
-                        implementations would be involved,
-                        which might cause designers and developers difficulties and duplication and reduce the
-                        efficiency of development.
-                    </p>
-                    <p nz-typography>
-                        After massive project practice and summaries, Ant Design, a design language for
-                        backgroundapplications, is refined by Ant UED Team,
-                        which aims to
-                        <span nz-typography
-                        ><strong
-                        >uniform the user interface specs for internal background projects, lower the unnecessary cost of design differences and
-            implementation and liberate the resources ofdesign and front-end development</strong
-                        ></span
-                        >.
-                    </p>
-                    <h2 nz-typography>Guidelines and Resources</h2>
-                    <p nz-typography>
-                        We supply a series of design principles, practical patterns and high quality design resources
-                        (<span nz-typography
-                    ><code>Sketch</code></span
-                    >
-                        and <span nz-typography><code>Axure</code></span
-                    >), to help people create their product prototypes beautifully and efficiently.
-                    </p>
-                    <div nz-typography>
-                        <ul>
-                            <li>
-                                <a href="/docs/spec/proximity">Principles</a>
-                            </li>
-                            <li>
-                                <a href="/docs/pattern/navigation">Patterns</a>
-                            </li>
-                            <li>
-                                <a href="/docs/resource/download">Resource Download</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <p nz-typography>
-                        Press <span nz-typography><kbd>Esc</kbd></span> to exist...
-                    </p>
-                </article>
+            <div *ngIf="tabIndex==2" style="height: 600px">
                 <nz-divider></nz-divider>
+                <app-rule></app-rule>
             </div>
 
             <div *ngIf="tabIndex==3" style="height: 600px">
+                <nz-divider></nz-divider>
+                <app-teach></app-teach>
             </div>
 
             <div *ngIf="tabIndex==4" style="height: 600px">
+                <nz-divider></nz-divider>
                 <app-notice-file></app-notice-file>
             </div>
         </div>

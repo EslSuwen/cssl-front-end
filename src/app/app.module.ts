@@ -61,6 +61,9 @@ import {AppendComponent} from './side-nav/append/append.component';
 import {ManageComponent} from './side-nav/manage/manage.component';
 import {IndexComponent} from './index/index.component';
 import {NoticeFileComponent} from './index/notice-file/notice-file.component';
+import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
+import { RuleComponent } from './index/rule/rule.component';
+import { TeachComponent } from './index/teach/teach.component';
 
 registerLocaleData(zh);
 const appRoutes: Routes = [
@@ -118,6 +121,8 @@ const appRoutes: Routes = [
         ManageComponent,
         IndexComponent,
         NoticeFileComponent,
+        RuleComponent,
+        TeachComponent,
 
     ],
     imports: [
@@ -137,7 +142,7 @@ const appRoutes: Routes = [
         NzModalModule, NzUploadModule, NzIconModule, NzDividerModule, NzTableModule, NzButtonModule, NzTabsModule,
         NzProgressModule, NzBadgeModule, NzTagModule, NzPopconfirmModule, NzDatePickerModule, NzSliderModule,
         NzResultModule, NzMessageModule, NzNotificationModule, NzPageHeaderModule, NzDescriptionsModule,
-        NzTypographyModule
+        NzTypographyModule, NzToolTipModule
 
     ],
     entryComponents: [ModalComponent],

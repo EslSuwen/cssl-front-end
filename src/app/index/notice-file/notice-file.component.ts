@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NoticeFileService} from '../../service/notice-file.service';
-import {Notice} from '../../entity/notice';
-import {NoticeFile} from '../../entity/notice-file';
 import {environment} from '../../../environments/environment';
+import {NoticeFile} from '../../entity/notice-file';
 
 @Component({
     selector: 'app-notice-file',
@@ -16,17 +15,8 @@ export class NoticeFileComponent implements OnInit {
     fileTotal = 1;
     fileDataSet = [];
     fileLoading = true;
-    fileSortValue = null;
-    fileSortKey = null;
 
-    noticeInfoVisible = false;
-    notices: Notice[];
     files: NoticeFile[];
-
-    filterNoticeSelected = [];
-    filterFileSelected = [];
-    // TODO 实现通过动态加载
-    filterTname: { text: string, value: string }[] = [];
 
     constructor(private noticeFileService: NoticeFileService) {
     }
@@ -47,27 +37,11 @@ export class NoticeFileComponent implements OnInit {
         }
         this.fileLoading = true;
         this.fileDataSet = this.files;
-        if (this.filterFileSelected.length > 0) {
-            this.fileDataSet = this.fileDataSet.filter((each) => this.filterFileSelected.indexOf(each.tname) !== -1);
-        }
         this.fileTotal = this.fileDataSet.length;
-        if (this.fileSortKey && this.fileSortValue) {
-            this.fileDataSet = this.fileDataSet.sort((a, b) => (this.fileSortValue === 'ascend') ? (a[this.fileSortKey] > b[this.fileSortKey] ? 1 : -1)
-                : (b[this.fileSortKey] > a[this.fileSortKey] ? 1 : -1));
-        }
-        this.fileDataSet = this.fileDataSet.slice((this.filePageIndex - 1) * this.filePageSize, (this.filePageIndex - 1) * this.filePageSize + this.filePageSize);
+        this.fileDataSet =
+            this.fileDataSet.slice((this.filePageIndex - 1) * this.filePageSize,
+                (this.filePageIndex - 1) * this.filePageSize + this.filePageSize);
         this.fileLoading = false;
-    }
-
-    fileSort(sort: { key: string, value: string }): void {
-        this.fileSortKey = sort.key;
-        this.fileSortValue = sort.value;
-        this.updateFileData(true);
-    }
-
-    updateFileFilter(value: string[]): void {
-        this.filterFileSelected = value;
-        this.updateFileData(true);
     }
 
     filePreview(fileId: number, fileName: string) {
