@@ -19,13 +19,12 @@ export class LoginComponent implements OnInit {
     username: string;
     failMessage = '登录错误，请重试！';
 
-    loginVisible = true;
+    loginVisible: boolean;
 
     constructor(
         public fb: FormBuilder,
         public router: Router,
-        private authenticationService: AuthenticationService,
-    ) {
+        private authService: AuthenticationService) {
         this.validationForm = fb.group({
             userFormEx: [null, [Validators.required]],
             passwordFormEx: [null, Validators.required],
@@ -46,19 +45,20 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.authenticationService.logout();
+        this.loginVisible = !this.authService.isLoggedIn();
         // 调试默认账号
         this.authModel.username = '789';
         this.authModel.password = '789';
+        this.username = this.authService.getUserName();
     }
 
     login() {
-        this.authenticationService.login(this.authModel.username, this.authModel.password, this.authModel.imgCode)
+        this.authService.login(this.authModel.username, this.authModel.password, this.authModel.imgCode)
             .subscribe(result => {
-                this.username = this.authenticationService.getUserName(); // 判断验证码是否输入正确
+                this.username = this.authService.getUserName(); // 判断验证码是否输入正确
                 if (result) {
                     // login successful
-                    if (this.authenticationService.isLoggedIn()) {
+                    if (this.authService.isLoggedIn()) {
                         this.loginVisible = false;
                     } else {
                         this.failing.show();
@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
     }
 
     logout() {
-        this.authenticationService.logout();
+        this.authService.logout();
         this.loginVisible = true;
     }
 }

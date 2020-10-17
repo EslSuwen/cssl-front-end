@@ -47,7 +47,17 @@ export class FutextComponent implements OnInit {
             return;
         }
         console.log(new Notice(this.authService.getUserNo(), this.noticeHead, this.editorContent));
-        this.noticeService.addNotice(new Notice(this.authService.getUserNo(), this.noticeHead, this.editorContent)).subscribe();
+        this.noticeService.addNotice(new Notice(this.authService.getUserNo(), this.noticeType, this.noticeHead, this.editorContent))
+            .subscribe(result => {
+            if (result.success) {
+                this.notification.success('新增成功', `通知" ${this.noticeHead} "新增成功`);
+                this.noticeHead = '';
+                this.noticeType = '';
+                this.editorContent = '';
+            } else {
+                this.notification.success('新增失败', `通知文件" ${this.noticeHead} "新增失败`);
+            }
+        });
     }
 
     // 含进度回显文件上传
