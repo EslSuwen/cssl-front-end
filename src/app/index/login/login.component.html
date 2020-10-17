@@ -1,4 +1,4 @@
-<div class="animated fadeInRight">
+<div *ngIf="loginVisible" class="animated fadeInRight">
     <mdb-card>
         <mdb-card-body>
             <div class="text-center">
@@ -67,5 +67,31 @@
             <strong>若一直登录不进去请刷新页面或者联系管理员</strong>
         </div>
         <!--/.Content-->
+    </div>
+</div>
+<div *ngIf="!loginVisible" class="row animated fadeInRight" style="width: 255px;height: 358px">
+    <div>
+        <mdb-card class="testimonial-card">
+            <div class="avatar mx-auto">
+                <img src="assets/img/user_avatar.jpg" width="100" class="rounded-circle">
+            </div>
+            <mdb-card-body>
+                <mdb-card-title>
+                    <h4>{{username}}</h4>
+                </mdb-card-title>
+                <hr>
+                <div class="text-center mt-5">
+                    <button mdbBtn color="cyan" rounded="true" class="waves-light" mdbWavesEffect
+                            (click)="passLogin()">进入主页
+                        <mdb-icon fas icon="sign-in-alt" class="ml-1"></mdb-icon>
+                    </button>
+                    <button mdbBtn color="cyan" rounded="true" class="mt-1 waves-light" mdbWavesEffect
+                            (click)="logout()">退出登录
+                        <mdb-icon fas icon="sign-in-alt" class="ml-1"></mdb-icon>
+                    </button>
+                </div>
+            </mdb-card-body>
+        </mdb-card>
+
     </div>
 </div>

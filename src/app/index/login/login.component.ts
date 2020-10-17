@@ -12,11 +12,14 @@ import {ModalComponent} from '../../modal/modal.component';
 })
 export class LoginComponent implements OnInit {
     @ViewChild('failModal', {static: true}) failing: ModalComponent;
+    @ViewChild('successModal', {static: true}) success: ModalComponent;
     validationForm: FormGroup;
     authModel: any = {};
     imgUrl = `${environment.apiUrl}/api/createImageCode`;
     username: string;
     failMessage = '登录错误，请重试！';
+
+    loginVisible = true;
 
     constructor(
         public fb: FormBuilder,
@@ -56,7 +59,7 @@ export class LoginComponent implements OnInit {
                 if (result) {
                     // login successful
                     if (this.authenticationService.isLoggedIn()) {
-                        this.router.navigate(['sidenav/personalinfo']).then();
+                        this.loginVisible = false;
                     } else {
                         this.failing.show();
                     }
@@ -65,5 +68,14 @@ export class LoginComponent implements OnInit {
                     this.failing.show();
                 }
             });
+    }
+
+    passLogin() {
+        this.router.navigate(['sidenav/personalinfo']).then();
+    }
+
+    logout() {
+        this.authenticationService.logout();
+        this.loginVisible = true;
     }
 }

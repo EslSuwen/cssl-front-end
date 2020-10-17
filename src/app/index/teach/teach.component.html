@@ -1,4 +1,4 @@
-<h2 class="mt-5">文件下载</h2>
+<h2 class="mt-5">规章制度</h2>
 <nz-card class="mt-5">
     <nz-table
         #NoticeFileTable
@@ -13,27 +13,46 @@
         (nzPageSizeChange)="updateFileData(true)">
         <thead>
         <tr>
-            <th>文件名</th>
+            <th>规章制度</th>
             <th>发布人</th>
             <th>时间</th>
-            <th>操作</th>
+            <th *appHasRole="'SUPER_ADMIN'">操作</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let each of NoticeFileTable.data;let no=index">
-            <td (click)="filePreview(each.fileId,each.fileName)">
-                                    <span nz-tooltip
-                                          nzTooltipTitle="预览">{{each.fileName}}</span>
-            </td>
+            <td (click)="showNoticeInfo(each.nid)"><span nz-tooltip
+                                                         nzTooltipTitle="查看">{{each.noticeHead}}</span></td>
             <td>{{each.tname}}</td>
-            <td>{{each.fileDate}}</td>
-            <td>
-                <button nz-button nzType="primary" (click)="fileDownLoad(each.fileId)">下载</button>
-                <button *appHasRole="'SUPER_ADMIN'" nz-button nzType="danger"
-                        (click)="deleteNoticeFile(each.fileId)">删除
+            <td>{{each.noticeDate}}</td>
+            <td *appHasRole="'SUPER_ADMIN'">
+                <button nz-button nzType="danger"
+                        (click)="deleteNotice(each.nid)">删除
                 </button>
             </td>
         </tr>
         </tbody>
     </nz-table>
 </nz-card>
+<div *ngIf="noticeInfoVisible">
+    <nz-card [nzExtra]="extraTemplate">
+        <div class="site-page-header-ghost-wrapper">
+            <nz-page-header nzBackIcon [nzGhost]="false">
+                <nz-page-header-title>{{noticeInfo?.noticeHead}}</nz-page-header-title>
+                <nz-page-header-content>
+                    <nz-descriptions nzSize="small" [nzColumn]="3">
+                        <nz-descriptions-item nzTitle="Created"
+                                              [nzSpan]="1">{{noticeInfo?.tname}}</nz-descriptions-item>
+                        <nz-descriptions-item nzTitle="Creation Time"
+                                              [nzSpan]="1">{{noticeInfo?.noticeDate}}</nz-descriptions-item>
+                    </nz-descriptions>
+                </nz-page-header-content>
+            </nz-page-header>
+        </div>
+        <nz-divider nzText="正文"></nz-divider>
+        <div [innerHTML]='noticeInfo?.noticeContent'></div>
+    </nz-card>
+    <ng-template #extraTemplate>
+        <a (click)="noticeInfoVisible=false">关闭</a>
+    </ng-template>
+</div>
