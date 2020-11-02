@@ -53,18 +53,6 @@
 
 <nz-modal [(nzVisible)]="isNzModalVisible" (nzOnCancel)="isNzModalVisible=false" nzWidth="50%">
     <nz-card nzTitle="详细信息" nzBordered="false">
-        <div class="row m-3">
-            <div class="col-8 px-0 mx-auto mb-3">
-                <nz-select
-                        [(ngModel)]="classSelected"
-                        (ngModelChange)="classSelect()"
-                        nzPlaceHolder="请选择班级"
-                        nzMode="default">
-                    <nz-option *ngFor="let option of classList" [nzLabel]="option.className"
-                               [nzValue]="option.classId"></nz-option>
-                </nz-select>
-            </div>
-        </div>
         <div class="card-body col-12 px-0 mx-auto mb-6">
             <table mdbTable bordered="true" class="text-center">
                 <thead class="green white-text">

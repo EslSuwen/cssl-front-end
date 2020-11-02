@@ -24,19 +24,6 @@
                 </nz-select>
             </div>
         </div>
-
-        <div class="row m-3">
-            <div class="col-8 px-0 mx-auto mb-3">
-                <nz-select
-                        [(ngModel)]="classSelected"
-                        (ngModelChange)="classSelect()"
-                        nzPlaceHolder="请选择班级"
-                        nzMode="default">
-                    <nz-option *ngFor="let option of classList" [nzLabel]="option.className"
-                               [nzValue]="option.classId"></nz-option>
-                </nz-select>
-            </div>
-        </div>
         <div class="row m-3">
             <div class="card-body col-8 px-0 mx-auto mb-3">
                 <table mdbTable bordered="true" small="true" class="text-center">
@@ -77,22 +64,18 @@
                             class="view view-cascade gradient-card-header blue-gradient narrower z-depth-2 rounded-lg  py-2 m-3 mt-n3 text-center">
                         <div class="m-3">
                             <h4 class="white-text">请在下面上传您的文件！</h4>
-
                         </div>
                     </div>
-                    <!--/Card image-->
-                    <!-- 这里放上传文件表单 -->
                     <div class="row m-3 ">
                         <div class="col-5 m-3" *ngFor="let fi of fileInputName">
-                            <!--<ng2-file-input [drop-text]="fi?.typeName"
-                                            (onAdded)="fileChange(fi?.typeName,$event)"></ng2-file-input>-->
+                            <input type="file" id="newUpload{{fi.typeId}}"
+                                   (change)="getUpload(fi.typeId,$event)"/>
+                            <p>{{fi.typeName}}</p>
+                            <button nz-button nzType="danger" (click)="remove(fi.typeId)">删除</button>
                         </div>
                     </div>
                 </mdb-card>
             </div>
-        </div>
-        <div class="row">
-
         </div>
     </div>
 </div>
@@ -104,6 +87,5 @@
         <button mdbBtn type="button" color="success" block="true" outline="true" (click)="showConfirm()"
                 class="rounded-pill" mdbWavesEffect>提交
         </button>
-
     </div>
 </div>

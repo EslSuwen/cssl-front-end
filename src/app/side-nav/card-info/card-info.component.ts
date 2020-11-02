@@ -109,26 +109,6 @@ export class CardInfoComponent implements OnInit {
 
     }
 
-    classSelect() {
-        this.expFileService.getFileStatus(this.tabInfo.proId, this.classSelected).subscribe(result => {
-            if (result.success) {
-                this.initFileStatus();
-                if (result.data && result.data.files) {
-                    result.data.files.forEach(each => {
-                        this.fileStatusArray.forEach(file => {
-                            if (each.typeName === file.typeName) {
-                                file.fileName = each.name;
-                                file.status = each.no;
-                            }
-                        });
-                    });
-                }
-                this.nzMessage.success('获取文件关联信息成功');
-            }
-        });
-    }
-
-
     updateData(reset: boolean = false): void {
         if (reset) {
             this.pageIndex = 1;
@@ -177,7 +157,26 @@ export class CardInfoComponent implements OnInit {
     showInfoModal(index: number): void {
         this.tabInfo = this.dataSet[index];
         this.isNzModalVisible = true;
-        this.expSelect(this.tabInfo.proId);
+        this.expFileService.getFileStatus(this.tabInfo.proId).subscribe(res => {
+            if (res.success) {
+                this.initFileStatus();
+                if (res.data) {
+                    console.log(this.fileStatusArray);
+                    console.log(res.data);
+                    res.data.forEach(each => {
+                        this.fileStatusArray.forEach(file => {
+                            if (each.typeName === file.typeName) {
+                                file.fileName = each.fileName;
+                                file.status = each.fileId;
+                            }
+                        });
+                    });
+                }
+                this.nzMessage.success('获取文件关联信息成功');
+            } else {
+                this.nzMessage.error('获取文件关联信息失败');
+            }
+        });
     }
 
     handleOk(): void {
