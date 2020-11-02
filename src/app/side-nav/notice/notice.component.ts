@@ -11,11 +11,11 @@ import {NzNotificationService} from 'ng-zorro-antd/notification';
 import {NzUploadFile} from 'ng-zorro-antd/upload';
 
 @Component({
-    selector: 'app-futext',
-    templateUrl: './futext.component.html',
+    selector: 'app-notice',
+    templateUrl: './notice.component.html',
     styleUrls: ['../card/card.component.scss'],
 })
-export class FutextComponent implements OnInit {
+export class NoticeComponent implements OnInit {
     switch = true;
     public editor;
     public editorContent = '';

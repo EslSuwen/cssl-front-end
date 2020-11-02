@@ -57,7 +57,7 @@ import {Code404Component} from './code404/code404.component';
 import {AuditLabComponent} from './side-nav/audit-lab/audit-lab.component';
 import {ShowNoticeComponent} from './index/show-notice/show-notice.component';
 import {CardInfoComponent} from './side-nav/card-info/card-info.component';
-import {FutextComponent} from './side-nav/futext/futext.component';
+import {NoticeComponent} from './side-nav/notice/notice.component';
 import {AppendComponent} from './side-nav/append/append.component';
 import {ManageComponent} from './side-nav/manage/manage.component';
 import {IndexComponent} from './index/index.component';
@@ -87,7 +87,7 @@ const appRoutes: Routes = [
             {path: 'updatepassword', component: UpdatePasswordComponent},
             {path: 'message', component: MessageComponent},
             {path: 'show-notice', component: ShowNoticeComponent},
-            {path: 'futext', component: FutextComponent},
+            {path: 'notice', component: NoticeComponent},
             {path: 'audit-lab', component: AuditLabComponent},
             {path: 'append', component: AppendComponent},
             {path: 'manage', component: ManageComponent},
@@ -115,7 +115,7 @@ const appRoutes: Routes = [
         ApplyManageComponent,
         Code404Component,
         AuditLabComponent,
-        FutextComponent,
+        NoticeComponent,
         ShowNoticeComponent,
         CardInfoComponent,
         AppendComponent,

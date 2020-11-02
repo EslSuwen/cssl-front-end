@@ -38,34 +38,32 @@
     </div>
 </div>
 
-<div *ngIf="!switch" class="row mt-5">
-    <div class="col-5 animated fadeIn">
-        <div class="row">
-            <div class="col-11 mx-auto mt-4 animated fadeInRight">
-                <mdb-card cascade="true" narrower="true">
-                    <div class="view view-cascade gradient-card-header blue-gradient narrower z-depth-2 rounded-lg  py-2 m-3 mt-n3 text-center">
-                        <div class="m-3">
-                            <h4 class="white-text">通知文件上传</h4>
-                        </div>
-                    </div>
-                    <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
-                        <button nz-button><i nz-icon nzType="upload"></i><span>Select File</span></button>
-                    </nz-upload>
-                    <button
-                            nz-button
-                            [nzType]="'primary'"
-                            [nzLoading]="uploading"
-                            (click)="handleUpload()"
-                            [disabled]="fileList.length == 0"
-                            style="margin-top: 16px"
-                    >
-                        {{ uploading ? 'Uploading' : 'Start Upload' }}
-                    </button>
-                    <div *ngIf="nzProgressVisible">
-                        <nz-progress [nzPercent]="nzProgress" nzStatus="active"></nz-progress>
-                    </div>
-                </mdb-card>
+<div *ngIf="!switch">
+    <div class="col-5 mt-5 animated fadeInRight">
+        <mdb-card cascade="true" narrower="true">
+            <div class="view view-cascade gradient-card-header blue-gradient narrower z-depth-2 rounded-lg  py-2 m-3 mt-n3 text-center">
+                <div class="m-3">
+                    <h4 class="white-text">通知文件上传</h4>
+                </div>
             </div>
-        </div>
+            <div class="text-center">
+                <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
+                    <button nz-button><i nz-icon nzType="upload"></i><span>选择文件</span></button>
+                </nz-upload>
+                <button
+                        nz-button
+                        [nzType]="'primary'"
+                        [nzLoading]="uploading"
+                        (click)="handleUpload()"
+                        [disabled]="fileList.length == 0"
+                        style="margin: 16px;width: 100px"
+                >
+                    {{ uploading ? '上传中' : '开始上传' }}
+                </button>
+            </div>
+            <div *ngIf="nzProgressVisible">
+                <nz-progress [nzPercent]="nzProgress" nzStatus="active"></nz-progress>
+            </div>
+        </mdb-card>
     </div>
 </div>
