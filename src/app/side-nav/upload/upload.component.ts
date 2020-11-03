@@ -149,8 +149,9 @@ export class UploadComponent implements OnInit {
     }
 
     fileUpload() {
+        // TODO 使用 each 遍历
         const tempData = this.formDataList.pop();
-        if (tempData != undefined && tempData) {
+        if (tempData != undefined) {
             this.http.post<result>(`${environment.apiUrl}/expFile/addExpFile`, tempData, {
                 reportProgress: true,
                 observe: 'events'
@@ -193,16 +194,18 @@ export class UploadComponent implements OnInit {
             this.remove(typeId);
             return;
         }
+        this.formDataList = this.formDataList.filter(each => each.get('fileType') != typeId);
         const formData = new FormData();
         formData.append('fileType', typeId);
         formData.append('proId', this.courseProId.toString());
         formData.append('file', e.target.files[0]);
-        this.formDataList[typeId] = formData;
+        this.formDataList.push(formData);
     }
 
     remove(typeId: string) {
         const upload = document.getElementById(`newUpload${typeId}`) as HTMLInputElement;
-        this.formDataList[typeId] = null;
+        // @ts-ignore
+        this.formDataList = this.formDataList.filter(each => each.get('fileType') != typeId);
         upload.value = null;
     }
 }
