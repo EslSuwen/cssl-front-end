@@ -24,12 +24,12 @@
                     <mdb-icon fas icon="fas fa-receipt" class="mr-1 cyan-text" size="lg"></mdb-icon>
                     信息公布
                 </a>
-                <a mdbWavesEffect class="nav-link my-2 text-center" routerLink="/sidenav/card"
+                <a *appHasRole="'USER'" mdbWavesEffect class="nav-link my-2 text-center" routerLink="/sidenav/card"
                    routerLinkActive="active">
                     <mdb-icon fas icon="edit" class="mr-1 brown-text" size="lg"></mdb-icon>
                     实验卡片
                 </a>
-                <a mdbWavesEffect class="nav-link text-center my-2 " routerLink="/sidenav/upload"
+                <a *appHasRole="'USER'" mdbWavesEffect class="nav-link text-center my-2 " routerLink="/sidenav/upload"
                    routerLinkActive="active">
                     <mdb-icon fas icon="cloud-upload-alt" class="mr-1 " size="lg"></mdb-icon>
                     上传资料
@@ -39,7 +39,7 @@
                     <mdb-icon fas icon="chart-bar" class="mr-1 green-text" size="lg"></mdb-icon>
                     实验卡片总览
                 </a>
-                <a mdbWavesEffect class="nav-link my-2 text-center" routerLink="/sidenav/apply"
+                <a *appHasRole="'USER'" mdbWavesEffect class="nav-link my-2 text-center" routerLink="/sidenav/apply"
                    routerLinkActive="active">
                     <mdb-icon fas icon="hand-point-right" class="mr-1 indigo-text" size="lg"></mdb-icon>
                     申请实验室

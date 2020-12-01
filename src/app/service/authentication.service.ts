@@ -20,7 +20,7 @@ export class AuthenticationService {
     }
 
     login(no: string, pass: string, img: string): Observable<boolean> {
-        return this.http.post<any>(`${environment.apiUrl}/api/auth`, JSON.stringify({
+        return this.http.post<any>(`${environment.apiUrl}/auth`, JSON.stringify({
             userNo: no,
             password: pass,
             imgCode: img
