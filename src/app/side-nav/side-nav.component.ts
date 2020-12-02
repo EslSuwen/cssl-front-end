@@ -27,6 +27,7 @@ export class SideNavComponent implements OnInit {
 
 
     logout() {
+        this.authenticationService.logout();
     }
 }
 
