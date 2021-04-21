@@ -25,11 +25,11 @@ export class CardComponent implements OnInit {
     courseSelected: any;
     projectItems: ProjectItem[];
 
-    exps: Exp[]; // 实验卡片
+    exps: Exp[] = []; // 实验卡片
     switch2: any;
     expCardFG: FormGroup;
     id: number;
-    headElements = ['课程名', '实验课程名', '仪器设备(数量)', '消耗材料(数量)', '实验总学时', '实验教材', '实验所用软件'];
+    headElements = ['课程名', '实验课程名', '仪器设备', '消耗材料', '学时', '教材', '软件'];
     ProjectItemArray: Array<ProjectItem> = [];
     itemTitle: string;
 
@@ -81,14 +81,13 @@ export class CardComponent implements OnInit {
         });
         // 初始化实验卡片表单控制
         this.expCardFG = this.fb.group({
-            courseSelected: ['', [Validators.required]],
+            courseId: ['', [Validators.required]],
             expCname: ['', [Validators.required]], // 实验课程名称
             expEqname: ['', [Validators.required]], // 设备
             eqnum: ['', [Validators.required, Validators.min(0), Validators.max(100)]], // 设备数量
             expTime: ['', [Validators.required, Validators.min(1), Validators.max(100)]], // 实验总学时
             book: ['', [Validators.required]], // 实验教材
             software: ['', [Validators.required]], // 实验所用软件
-            expTid: ['', [Validators.required]], // 教职工号
             conName: ['', [Validators.required]], // 消耗材料名称
             conNum: ['', [Validators.required, Validators.min(0), Validators.max(100)]], // 消耗材料数量
         });
@@ -103,32 +102,31 @@ export class CardComponent implements OnInit {
         }
         const exp = new Exp();
         for (const key in this.expCardFG.controls) {
-            if (key === 'courseSelected') {
-                exp.courseId = this.courseSelected.id;
-                continue;
-            }
             exp[key] = this.expCardFG.controls[key].value;
         }
         exp.labStatus = 'UNCHECK';
         exp.term = DateUtils.nowTerm();
+        exp.expTid = this.authenticationService.getUserNo();
 
         console.log(exp);
         console.log(this.ProjectItemArray);
         console.log(this.classSelectedItems);
         this.projectService.addProject(exp).subscribe(result => {
             if (!result.success) {
+                this.nzMessage.error('实验卡片上传失败！');
                 return;
             }
             console.log(result.data);
             this.ProjectItemArray.map(each => each.proId = result.data.proId);
-            this.exps.push(exp);
-            this.editExpCache[result.data.proId] = {edit: false, data: result.data};
             const expClass = [];
             this.classSelectedItems.forEach(each => expClass.push({proId: result.data.proId, classId: each}));
             this.projectService.addExpClass(expClass).subscribe();
-            this.projectService.addProjectItems(this.ProjectItemArray).subscribe();
+            if (this.ProjectItemArray.length !== 0) {
+                this.projectService.addProjectItems(this.ProjectItemArray).subscribe();
+            }
+            this.onTermSelected();
         });
-        this.nzMessage.success('提交成功!!');
+        this.nzMessage.success('提交成功!');
         this.switch2 = false;
     }
 
@@ -152,8 +150,9 @@ export class CardComponent implements OnInit {
 
     // 重用往期卡片信息
     courseSelect(courseId: any) {
+        console.log(courseId);
         this.courseSelected = courseId;
-        this.projectService.reuseCard(this.authenticationService.getUserNo(), courseId.id).subscribe(result => {
+        this.projectService.reuseCard(this.authenticationService.getUserNo(), courseId).subscribe(result => {
             if (result.success) {
                 this.nzModal.confirm({
                     nzTitle: '是否导入上次开课卡片信息',
@@ -182,11 +181,8 @@ export class CardComponent implements OnInit {
     showConfirm(): void {
         this.confirmModal = this.nzModal.confirm({
             nzTitle: '确认提交吗',
-            nzContent: '确认后，窗口将在几秒后关闭，期间可以取消',
-            nzOnOk: () =>
-                new Promise((resolve, reject) => {
-                    setTimeout(Math.random() < 0.0 ? resolve : reject, 3000);
-                }).catch(() => this.onSubmit())
+            nzContent: '请确定信息填写正确！',
+            nzOnOk: () => this.onSubmit()
         });
     }
 
