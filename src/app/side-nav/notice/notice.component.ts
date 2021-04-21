@@ -21,7 +21,7 @@ export class NoticeComponent implements OnInit {
     public editorContent = '';
     public placeholder = '这里进行编辑';
     noticeHead = '';
-    noticeType = '';
+    noticeType = '通知';
     uploadLoading = false;
     nzProgressVisible = false;
     nzProgress: number;
@@ -52,7 +52,7 @@ export class NoticeComponent implements OnInit {
             if (result.success) {
                 this.notification.success('新增成功', `通知" ${this.noticeHead} "新增成功`);
                 this.noticeHead = '';
-                this.noticeType = '';
+                this.noticeType = '通知';
                 this.editorContent = '';
             } else {
                 this.notification.success('新增失败', `通知文件" ${this.noticeHead} "新增失败`);
