@@ -10,7 +10,7 @@ import {LabService} from '../../service/lab.service';
 import {DateUtils} from '../../utils/DateUtils';
 import {ModalComponent} from '../../modal/modal.component';
 import {Class} from '../../entity/class';
-import {NzMessageService} from "ng-zorro-antd/message";
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Component({
     selector: 'app-apply',
@@ -39,7 +39,7 @@ export class ApplyComponent implements OnInit {
     timeSettings = {};
     // 校区
     regionList = [];
-    regionSelectedItems = [];
+    regionSelectedItem: string;
     regionSettings = {};
     // 班级
     classList = [];
@@ -52,12 +52,12 @@ export class ApplyComponent implements OnInit {
 
     // 实验室类型
     labTypeList = [];
-    labTypeSelectedItems = [];
+    labTypeSelectedItem: string;
     labTypeSettings = {};
 
     // 实验室名
     labNameList = [];
-    labNameSelectedItems = [];
+    labNameSelectedItems: string;
     labNameSettings = {};
     beizhu: FormControl;
 
@@ -105,19 +105,6 @@ export class ApplyComponent implements OnInit {
             {id: 21, itemName: '二十一周'},
             {id: 22, itemName: '二十二周'},
         ];
-        this.weekSettings = {
-            badgeShowLimit: 2,
-            singleSelection: false, // 是否单选
-            text: '选择周次',
-            enableCheckAll: true, // 是否可以全选
-            selectAllText: '全选',
-            unSelectAllText: '全不选',
-            enableSearchFilter: false, // 查找过滤器
-            // showCheckbox: false,
-            // enableFilterSelectAll: true, // “全选”复选框可以选择所有过滤结果
-            // limitSelection 选择个数的限制
-            // searchPlaceholderText 搜索的默认文字
-        };
         this.dayList = [
             {id: '1', itemName: '星期一'},
             {id: '2', itemName: '星期二'},
@@ -127,17 +114,6 @@ export class ApplyComponent implements OnInit {
             {id: '6', itemName: '星期六'},
             {id: '7', itemName: '星期天'},
         ];
-        this.daySettings = {
-            badgeShowLimit: 2,
-            singleSelection: true, // 是否单选
-            text: '选择星期',
-            enableCheckAll: true, // 是否可以全选
-            enableSearchFilter: false, // 查找过滤器
-            // showCheckbox: false,
-            // enableFilterSelectAll: true, // “全选”复选框可以选择所有过滤结果
-            // limitSelection: 5,
-            // searchPlaceholderText 搜索的默认文字
-        };
         this.timeList = [
             {id: '1', itemName: '上午第一节'},
             {id: '2', itemName: '上午第二节'},
@@ -146,34 +122,10 @@ export class ApplyComponent implements OnInit {
             {id: '5', itemName: '晚上第一节'},
             {id: '6', itemName: '晚上第二节'},
         ];
-        this.timeSettings = {
-            singleSelection: true, // 是否单选
-            text: '选择节次',
-            // enableCheckAll: true, // 是否可以全选
-            // selectAllText: '全选',
-            // unSelectAllText: '全不选',
-            enableSearchFilter: false, // 查找过滤器
-            // showCheckbox: false,
-            // enableFilterSelectAll: true, // “全选”复选框可以选择所有过滤结果
-            // limitSelection: 5,
-            // searchPlaceholderText 搜索的默认文字
-        };
         this.regionList = [
             {id: '双福', itemName: '双福校区'},
             {id: '南岸', itemName: '南岸校区'},
         ];
-        this.regionSettings = {
-            singleSelection: true, // 是否单选
-            text: '选择校区',
-            // enableCheckAll: true, // 是否可以全选
-            // selectAllText: '全选',
-            // unSelectAllText: '全不选',
-            enableSearchFilter: false, // 查找过滤器
-            // showCheckbox: false,
-            // enableFilterSelectAll: true, // “全选”复选框可以选择所有过滤结果
-            // limitSelection: 5,
-            // searchPlaceholderText 搜索的默认文字
-        };
         const date = new Date();
         this.gradeList = [
             {id: '1', itemName: date.getFullYear()}, // 20
@@ -183,32 +135,7 @@ export class ApplyComponent implements OnInit {
             {id: '4', itemName: date.getFullYear() - 4}, // 16
 
         ];
-        this.gradeSettings = {
-            singleSelection: true, // 是否单选
-            text: '选择年级',
-            // enableCheckAll: true, // 是否可以全选
-            // selectAllText: '全选',
-            // unSelectAllText: '全不选',
-            enableSearchFilter: false, // 查找过滤器
-            // showCheckbox: false,
-            // enableFilterSelectAll: true, // “全选”复选框可以选择所有过滤结果
-            // limitSelection: 5,
-            // searchPlaceholderText 搜索的默认文字
-        };
         this.classList = [];
-        this.classSettings = {
-            badgeShowLimit: 2,
-            singleSelection: false, // 是否单选
-            text: '选择班级',
-            enableCheckAll: true, // 是否可以全选
-            selectAllText: '全选',
-            unSelectAllText: '全不选',
-            enableSearchFilter: false, // 查找过滤器
-            // showCheckbox: false,
-            // enableFilterSelectAll: true, // “全选”复选框可以选择所有过滤结果
-            // limitSelection: 5,
-            // searchPlaceholderText 搜索的默认文字
-        };
 
         this.labTypeList = [
             {id: '123', itemName: '电子实验室'},
@@ -229,7 +156,7 @@ export class ApplyComponent implements OnInit {
     }
 
     onGradeSelected(item: any) {
-        this.applyService.getClassByGrade(item.itemName).subscribe(result => {
+        this.applyService.getClassByGrade(item).subscribe(result => {
             if (result.success) {
                 this.classList = [];
                 result.data.forEach(each => this.classList.push({id: each.classId, itemName: each.className}));
@@ -237,19 +164,14 @@ export class ApplyComponent implements OnInit {
         });
     }
 
-    onTimeSelected() {
-        console.log(this.nums);
-        console.log(this.daySelectedItems);
-        console.log(this.timeSelectedItems);
-    }
-
     onCampusSelected(item: any) {
-        if (this.regionSelectedItems.length === 0) {
-            alert('请先选择校区！');
-            this.labTypeSelectedItems = [];
+        console.log(item);
+        if (!this.regionSelectedItem) {
+            this.messageService.warning('请先选择校区！');
+            this.labTypeSelectedItem = null;
             return;
         }
-        this.labService.getLabByTypeCampus(item.id, this.regionList[0].id).subscribe(
+        this.labService.getLabByTypeCampus(item, this.regionSelectedItem).subscribe(
             result => {
                 if (result.success) {
                     console.log(result.data);
@@ -274,61 +196,60 @@ export class ApplyComponent implements OnInit {
 
     // 提交申请
     submit() {
-        if ((this.regionSelectedItems.length && this.classSelectedItems.length
-            && this.weekSelectedItems.length && this.daySelectedItems.length && this.timeSelectedItems.length) !== 0) {
-            // id
-            this.applySubmit.proId = this.exps[this.applyIndex].proId;
-            this.applySubmit.campus = this.regionSelectedItems[0].itemName;
-            // 教师编号
-            this.applySubmit.tid = this.authenticationService.getUserNo();
-            // 实验室编号
-            this.applySubmit.labId = this.labNameSelectedItems[0].id;
-            // 备注
-            this.applySubmit.labRemark = this.beizhu.value;
-            // 实验项目名称
-            this.applySubmit.expProname = this.exps[this.applyIndex].expCname;
-            // 班级
-            this.classSelectedItems.forEach(each => this.applySubmit.labClassInfo.push(new Class(each.id)));
+        if (!this.regionSelectedItem || !this.classSelectedItems || !this.labNameSelectedItems ||
+            !this.weekSelectedItems || !this.daySelectedItems.length || !this.timeSelectedItems.length) {
+            this.messageService.warning('确保填写完整的信息哦！');
+            return;
+        }
+        // id
+        this.applySubmit.proId = this.exps[this.applyIndex].proId;
+        this.applySubmit.campus = this.regionSelectedItem;
+        // 教师编号
+        this.applySubmit.tid = this.authenticationService.getUserNo();
+        // 实验室编号
+        this.applySubmit.labId = this.labNameSelectedItems;
+        // 备注
+        this.applySubmit.labRemark = this.beizhu.value;
+        // 实验项目名称
+        this.applySubmit.expProname = this.exps[this.applyIndex].expCname;
+        // 班级
+        this.classSelectedItems.forEach(each => this.applySubmit.labClassInfo.push(new Class(each.id)));
+        // tslint:disable-next-line: prefer-for-of
+        for (let m = 0; m < this.weekSelectedItems.length; m++) {
+            // 周次
             // tslint:disable-next-line: prefer-for-of
-            for (let m = 0; m < this.weekSelectedItems.length; m++) {
-                // 周次
-                // tslint:disable-next-line: prefer-for-of
-                for (let i = 0; i < this.daySelectedItems.length; i++) {
-                    for (let j = 0; j < this.daySelectedItems[i].length; j++) {
-                        // 星期
-                        const a = new ArrangePeriod();
-                        a.labWeek = this.weekSelectedItems[m].id;
-                        a.labDay = this.daySelectedItems[i][j].id;
-                        // 节次
-                        a.labSession = this.timeSelectedItems[i][j].id;
-                        this.arrangePeriod.push(a);
-                    }
+            for (let i = 0; i < this.daySelectedItems.length; i++) {
+                for (let j = 0; j < this.daySelectedItems[i].length; j++) {
+                    // 星期
+                    const a = new ArrangePeriod();
+                    a.labWeek = this.weekSelectedItems[m];
+                    a.labDay = this.daySelectedItems[i][j];
+                    // 节次
+                    a.labSession = this.timeSelectedItems[i][j];
+                    this.arrangePeriod.push(a);
                 }
             }
-            this.applySubmit.arrangePeriod = this.arrangePeriod;
-            console.log(this.applySubmit);
-            this.applyService.addArrange(this.applySubmit).subscribe(
-                result => {
-                    console.log(result);
-                    if (result.success) {
-                        this.applyModal.hide();
-                        this.messageService.success('己完成申请！');
-                        this.projectService.getProjects(this.authenticationService.getUserNo(), DateUtils.nowTerm())
-                            .subscribe(response => {
-                                if (response.success) {
-                                    this.exps = response.data;
-                                }
-                            });
-                    } else {
-                        alert(result.message);
-                        this.messageService.error('增加申请出错，请联系管理员！');
-                    }
-                }
-            );
-        } else {
-            alert('确保填写完整的信息哦！');
         }
-
+        this.applySubmit.arrangePeriod = this.arrangePeriod;
+        console.log(this.applySubmit);
+        this.applyService.addArrange(this.applySubmit).subscribe(
+            result => {
+                console.log(result);
+                if (result.success) {
+                    this.applyModal.hide();
+                    this.messageService.success('己完成申请！');
+                    this.projectService.getProjects(this.authenticationService.getUserNo(), DateUtils.nowTerm())
+                        .subscribe(response => {
+                            if (response.success) {
+                                this.exps = response.data;
+                            }
+                        });
+                } else {
+                    alert(result.message);
+                    this.messageService.error('增加申请出错，请联系管理员！');
+                }
+            }
+        );
         this.applySubmit = new Arrange();
         this.arrangePeriod = new Array<ArrangePeriod>();
     }

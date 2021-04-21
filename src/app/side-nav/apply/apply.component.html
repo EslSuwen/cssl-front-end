@@ -1,4 +1,3 @@
-<!--
 <div class="row mt-2">
     <div class="col px-0 mt-4">
         <mdb-card cascade="true" narrower="true">
@@ -11,7 +10,7 @@
                     <button mdbBtn color="white" outline="true" rounded="true" size="sm" type="button" class="px-2"
                             mdbWavesEffect>
                         <i class="far fa-grin-beam fa-2x"></i>
-                        &lt;!&ndash; <i class="fab fa-angellist"></i> &ndash;&gt;
+                        <!-- <i class="fab fa-angellist"></i> -->
                     </button>
                 </div>
                 <a class="white-text mx-3">申请情况一览</a>
@@ -61,7 +60,7 @@
                             <i class="fas fa-arrow-right ml-2"></i>
                         </button>
                     </td>
-                    &lt;!&ndash;/.Content&ndash;&gt;
+                    <!--/.Content-->
                 </tr>
                 </tbody>
             </table>
@@ -72,94 +71,89 @@
      id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-notify modal-info" role="document">
-        &lt;!&ndash;Content&ndash;&gt;
+        <!--Content-->
         <div class="modal-content ">
-            &lt;!&ndash;Header&ndash;&gt;
+            <!--Header-->
             <div class="modal-header d-flex justify-content-center text-center">
                 <mdb-icon fas icon="bell" size="2x"
                           class="animated rotateIn mr-1 deep-purple-text"></mdb-icon>
                 <p class="heading">请填写申请信息！</p>
             </div>
-            &lt;!&ndash;Body&ndash;&gt;
+            <!--Body-->
             <div class="modal-body">
                 <div class="row">
-                    &lt;!&ndash; 校区 &ndash;&gt;
+                    <!-- 校区 -->
                     <div class="col px-0 mr-3">
-                        <angular2-multiselect [data]="regionList" [(ngModel)]="regionSelectedItems"
-                                              [settings]="regionSettings">
-                            <c-item>
-                                <ng-template let-item="item">
-                                    <label style="min-width: 60%;">{{item.itemName}}</label>
-                                </ng-template>
-                            </c-item>
-                        </angular2-multiselect>
+                        <nz-select
+                                [nzMaxTagCount]="3"
+                                [nzMaxTagPlaceholder]="tagPlaceHolder"
+                                nzPlaceHolder="请选择校区"
+                                [(ngModel)]="regionSelectedItem">
+                            <nz-option *ngFor="let item of regionList" [nzLabel]="item.itemName" [nzValue]="item.id"></nz-option>
+                        </nz-select>
+                        <ng-template #tagPlaceHolder let-selectedList> and {{ selectedList.length }} more selected </ng-template>
                     </div>
 
-                    &lt;!&ndash; 实验室类型 &ndash;&gt;
+                    <!-- 实验室类型 -->
                     <div class="col  px-0">
-                        <angular2-multiselect [data]="labTypeList"
-                                              [(ngModel)]="labTypeSelectedItems"
-                                              (onSelect)="onCampusSelected($event)"
-                                              [settings]="labTypeSettings">
-                            <c-item>
-                                <ng-template let-item="item">
-                                    <label style="min-width: 60%;">{{item.itemName}}</label>
-
-                                </ng-template>
-                            </c-item>
-                        </angular2-multiselect>
+                        <nz-select
+                                [nzMaxTagCount]="3"
+                                [nzMaxTagPlaceholder]="tagPlaceHolder"
+                                nzPlaceHolder="请选择实验室类型"
+                                (ngModelChange)="onCampusSelected($event)"
+                                [(ngModel)]="labTypeSelectedItem">
+                            <nz-option *ngFor="let item of labTypeList" [nzLabel]="item.itemName" [nzValue]="item.id"></nz-option>
+                        </nz-select>
                     </div>
                 </div>
 
                 <div class="row">
-                    &lt;!&ndash; 实验室名 &ndash;&gt;
+                    <!-- 实验室名 -->
                     <div class="col px-0 mr-3 mt-3">
-                        <angular2-multiselect [data]=" labNameList"
-                                              [(ngModel)]="labNameSelectedItems"
-                                              [settings]="labNameSettings">
-                            <c-item>
-                                <ng-template let-item="item">
-                                    <label style="min-width: 60%;">{{item.itemName}}</label>
-                                </ng-template>
-                            </c-item>
-                        </angular2-multiselect>
+                        <nz-select
+                                [nzMaxTagCount]="3"
+                                [nzMaxTagPlaceholder]="tagPlaceHolder"
+                                nzPlaceHolder="请选择实验室"
+                                [(ngModel)]="labNameSelectedItems">
+                            <nz-option *ngFor="let item of labNameList" [nzLabel]="item.itemName" [nzValue]="item.id"></nz-option>
+                        </nz-select>
                     </div>
 
-                    &lt;!&ndash; 周数 &ndash;&gt;
+                    <!-- 周数 -->
                     <div class="col px-0 mt-3">
-                        <angular2-multiselect [data]="weekList" [(ngModel)]="weekSelectedItems"
-                                              [settings]="weekSettings">
-                            <c-item>
-                                <ng-template let-item="item">
-                                    <label style="min-width: 60%;">{{item.itemName}}</label>
-                                </ng-template>
-                            </c-item>
-                        </angular2-multiselect>
+                        <nz-select
+                                [nzMaxTagCount]="3"
+                                [nzMaxTagPlaceholder]="tagPlaceHolder"
+                                nzMode="multiple"
+                                nzPlaceHolder="请选择周数"
+                                [(ngModel)]="weekSelectedItems">
+                            <nz-option *ngFor="let item of weekList" [nzLabel]="item.itemName" [nzValue]="item.id"></nz-option>
+                        </nz-select>
                     </div>
                 </div>
 
                 <div *ngFor="let i of nums" class="row my-4">
-                    &lt;!&ndash; 星期 &ndash;&gt;
+                    <!-- 星期 -->
                     <div class="col px-0 mr-3">
-                        <angular2-multiselect [data]="dayList" [(ngModel)]="daySelectedItems[i]"
-                                              [settings]="daySettings">
-                            <c-item>
-                                <ng-template let-item="item">
-                                    <label style="min-width: 60%;">{{item.itemName}}</label>
-                                </ng-template>
-                            </c-item>
-                        </angular2-multiselect>
+                        <nz-select
+                                [nzMaxTagCount]="3"
+                                [nzMaxTagPlaceholder]="tagPlaceHolder"
+                                nzMode="multiple"
+                                nzPlaceHolder="请选择星期数"
+                                [(ngModel)]="daySelectedItems[i]">
+                            <nz-option *ngFor="let item of dayList" [nzLabel]="item.itemName" [nzValue]="item.id"></nz-option>
+                        </nz-select>
                     </div>
-                    &lt;!&ndash; 节次 &ndash;&gt;
+                    <!-- 节次 -->
                     <div class="col px-0">
-                        <angular2-multiselect [data]="timeList" [(ngModel)]="timeSelectedItems[i]"
-                                              [settings]="timeSettings" (onSelect)="onTimeSelected()">
-                            <c-item>
-                                <ng-template let-item="item">
-                                    <label style="min-width: 60%;">{{item.itemName}}</label>
-                                </ng-template>
-                            </c-item>
-                        </angular2-multiselect>
+                        <nz-select
+                                [nzMaxTagCount]="3"
+                                [nzMaxTagPlaceholder]="tagPlaceHolder"
+                                nzMode="multiple"
+                                nzPlaceHolder="请选择星期节次"
+                                [(ngModel)]="timeSelectedItems[i]">
+                            <nz-option *ngFor="let item of timeList" [nzLabel]="item.itemName" [nzValue]="item.id"></nz-option>
+                        </nz-select>
                     </div>
                 </div>
                 <div class="row">
@@ -167,22 +161,27 @@
                     <i class="fas fa-minus-circle fa-2x" (click)="removeTimeSelectItem()"></i>
                 </div>
                 <div class="row mt-3">
-                    &lt;!&ndash; 年级 &ndash;&gt;
+                    <!-- 年级 -->
                     <div class="col px-0 mr-3">
-                        <angular2-multiselect [data]="gradeList" [(ngModel)]="gradeSelectedItems"
-                                              [settings]="gradeSettings" (onSelect)="onGradeSelected($event)">
-                            <c-item class="red">
-                                <ng-template let-item="item">
-                                    <label style="min-width: 60%;">{{item.itemName}}</label>
-                                </ng-template>
-                            </c-item>
-                        </angular2-multiselect>
+                        <nz-select
+                                (ngModelChange)="onGradeSelected($event)"
+                                [nzMaxTagCount]="3"
+                                [nzMaxTagPlaceholder]="tagPlaceHolder"
+                                nzPlaceHolder="请选择年级"
+                                [(ngModel)]="gradeSelectedItems">
+                            <nz-option *ngFor="let item of gradeList" [nzLabel]="item.itemName" [nzValue]="item.itemName"></nz-option>
+                        </nz-select>
                     </div>
-                    &lt;!&ndash; 班级 &ndash;&gt;
+                    <!-- 班级 -->
                     <div class="col px-0 ">
-                        <angular2-multiselect [data]="classList" [(ngModel)]="classSelectedItems"
-                                              [settings]="classSettings">
-                        </angular2-multiselect>
+                        <nz-select
+                                [nzMaxTagCount]="3"
+                                [nzMaxTagPlaceholder]="tagPlaceHolder"
+                                nzMode="multiple"
+                                nzPlaceHolder="请选择班级"
+                                [(ngModel)]="classSelectedItems">
+                            <nz-option *ngFor="let item of classList" [nzLabel]="item.itemName" [nzValue]="item.id"></nz-option>
+                        </nz-select>
                     </div>
                 </div>
                 <div class="row">
@@ -198,7 +197,7 @@
                 </div>
             </div>
 
-            &lt;!&ndash;Footer&ndash;&gt;
+            <!--Footer-->
             <div class="modal-footer justify-content-center">
                 <a type="button" mdbBtn color="primary" class="waves-light"
                    (click)="submit()">提交</a>
@@ -207,12 +206,7 @@
                    (click)="applyModal.hide()">返回</a>
             </div>
         </div>
-        &lt;!&ndash;/.Content&ndash;&gt;
+        <!--/.Content-->
     </div>
 </div>
--->
-<nz-result nzStatus="404" nzTitle="404" nzSubTitle="Sorry, the page you visited does not exist.">
-    <div nz-result-extra>
-        <button nz-button routerLink="/sidenav/personalinfo" nzType="primary">Back Home</button>
-    </div>
-</nz-result>
+
