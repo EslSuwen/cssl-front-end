@@ -124,21 +124,18 @@ const appRoutes: Routes = [
         NoticeFileComponent,
         RuleComponent,
         TeachComponent,
-
     ],
     imports: [
         BrowserModule,
         // NoopAnimationsModule,
+        HttpClientModule,
         BrowserAnimationsModule,
         MDBBootstrapModule.forRoot(),
         FormsModule,
         ReactiveFormsModule,
         FormsModule,
         QuillModule.forRoot(),
-        RouterModule.forRoot(
-            appRoutes,
-        ),
-        HttpClientModule,
+        RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
         NzDropDownModule, NzCardModule, NzSelectModule, NzFormModule, NzInputModule, NzInputNumberModule,
         NzModalModule, NzUploadModule, NzIconModule, NzDividerModule, NzTableModule, NzButtonModule, NzTabsModule,
         NzProgressModule, NzBadgeModule, NzTagModule, NzPopconfirmModule, NzDatePickerModule, NzSliderModule,
