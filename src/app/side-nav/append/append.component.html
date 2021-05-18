@@ -3,15 +3,14 @@
         <form nz-form [formGroup]="teacherValidateForm" (ngSubmit)="teacherSubmitForm($event)">
             <nz-form-item>
                 <nz-form-label [nzSpan]="7" nzRequired>工号</nz-form-label>
-                <nz-form-control [nzSpan]="7" nzHasFeedback [nzValidateStatus]="'校验中....'" nzWarningTip="'请填写教师编号!'"
-                                 nzErrorTip="'请填写有效教师编号!'">
+                <nz-form-control [nzSpan]="7" nzHasFeedback nzErrorTip="请填写有效教师编号!(12位数字)"  nzWarningTip="请填写教师编号!">
                     <label><input nz-input formControlName="tid" placeholder="教师工号" maxlength="12"></label>
                 </nz-form-control>
             </nz-form-item>
 
             <nz-form-item>
                 <nz-form-label [nzSpan]="7" nzRequired>姓名</nz-form-label>
-                <nz-form-control [nzSpan]="7" nzHasFeedback nzErrorTip="'请填写教师姓名!'">
+                <nz-form-control [nzSpan]="7" nzHasFeedback nzErrorTip="请填写教师姓名!">
                     <label>
                         <input nz-input formControlName="tname" placeholder="教师姓名">
                     </label>
@@ -20,7 +19,7 @@
 
             <nz-form-item>
                 <nz-form-label [nzSpan]="7" nzRequired>手机</nz-form-label>
-                <nz-form-control [nzSpan]="5" nzHasFeedback nzErrorTip="'请填写正确的手机号码!'">
+                <nz-form-control [nzSpan]="5" nzHasFeedback nzErrorTip="请填写正确的手机号码!">
                     <label>
                         <input nz-input formControlName="tphone" placeholder="手机号码" maxlength="11">
                     </label>
@@ -40,7 +39,7 @@
 
             <nz-form-item>
                 <nz-form-label [nzSpan]="7">密码</nz-form-label>
-                <nz-form-control [nzSpan]="5" nzHasFeedback nzErrorTip="'请填写有效的密码!'">
+                <nz-form-control [nzSpan]="5" nzHasFeedback nzErrorTip="请填写有效的密码!">
                     <label>
                         <input nz-input formControlName="tpassword" placeholder="默认密码为工号" maxlength="16">
                     </label>
@@ -49,7 +48,7 @@
 
             <nz-form-item>
                 <nz-form-label [nzSpan]="7">QQ</nz-form-label>
-                <nz-form-control [nzSpan]="5" nzErrorTip="'请填写正确的QQ号码!'">
+                <nz-form-control [nzSpan]="5" nzErrorTip="请填写正确的QQ号码!">
                     <label>
                         <input nz-input formControlName="tqq" placeholder="QQ号码" maxlength="12">
                     </label>
@@ -58,7 +57,7 @@
 
             <nz-form-item>
                 <nz-form-label [nzSpan]="7">邮箱</nz-form-label>
-                <nz-form-control [nzSpan]="5" nzHasFeedback nzErrorTip="'请填写正确的邮箱地址!'">
+                <nz-form-control [nzSpan]="5" nzHasFeedback nzErrorTip="请填写正确的邮箱地址!">
                     <label>
                         <input nz-input formControlName="temail" placeholder="邮箱地址">
                     </label>
@@ -78,8 +77,8 @@
         <form nz-form [formGroup]="classValidateForm" (ngSubmit)="classSubmitForm($event)">
             <nz-form-item>
                 <nz-form-label [nzSpan]="7" nzRequired>编号</nz-form-label>
-                <nz-form-control [nzSpan]="5" nzHasFeedback nzValidateStatus="'校验中....'" nzErrorTip="请填写有效班级编号!"
-                                 nzWarningTip="'班级编号重复!'">
+                <nz-form-control [nzSpan]="5" nzHasFeedback nzValidateStatus="校验中...." nzErrorTip="请填写有效班级编号!"
+                                 nzWarningTip="班级编号重复!">
                     <label>
                         <input nz-input type="number" formControlName="classId" placeholder="班级编号" maxlength="8">
                     </label>
@@ -88,14 +87,14 @@
 
             <nz-form-item>
                 <nz-form-label [nzSpan]="7" nzRequired>年级</nz-form-label>
-                <nz-form-control [nzSpan]="5" nzHasFeedback nzErrorTip="'请填写年级!'">
+                <nz-form-control [nzSpan]="5" nzHasFeedback nzErrorTip="请填写年级!">
                     <nz-year-picker formControlName="grade" nzPlaceHolder="年级"></nz-year-picker>
                 </nz-form-control>
             </nz-form-item>
 
             <nz-form-item>
                 <nz-form-label [nzSpan]="7" nzRequired>班级名</nz-form-label>
-                <nz-form-control [nzSpan]="5" nzHasFeedback nzErrorTip="'请填写班级名!'">
+                <nz-form-control [nzSpan]="5" nzHasFeedback nzErrorTip="请填写班级名!">
                     <label>
                         <input nz-input formControlName="className" placeholder="班级名" maxlength="11">
                     </label>
@@ -137,7 +136,7 @@
         <form nz-form [formGroup]="courseValidateForm" (ngSubmit)="courseSubmitForm($event)">
             <nz-form-item>
                 <nz-form-label [nzSpan]="7" nzRequired>编号</nz-form-label>
-                <nz-form-control [nzSpan]="5" nzHasFeedback nzErrorTip="'请填写合法课程编号!'">
+                <nz-form-control [nzSpan]="5" nzHasFeedback nzErrorTip="请填写合法课程编号!">
                     <label>
                         <input nz-input type="number" formControlName="courseId" placeholder="课程编号">
                     </label>
@@ -146,7 +145,7 @@
 
             <nz-form-item>
                 <nz-form-label [nzSpan]="7" nzRequired>课程名</nz-form-label>
-                <nz-form-control [nzSpan]="5" nzHasFeedback [nzErrorTip]="'请填写课程名!'">
+                <nz-form-control [nzSpan]="5" nzHasFeedback nzErrorTip="请填写课程名!">
                     <label>
                         <input nz-input formControlName="courseName" placeholder="课程名" maxlength="11">
                     </label>

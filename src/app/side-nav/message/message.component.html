@@ -1,29 +1,42 @@
-<div class="messagecard animated fadeIn" *ngFor="let each of teacherMsgs ;let id = index;">
-    <div class="card-deck">
-        <mdb-card borderColor="border-success" style="max-width: 20rem">
-            <mdb-card-header class="bg-transparent border-success">{{each.mtitle + each.mid}}
-                <button type="button" class="close" aria-label="Close">
-                    <span aria-hidden="true" (click)="deleteMsg(id)">×</span>
-                </button>
-            </mdb-card-header>
-            <mdb-card-body>
-                <mdb-card-title class="text-success" *ngIf="each.mresult">
-                    <h5>已通过</h5>
-                </mdb-card-title>
-                <mdb-card-title class="text-warning" *ngIf="!each.mresult">
-                    <h5>未通过</h5>
-                </mdb-card-title>
-                <mdb-card-text>{{each.mtext}}</mdb-card-text>
-            </mdb-card-body>
-            <mdb-card-footer class="bg-transparent border-success">
-                <button mdbBtn type="button" gradient="peach" rounded="true" mdbWavesEffect
-                        *ngIf="!each.mstatus" (click)="isRead(id)">标记已读
-                </button>
-                <button mdbBtn type="button" gradient="purple" rounded="true" mdbWavesEffect
-                        *ngIf="each.mstatus" disabled>已读
-                </button>
-            </mdb-card-footer>
-        </mdb-card>
+<nz-spin [nzSpinning]="loading">
+    <div *ngIf="teacherMsgs && teacherMsgs.length>0">
+        <div class="messagecard animated fadeIn" *ngFor="let each of teacherMsgs ;let id = index;">
+            <div class="card-deck">
+                <mdb-card borderColor="border-success" style="max-width: 20rem">
+                    <mdb-card-header class="bg-transparent border-success">{{each.mtitle + each.mid}}
+                        <button type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true" (click)="deleteMsg(id)">×</span>
+                        </button>
+                    </mdb-card-header>
+                    <mdb-card-body>
+                        <mdb-card-title class="text-success" *ngIf="each.mresult">
+                            <h5>已通过</h5>
+                        </mdb-card-title>
+                        <mdb-card-title class="text-warning" *ngIf="!each.mresult">
+                            <h5>未通过</h5>
+                        </mdb-card-title>
+                        <mdb-card-text>{{each.mtext}}</mdb-card-text>
+                    </mdb-card-body>
+                    <mdb-card-footer class="bg-transparent border-success">
+                        <button mdbBtn type="button" gradient="peach" rounded="true" mdbWavesEffect
+                                *ngIf="!each.mstatus" (click)="isRead(id)">标记已读
+                        </button>
+                        <button mdbBtn type="button" gradient="purple" rounded="true" mdbWavesEffect
+                                *ngIf="each.mstatus" disabled>已读
+                        </button>
+                    </mdb-card-footer>
+                </mdb-card>
+            </div>
+        </div>
     </div>
-</div>
+    <div *ngIf="!teacherMsgs || !teacherMsgs.length">
+        <nz-result nzStatus="404" nzTitle="404" nzSubTitle="你未收到任何消息！">
+            <div nz-result-extra>
+                <button nz-button nzType="primary" routerLink="/sidenav/personalinfo">返回</button>
+            </div>
+        </nz-result>
+    </div>
+</nz-spin>
+
+
 

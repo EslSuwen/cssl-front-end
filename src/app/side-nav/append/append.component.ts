@@ -105,8 +105,7 @@ export class AppendComponent implements OnInit {
 
     tidNoAsyncValidator = (control: FormControl) => new Observable((observer: Observer<ValidationErrors>) => {
         setTimeout(() => {
-            /** 手机号第1位肯定是1，第2位是3，4，5，7，8其中一个，剩余的9位在0-9之间 */
-            const reg = /(^[1-9][0-9]{11}$)/;
+            const reg = /(^[0-9]{12}$)/;
             if (reg.test(control.value) === false) {
                 observer.next({error: true, wrong: true});
                 observer.complete();

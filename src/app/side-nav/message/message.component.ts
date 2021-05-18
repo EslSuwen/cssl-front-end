@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {TeacherService} from "../../service/teacher.service";
-import {TeacherMsg} from "../../entity/teacher";
-import {AuthenticationService} from "../../service/authentication.service";
+import {TeacherService} from '../../service/teacher.service';
+import {TeacherMsg} from '../../entity/teacher';
+import {AuthenticationService} from '../../service/authentication.service';
 
 @Component({
     selector: 'app-message',
@@ -9,18 +9,21 @@ import {AuthenticationService} from "../../service/authentication.service";
     styleUrls: ['./message.component.scss']
 })
 export class MessageComponent implements OnInit {
+
     teacherMsgs: TeacherMsg[];
-    x: TeacherMsg;
-    have_read = 0;
+
+    loading = false;
 
     constructor(private authenticationService: AuthenticationService, private teacherService: TeacherService) {
     }
 
     ngOnInit() {
+        this.loading = true;
         this.teacherService.getMsgInfo(this.authenticationService.getUserNo()).subscribe(result => {
             if (result.success) {
                 this.teacherMsgs = result.data;
             }
+            this.loading = false;
         });
     }
 

@@ -65,6 +65,7 @@ import {NoticeFileComponent} from './index/notice-file/notice-file.component';
 import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
 import {RuleComponent} from './index/rule/rule.component';
 import {TeachComponent} from './index/teach/teach.component';
+import {NzSpinModule} from 'ng-zorro-antd/spin';
 
 registerLocaleData(zh);
 const appRoutes: Routes = [
@@ -135,12 +136,12 @@ const appRoutes: Routes = [
         ReactiveFormsModule,
         FormsModule,
         QuillModule.forRoot(),
-        RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
+        RouterModule.forRoot(appRoutes, {relativeLinkResolution: 'legacy'}),
         NzDropDownModule, NzCardModule, NzSelectModule, NzFormModule, NzInputModule, NzInputNumberModule,
         NzModalModule, NzUploadModule, NzIconModule, NzDividerModule, NzTableModule, NzButtonModule, NzTabsModule,
         NzProgressModule, NzBadgeModule, NzTagModule, NzPopconfirmModule, NzDatePickerModule, NzSliderModule,
         NzResultModule, NzMessageModule, NzNotificationModule, NzPageHeaderModule, NzDescriptionsModule,
-        NzTypographyModule, NzToolTipModule, NzPipesModule
+        NzTypographyModule, NzToolTipModule, NzPipesModule, NzSpinModule
 
     ],
     entryComponents: [ModalComponent],
