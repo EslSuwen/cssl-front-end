@@ -19,7 +19,7 @@ export class ExpFileService extends HandleError {
 
 
     getFileUri(fileNo: number, term: string): string {
-        return `${this.FILE_API}/getFile?fileNo=${fileNo}&term=${term}`;
+        return `${this.FILE_API}/getFile?fileId=${fileNo}`;
     }
 
     /**

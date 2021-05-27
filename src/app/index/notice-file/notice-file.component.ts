@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NoticeFileService} from '../../service/notice-file.service';
 import {environment} from '../../../environments/environment';
 import {NoticeFile} from '../../entity/notice-file';
+import {Base64} from "js-base64";
 
 @Component({
     selector: 'app-notice-file',
@@ -47,7 +48,7 @@ export class NoticeFileComponent implements OnInit {
     filePreview(fileId: number, fileName: string) {
         const fileUrl = this.noticeFileService.getFileUri(fileId);
         const previewUrl = `${fileUrl}?fullfilename=${fileName}`;
-        window.open(`${environment.filePreviewUrl}/onlinePreview?url=` + encodeURIComponent(window.btoa(previewUrl)));
+        window.open(`${environment.filePreviewUrl}/onlinePreview?url=` + encodeURIComponent(Base64.encode(previewUrl)));
     }
 
     fileDownLoad(fileId: number) {

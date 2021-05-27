@@ -10,6 +10,7 @@ import {environment} from '../../../environments/environment';
 import {ProjectService} from '../../service/project.service';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {NzMessageService} from 'ng-zorro-antd/message';
+import {Base64} from "js-base64";
 
 @Component({
     selector: 'app-card-info',
@@ -97,9 +98,8 @@ export class CardInfoComponent implements OnInit {
     }
 
     filePreview(fileId: number, fileName: string) {
-        const fileUrl = this.expFileService.getFileUri(fileId, this.tabInfo.term);
-        const previewUrl = `${fileUrl}&fullfilename=${fileName}`;
-        window.open(`${environment.filePreviewUrl}/onlinePreview?url=` + encodeURIComponent(window.btoa(previewUrl)));
+        const fileUrl = this.expFileService.getFileUri(fileId, this.tabInfo.term) + `&fullfilename=${fileName}`;
+        window.open(`${environment.filePreviewUrl}/onlinePreview?url=` + encodeURIComponent(Base64.encode(fileUrl)));
     }
 
     expSelect(proId: number) {
