@@ -145,7 +145,7 @@ export class UploadComponent implements OnInit {
     filePreview(fileId: number, fileName: string) {
         const fileUrl = this.expFileService.getFileUri(fileId, this.termSelected);
         const previewUrl = `${fileUrl}&fullfilename=${fileName}`;
-        window.open(`${environment.filePreviewUrl}/onlinePreview?url=` + encodeURIComponent(previewUrl));
+        window.open(`${environment.filePreviewUrl}/onlinePreview?url=` + encodeURIComponent(window.btoa(previewUrl)));
     }
 
     fileUpload() {

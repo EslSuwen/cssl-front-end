@@ -47,7 +47,7 @@ export class NoticeFileComponent implements OnInit {
     filePreview(fileId: number, fileName: string) {
         const fileUrl = this.noticeFileService.getFileUri(fileId);
         const previewUrl = `${fileUrl}?fullfilename=${fileName}`;
-        window.open(`${environment.filePreviewUrl}/onlinePreview?url=` + encodeURIComponent(previewUrl));
+        window.open(`${environment.filePreviewUrl}/onlinePreview?url=` + encodeURIComponent(window.btoa(previewUrl)));
     }
 
     fileDownLoad(fileId: number) {
