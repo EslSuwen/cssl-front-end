@@ -12,7 +12,7 @@
                 <div class="md-form mt-5">
                     <input type="text" id="form5" class="form-control white-text"
                            mdbInput mdbValidate formControlName="userFormEx" minLength="8"
-                           maxLength="25"
+                           maxLength="12"
                            [(ngModel)]="authModel.username">
                     <label for="form5">
                         <mdb-icon fas icon="user" class="active mr-1"></mdb-icon>
@@ -26,8 +26,8 @@
                 <div class="md-form">
                     <input type="password" id="form4" class="form-control text-white"
                            [(ngModel)]="authModel.password"
-                           mdbValidate formControlName="passwordFormEx" minLength="10"
-                           maxLength="25" mdbInput>
+                           mdbValidate formControlName="passwordFormEx" minLength="6"
+                           maxLength="16" mdbInput>
                     <label for="form4">
                         <mdb-icon fas icon="lock" class="active mr-1"></mdb-icon>
                         密码
