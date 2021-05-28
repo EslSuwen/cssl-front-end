@@ -19,7 +19,7 @@ export class PersonalInfoComponent implements OnInit {
 
     curriculumList: Curriculum[];
     arrangePeriod: ArrangePeriod;
-    selectedWeek: string;
+    selectedWeek = '1';
 
     constructor(private authenticationService: AuthenticationService, private teacherService: TeacherService) {
     }
@@ -28,7 +28,7 @@ export class PersonalInfoComponent implements OnInit {
         this.initCurriculum();
         this.teacher = this.authenticationService.getCurrentUserInfo();
         this.userName = this.teacher.tname;
-        this.getCurriculum(this.authenticationService.getUserNo(), '2');
+        this.getCurriculum(this.authenticationService.getUserNo(), '1');
     }
 
     getCurriculum(tid: string, week: string) {
