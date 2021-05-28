@@ -14,7 +14,7 @@
                     <mdb-icon fas icon="chalkboard-teacher" class="mr-1 amber-text" size="lg"></mdb-icon>
                     个人信息
                 </a>
-                <a mdbWavesEffect class="nav-link text-center my-2" routerLink="/sidenav/notice"
+                <a *appHasRole="'ADMIN'" mdbWavesEffect class="nav-link text-center my-2" routerLink="/sidenav/notice"
                    routerLinkActive="active">
                     <mdb-icon fas icon="scroll" class="mr-1 deep-orange-text" size="lg"></mdb-icon>
                     发布信息
@@ -34,7 +34,7 @@
                     <mdb-icon fas icon="cloud-upload-alt" class="mr-1 " size="lg"></mdb-icon>
                     上传资料
                 </a>
-                <a mdbWavesEffect class="nav-link my-2 text-center" routerLink="/sidenav/cardInfo"
+                <a *appHasRole="'ADMIN'" mdbWavesEffect class="nav-link my-2 text-center" routerLink="/sidenav/cardInfo"
                    routerLinkActive="active">
                     <mdb-icon fas icon="chart-bar" class="mr-1 green-text" size="lg"></mdb-icon>
                     实验卡片总览
@@ -44,13 +44,13 @@
                     <mdb-icon fas icon="hand-point-right" class="mr-1 indigo-text" size="lg"></mdb-icon>
                     申请实验室
                 </a>
-                <a mdbWavesEffect class="nav-link my-2 text-center"
+                <a *appHasRole="'SUPER_ADMIN'" mdbWavesEffect class="nav-link my-2 text-center"
                    routerLink="/sidenav/append"
                    routerLinkActive="active">
                     <mdb-icon fas icon="file-alt" class="mr-1  red-text" size="lg"></mdb-icon>
                     新增数据
                 </a>
-                <a mdbWavesEffect class="nav-link my-2 text-center"
+                <a *appHasRole="'SUPER_ADMIN'" mdbWavesEffect class="nav-link my-2 text-center"
                    routerLink="/sidenav/manage"
                    routerLinkActive="active">
                     <mdb-icon fas icon="indent" class="mr-1  red-text" size="lg"></mdb-icon>

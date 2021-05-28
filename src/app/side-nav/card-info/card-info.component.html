@@ -3,7 +3,7 @@
         <div class="card">
             <h3 class="card-header text-center font-weight-bold text-uppercase pt-3">学期实验课信息总览</h3>
             <div class="card-body">
-                <button mdbBtn type="submit" gradient="blue" mdbWavesEffect (click)="download()">下载总览表
+                <button *appHasRole="'ADMIN'" mdbBtn type="submit" gradient="blue" mdbWavesEffect (click)="download()">下载总览表
                 </button>
                 <nz-table
                     #TeachTable

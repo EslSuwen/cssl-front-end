@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
         this.loginVisible = !this.authService.isLoggedIn();
         // 调试默认账号
         this.authModel.username = '789';
-        this.authModel.password = '789';
+        this.authModel.password = '111111';
         this.username = this.authService.getUserName();
     }
 
