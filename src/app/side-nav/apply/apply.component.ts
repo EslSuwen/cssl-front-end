@@ -11,6 +11,7 @@ import {DateUtils} from '../../utils/DateUtils';
 import {ModalComponent} from '../../modal/modal.component';
 import {Class} from '../../entity/class';
 import {NzMessageService} from 'ng-zorro-antd/message';
+import {NzNotificationService} from "ng-zorro-antd/notification";
 
 @Component({
     selector: 'app-apply',
@@ -68,7 +69,8 @@ export class ApplyComponent implements OnInit {
                 private authenticationService: AuthenticationService,
                 private auditService: AuditService,
                 private labService: LabService,
-                private messageService: NzMessageService) {
+                private messageService: NzMessageService,
+                private notification: NzNotificationService) {
     }
 
     ngOnInit() {
@@ -245,8 +247,7 @@ export class ApplyComponent implements OnInit {
                             }
                         });
                 } else {
-                    alert(result.message);
-                    this.messageService.error('增加申请出错，请联系管理员！');
+                    this.notification.error('申请实验室出错！', result.message);
                 }
             }
         );

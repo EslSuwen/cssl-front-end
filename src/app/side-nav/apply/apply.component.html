@@ -160,30 +160,6 @@
                     <i class="fas fa-plus-circle fa-2x mr-2" (click)="addTimeSelectItem()"></i>
                     <i class="fas fa-minus-circle fa-2x" (click)="removeTimeSelectItem()"></i>
                 </div>
-                <div class="row mt-3">
-                    <!-- 年级 -->
-                    <div class="col px-0 mr-3">
-                        <nz-select
-                                (ngModelChange)="onGradeSelected($event)"
-                                [nzMaxTagCount]="3"
-                                [nzMaxTagPlaceholder]="tagPlaceHolder"
-                                nzPlaceHolder="请选择年级"
-                                [(ngModel)]="gradeSelectedItems">
-                            <nz-option *ngFor="let item of gradeList" [nzLabel]="item.itemName" [nzValue]="item.itemName"></nz-option>
-                        </nz-select>
-                    </div>
-                    <!-- 班级 -->
-                    <div class="col px-0 ">
-                        <nz-select
-                                [nzMaxTagCount]="3"
-                                [nzMaxTagPlaceholder]="tagPlaceHolder"
-                                nzMode="multiple"
-                                nzPlaceHolder="请选择班级"
-                                [(ngModel)]="classSelectedItems">
-                            <nz-option *ngFor="let item of classList" [nzLabel]="item.itemName" [nzValue]="item.id"></nz-option>
-                        </nz-select>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col z-depth-1 my-4">
                         <div class="md-form">
