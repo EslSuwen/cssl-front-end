@@ -22,7 +22,7 @@ export class CardComponent implements OnInit {
     addItemVisible = false;
     addItemNum = 1; // 增加表格的行数
     courseList = [];
-    courseSelected: any;
+    courseSelected: number;
     projectItems: ProjectItem[];
 
     exps: Exp[] = []; // 实验卡片
@@ -150,13 +150,19 @@ export class CardComponent implements OnInit {
 
     // 重用往期卡片信息
     courseSelect(courseId: any) {
-        console.log(courseId);
+        if (this.courseSelected === courseId){
+            return;
+        }
         this.courseSelected = courseId;
         this.projectService.reuseCard(this.authenticationService.getUserNo(), courseId).subscribe(result => {
             if (result.success) {
                 this.nzModal.confirm({
-                    nzTitle: '是否导入上次开课卡片信息',
-                    nzContent: '导入往期信息后仍可修改',
+                    nzTitle: '<i>是否导入上次开课卡片信息</i>',
+                    nzContent: '<b>导入往期信息后仍可修改</b>',
+                    nzOkType: 'primary',
+                    nzOkText: 'Yes',
+                    nzCancelText: 'No',
+                    nzOnCancel: () => this.nzMessage.info('已取消数据导入，请手动填写'),
                     nzOnOk: () => {
                         this.expCardFG.patchValue(result.data);
                         this.projectService.getProjectItems(result.data.proId).subscribe(response => {
